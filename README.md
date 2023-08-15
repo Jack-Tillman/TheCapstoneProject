@@ -47,4 +47,6 @@ npm run seed
 npm run dev
 ```
 
-9. Build something cool! 😎
+9. Open your browser at `http://localhost:3000`
+
+10. Build something cool! 😎

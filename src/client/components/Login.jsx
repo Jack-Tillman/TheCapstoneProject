@@ -27,11 +27,13 @@ const Login = () => {
         });
         const result = await response.json();
         setMessage(result.message);
+        if(!response.ok) {
+          throw(result)
+        }
         setEmail('');
         setPassword('');
-
     } catch (err) {
-        console.log(err);
+        console.error(`${err.name}: ${err.message}`);
     }
   }
 
