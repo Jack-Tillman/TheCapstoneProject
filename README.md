@@ -9,42 +9,42 @@ A template for building web applications using the PERN (PostgreSQL, Express.js,
 2. Add this template as a remote and merge it into your own repository
 
 ```bash
-git remote add boilermaker https://github.com/FullstackAcademy/capstone-app-template
+git remote add boilermaker git@github.com:FullstackAcademy/capstone-app-template.git
 git fetch boilermaker
 git merge boilermaker/main
 ```
 
-1. Install packages
+3. Install packages
 
 ```bash
 npm i
 ```
 
-2. Add a `.env` file with your secret value for auth
+4. Add a `.env` file with your secret value for auth
 ```
 JWT_SECRET='somesecretvalue'
 ```
 
-3. Create the database
+5. Create the database
 
 ```bash
 createdb your-database-name
 ```
 
-4. Update `server/db/client.js` to reflect the name of your database
+6. Update `src/server/db/client.js` to reflect the name of your database
 
 ```js
 const connectionString = process.env.DATABASE_URL || 'https://localhost:5432/your-database-name';
 ```
 
-5. Seed the database
+7. Seed the database
 ```bash
 npm run seed
 ```
 
-6. Start the server
+8. Start the server
 ```bash
 npm run dev
 ```
 
-7. Build something cool! 😎
+9. Build something cool! 😎
