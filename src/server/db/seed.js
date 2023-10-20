@@ -1,13 +1,3 @@
-/*
-Oct. 20 Note: 
-This is still not functioning!
-Currently, seed the database throws an error while inserting seed data "syntax error at or near $" starting at createGame
-Things i've tried: changing price data type, making everything lowercase 
-*/
-
-
-
-
 const db = require("./client");
 const { createUser } = require("./users");
 const { createGame } = require("./games");
@@ -155,3 +145,70 @@ const seedDatabse = async () => {
 };
 
 seedDatabse();
+
+/* 
+Potential data structure for the cart:
+
+
+1) 
+
+
+cart1 = {
+  cartId: 1,
+  userId: 2,
+  Games: [
+    {
+      gamesId: 3,
+      productName: "The best game",
+      productImage: "imgur.com",
+    },
+    {
+      gamesId: 5,
+      productName: "The worst game",
+      productImage: "imgur.com", 
+      etc
+    },
+  ],
+  Merch: [
+    {
+      merchId: 433,
+      productName: "Minecraft T-Shirt, Limited Edition Extra Rare",
+      productImage: "imgur.com",
+    },
+  ],
+  Hardware: [
+    {
+      hardwareId: 12,
+      productName: "USB Drive",
+      productImage: "your-imagination.gov",
+    },
+    {
+        hardwareId: 47,
+        productName: "USB Drive with sunglasses",
+        productImage: "your-imagination.gov",
+    }
+  ],
+};
+
+2) 
+
+
+// games, merch, hardware properties store the productId of the item added to cart 
+cart2 = {
+  cartId: 1,
+  userId: 2,
+  Games: [1, 5, 9],
+  Merch: [123, 728, 9],
+  Hardware: [9]
+};
+
+
+#2 makes most sense to me right now; we use userId as a foreign key to link the user's account to 
+their cart. cartId can be useful if you wanted to interact with a specific cart I guess
+When user adds an item to cart, it will go into one of three tables based off what it is (games go in games table, etc)
+Should we store the entire product object, or stick to just the productId? If we store the entire product object,
+that would remove the need to search for the product object by its id; however, this would likely impact performance? Not sure. If we 
+store just the productId, then when the user wants to look at their cart, that productId would need to be used 
+to fetch the relevant object data for stuff like productname, image, etc. 
+
+*/
