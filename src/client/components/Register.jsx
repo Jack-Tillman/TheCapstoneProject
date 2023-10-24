@@ -2,7 +2,7 @@ import { useState } from "react";
 import { registerUser } from "../api/index";
 
 
-const RegisterForm = () => {
+export const RegisterForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
@@ -36,8 +36,5 @@ const RegisterForm = () => {
                 <button type="submit">Submit</button>
             </form>        
         </>
-    )
-    
- 
+    ) 
 }
-export default RegisterForm;

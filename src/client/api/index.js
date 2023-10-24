@@ -12,7 +12,7 @@ export async function fetchItems(category) {
 
 export async function registerUser(username, password) {
     try {
-        const response = await fetch(`${API_URL}/users/register`, {
+        const response = await fetch(`${API_URL}/api/users/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -26,6 +26,27 @@ export async function registerUser(username, password) {
         })
         const result = await response.json();
         console.log(result);
+        return result;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export async function userLogin (username, password){
+    try {
+        const response = await fetch(`${API_URL}/api/users/login`, {
+            method: "POST",
+            body: JSON.stringify({
+                user: {
+                    "username": username, 
+                    "password": password
+                }
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        const result = await response.json();
         return result;
     } catch (err) {
         console.error(err);

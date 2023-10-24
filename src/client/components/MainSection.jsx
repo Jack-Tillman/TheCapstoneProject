@@ -1,17 +1,21 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "./Login";
-import Register from "./Register"
+import { Login } from "./Login";
+import { Register } from "./Register";
+import { HomePage } from "./HomePage";
+import { GamesPage } from "./GamesPage";
+import { MerchPage } from "./MerchPage";
+import { HardwarePage } from "./HardwarePage";
 
 const MainSection = () => {
     return (
         <div className="">
             <Routes>
-                <Route path="/" />
+                <Route path="/" element={<HomePage />}/>
                 <Route path="/login" element={<Login />}/>
                 <Route path="/register" element={<Register />}/>
-                <Route path="/games" />
-                <Route path="/hardware" />
-                <Route path="/merch" />
+                <Route path="/games" element={<GamesPage />}/>
+                <Route path="/hardware" element={<HardwarePage />} />
+                <Route path="/merch" element={<MerchPage />}/>
             </Routes>
         </div>
     )
