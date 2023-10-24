@@ -122,7 +122,11 @@ const insertGames = async () => {
         description: game.description,
         delivery: game.delivery,
       });
-
+    }
+  } catch(error){
+    console.error("Error inserting seed data for games");
+  }
+}
 
 const seedDatabase = async () => {
   try {
