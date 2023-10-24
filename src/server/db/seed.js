@@ -122,12 +122,7 @@ const insertGames = async () => {
         description: game.description,
         delivery: game.delivery,
       });
-    }
-    console.log("Seed data inserted successfully.");
-  } catch (error) {
-    console.error("Error inserting seed data:", error);
-  }
-};
+
 
 const seedDatabase = async () => {
   try {
@@ -146,61 +141,3 @@ const seedDatabase = async () => {
 };
 
 seedDatabase();
-
-/* 
-Potential data structure for the cart:
-
-2) 
-
-
-// games, merch, hardware properties store the productId of the item added to cart 
-cart2 = {
-  cartId: 1,
-  userId: 2,
-  Games: [1, 5, 9],
-  Merch: [123, 728, 9],
-  Hardware: [9]
-};
-
-
-#2 makes most sense to me right now; we use userId as a foreign key to link the user's account to 
-their cart. cartId can be useful if you wanted to interact with a specific cart I guess
-When user adds an item to cart, it will go into one of three tables based off what it is (games go in games table, etc)
-Should we store the entire product object, or stick to just the productId? If we store the entire product object,
-that would remove the need to search for the product object by its id; however, this would likely impact performance? Not sure. If we 
-store just the productId, then when the user wants to look at their cart, that productId would need to be used 
-to fetch the relevant object data for stuff like productname, image, etc. 
-
-
-users in case:
-{
-    name: "Emily Johnson",
-    email: "emily@example.com",
-    password: "securepass",
-    isAdmin: true,
-  },
-  {
-    name: "Liu Wei",
-    email: "liu@example.com",
-    password: "strongpass",
-    isAdmin: false,
-  },
-  {
-    name: "Isabella García",
-    email: "bella@example.com",
-    password: "pass1234",
-    isAdmin: false,
-  },
-  {
-    name: "Mohammed Ahmed",
-    email: "mohammed@example.com",
-    password: "mysecretpassword",
-    isAdmin: false,
-  },
-  {
-    name: "John Smith",
-    email: "john@example.com",
-    password: "password123",
-    isAdmin: false,
-  },
-*/
