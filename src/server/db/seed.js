@@ -130,7 +130,7 @@ const insertGames = async () => {
   }
 };
 
-const seedDatabse = async () => {
+const seedDatabase = async () => {
   try {
     db.connect();
     await dropTables();
@@ -144,51 +144,10 @@ const seedDatabse = async () => {
   }
 };
 
-seedDatabse();
+seedDatabase();
 
 /* 
 Potential data structure for the cart:
-
-
-1) 
-
-
-cart1 = {
-  cartId: 1,
-  userId: 2,
-  Games: [
-    {
-      gamesId: 3,
-      productName: "The best game",
-      productImage: "imgur.com",
-    },
-    {
-      gamesId: 5,
-      productName: "The worst game",
-      productImage: "imgur.com", 
-      etc
-    },
-  ],
-  Merch: [
-    {
-      merchId: 433,
-      productName: "Minecraft T-Shirt, Limited Edition Extra Rare",
-      productImage: "imgur.com",
-    },
-  ],
-  Hardware: [
-    {
-      hardwareId: 12,
-      productName: "USB Drive",
-      productImage: "your-imagination.gov",
-    },
-    {
-        hardwareId: 47,
-        productName: "USB Drive with sunglasses",
-        productImage: "your-imagination.gov",
-    }
-  ],
-};
 
 2) 
 
