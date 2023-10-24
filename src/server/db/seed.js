@@ -67,7 +67,7 @@ const insertUsers = async () => {
   }
 };
 
-const seedDatabse = async () => {
+const seedDatabase = async () => {
     try {
         db.connect();
         await dropTables();
@@ -82,4 +82,4 @@ const seedDatabse = async () => {
     }
 }
 
-seedDatabse()
+seedDatabase()
