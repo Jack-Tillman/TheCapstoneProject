@@ -43,8 +43,8 @@ export const MerchPage = () => {
         </div>
         
         <div className="productCard">
-          <h1>Here's the Games Product Page</h1>
-          <h2>There will be gamess here!</h2>
+          <h1>Here's the Merch Product Page</h1>
+          <h2>There will be merch here!</h2>
         </div>
       </>
     );

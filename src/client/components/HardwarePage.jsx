@@ -43,8 +43,8 @@ export const HardwarePage = () => {
         </div>
         
         <div className="productCard">
-          <h1>Here's the Games Product Page</h1>
-          <h2>There will be gamess here!</h2>
+          <h1>Here's the Hardware Product Page</h1>
+          <h2>There will be hareware here!</h2>
         </div>
       </>
     );

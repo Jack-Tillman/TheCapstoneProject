@@ -2,7 +2,7 @@ import { useState } from "react";
 import { registerUser } from "../api/index";
 
 
-export const RegisterForm = () => {
+export const Register = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);

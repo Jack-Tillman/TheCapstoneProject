@@ -44,7 +44,7 @@ export const GamesPage = () => {
         
         <div className="productCard">
           <h1>Here's the Games Product Page</h1>
-          <h2>There will be gamess here!</h2>
+          <h2>There will be games here!</h2>
         </div>
       </>
     );
