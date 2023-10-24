@@ -1,55 +1,52 @@
 const db = require("./client");
 const { createUser } = require("./users");
 const { createGame } = require("./games");
+const { faker } = require("@faker-js/faker");
+//empty arrays that will hold faker-generated data objects that are then inserted into the appropriate table 
+const usersData = [];
+const gamesData = [];
+const merchData = [];
+const hardwareData = [];
 
-const users = [
-  {
-    name: "Emily Johnson",
-    email: "emily@example.com",
-    password: "securepass",
-    isAdmin: true,
-  },
-  {
-    name: "Liu Wei",
-    email: "liu@example.com",
-    password: "strongpass",
-    isAdmin: false,
-  },
-  {
-    name: "Isabella García",
-    email: "bella@example.com",
-    password: "pass1234",
-    isAdmin: false,
-  },
-  {
-    name: "Mohammed Ahmed",
-    email: "mohammed@example.com",
-    password: "mysecretpassword",
-    isAdmin: false,
-  },
-  {
-    name: "John Smith",
-    email: "john@example.com",
-    password: "password123",
-    isAdmin: false,
-  },
-  // Add more user objects as needed
-];
+const seedUsers = () => {
+  for (let i = 0; i < 2; i++) {
+    const fakeUsers = {
+      name: faker.person.fullName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      isAdmin: false,
+    };
+    usersData.push(fakeUsers);
+  }
+};
 
-const games = [
-  {
-    productName: "Video GAME",
-    price: 39.99,
-    productImage: "imgur.com",
-    genre: "Action",
-    playerRange: "Singleplayer",
-    esrb: "T",
-    condition: "New",
-    publisher: "VideoGame Pub",
-    description: "This is the video game of all time",
-    delivery: "Same Day",
-  },
-];
+const seedGames = () => {
+  const esrbArray = ["E", "E10", "T", "M"];
+  const randomEsrb = Math.floor(Math.random() * esrbArray.length);
+  const playerRangeArray = ["Singleplayer", "Multiplayer"];
+  const randomRange = Math.floor(Math.random() * playerRangeArray.length);
+  const conditionArray = ["New", "Used", "Refurbished"];
+  const randomCondition = Math.floor(Math.random() * conditionArray.length);
+  const deliveryArray = ["Same Day", "Pickup", "Will deliver"];
+  const randomDelivery = Math.floor(Math.random() * deliveryArray.length);
+
+  for (let i = 0; i < 2; i++) {
+    const fakeGames = {
+      productName: `${faker.commerce.productName()}, the Game`,
+      //generates a price between 0-100; want this to be a decimal like 42.00 rather than 42
+      price: Math.floor(Math.random() * 100.00),
+      productImage: faker.image.url(),
+      genre: faker.word.words(),
+      playerRange: playerRangeArray[randomRange],
+      esrb: esrbArray[randomEsrb],
+      condition: conditionArray[randomCondition],
+      publisher: faker.word.words(),
+      description: faker.commerce.productDescription(),
+      delivery: deliveryArray[randomDelivery],
+    };
+    gamesData.push(fakeGames);
+  }
+};
 
 const dropTables = async () => {
   try {
@@ -76,7 +73,7 @@ const createTables = async () => {
         CREATE TABLE games(
           id SERIAL PRIMARY KEY,
           productName VARCHAR(255) NOT NULL,
-          price FLOAT NOT NULL,
+          price NUMERIC(15,2),
           productImage VARCHAR(255) NOT NULL,
           genre VARCHAR(255) NOT NULL, 
           playerRange VARCHAR(255) NOT NULL,
@@ -94,7 +91,8 @@ const createTables = async () => {
 
 const insertUsers = async () => {
   try {
-    for (const user of users) {
+    console.log(usersData);
+    for (const user of usersData) {
       await createUser({
         name: user.name,
         email: user.email,
@@ -110,7 +108,8 @@ const insertUsers = async () => {
 
 const insertGames = async () => {
   try {
-    for (const game of games) {
+    console.log(gamesData);
+    for (const game of gamesData) {
       await createGame({
         productName: game.productName,
         price: game.price,
@@ -133,6 +132,8 @@ const insertGames = async () => {
 const seedDatabase = async () => {
   try {
     db.connect();
+    seedUsers();
+    seedGames();
     await dropTables();
     await createTables();
     await insertUsers();
@@ -170,4 +171,36 @@ that would remove the need to search for the product object by its id; however, 
 store just the productId, then when the user wants to look at their cart, that productId would need to be used 
 to fetch the relevant object data for stuff like productname, image, etc. 
 
+
+users in case:
+{
+    name: "Emily Johnson",
+    email: "emily@example.com",
+    password: "securepass",
+    isAdmin: true,
+  },
+  {
+    name: "Liu Wei",
+    email: "liu@example.com",
+    password: "strongpass",
+    isAdmin: false,
+  },
+  {
+    name: "Isabella García",
+    email: "bella@example.com",
+    password: "pass1234",
+    isAdmin: false,
+  },
+  {
+    name: "Mohammed Ahmed",
+    email: "mohammed@example.com",
+    password: "mysecretpassword",
+    isAdmin: false,
+  },
+  {
+    name: "John Smith",
+    email: "john@example.com",
+    password: "password123",
+    isAdmin: false,
+  },
 */
