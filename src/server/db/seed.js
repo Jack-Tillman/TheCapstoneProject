@@ -2,14 +2,14 @@ const db = require("./client");
 const { createUser } = require("./users");
 const { createGame } = require("./games");
 const { faker } = require("@faker-js/faker");
-//empty arrays that will hold faker-generated data objects that are then inserted into the appropriate table 
+//empty arrays that will hold faker-generated data objects that are then inserted into the appropriate table
 const usersData = [];
 const gamesData = [];
 const merchData = [];
 const hardwareData = [];
 
 const seedUsers = () => {
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 5; i++) {
     const fakeUsers = {
       name: faker.person.fullName(),
       email: faker.internet.email(),
@@ -21,28 +21,29 @@ const seedUsers = () => {
 };
 
 const seedGames = () => {
-  const esrbArray = ["E", "E10", "T", "M"];
-  const randomEsrb = Math.floor(Math.random() * esrbArray.length);
-  const playerRangeArray = ["Singleplayer", "Multiplayer"];
-  const randomRange = Math.floor(Math.random() * playerRangeArray.length);
-  const conditionArray = ["New", "Used", "Refurbished"];
-  const randomCondition = Math.floor(Math.random() * conditionArray.length);
-  const deliveryArray = ["Same Day", "Pickup", "Will deliver"];
-  const randomDelivery = Math.floor(Math.random() * deliveryArray.length);
+  for (let i = 0; i < 5; i++) {
+    //these 8 variables are temporary measure to introduce random variety to seeded data
+    const esrbArray = ["E", "E10", "T", "M"];
+    const randomEsrb = Math.floor(Math.random() * esrbArray.length);
+    const playerRangeArray = ["Singleplayer", "Multiplayer"];
+    const randomRange = Math.floor(Math.random() * playerRangeArray.length);
+    const conditionArray = ["New", "Used", "Refurbished"];
+    const randomCondition = Math.floor(Math.random() * conditionArray.length);
+    const deliveryArray = ["Same Day", "Pickup", "Will deliver"];
+    const randomDelivery = Math.floor(Math.random() * deliveryArray.length);
 
-  for (let i = 0; i < 2; i++) {
     const fakeGames = {
       productName: `${faker.commerce.productName()}, the Game`,
-      //generates a price between 0-100; want this to be a decimal like 42.00 rather than 42
-      price: Math.floor(Math.random() * 100.00),
-      productImage: faker.image.url(),
       genre: faker.word.words(),
+      delivery: deliveryArray[randomDelivery],
+      price: Math.floor(Math.random() * 100.0),
+      stock: Math.floor(Math.random() * 100.0),
+      condition: conditionArray[randomCondition],
+      description: faker.commerce.productDescription(),
+      publisher: faker.word.words(),
+      productImage: faker.image.url(),
       playerRange: playerRangeArray[randomRange],
       esrb: esrbArray[randomEsrb],
-      condition: conditionArray[randomCondition],
-      publisher: faker.word.words(),
-      description: faker.commerce.productDescription(),
-      delivery: deliveryArray[randomDelivery],
     };
     gamesData.push(fakeGames);
   }
@@ -73,16 +74,18 @@ const createTables = async () => {
         CREATE TABLE games(
           id SERIAL PRIMARY KEY,
           productName VARCHAR(255) NOT NULL,
-          price NUMERIC(15,2),
-          productImage VARCHAR(255) NOT NULL,
           genre VARCHAR(255) NOT NULL, 
-          playerRange VARCHAR(255) NOT NULL,
-          esrb VARCHAR(255) NOT NULL,
+          delivery VARCHAR(255) NOT NULL,
+          price NUMERIC(15,2),
+          stock NUMERIC(15,2),
           condition VARCHAR(255) NOT NULL,
+          description TEXT NOT NULL,
           publisher VARCHAR(255) NOT NULL,
-          description VARCHAR(255) NOT NULL,
-          delivery VARCHAR(255) NOT NULL
+          productImage VARCHAR(255) NOT NULL,
+          playerRange VARCHAR(255) NOT NULL,
+          esrb VARCHAR(255) NOT NULL
       );
+
         `);
   } catch (err) {
     throw err;
@@ -102,7 +105,7 @@ const insertUsers = async () => {
     }
     console.log("Seed data inserted successfully.");
   } catch (error) {
-    console.error("Error inserting seed data:", error);
+    console.error("Error inserting user seed data:", error);
   }
 };
 
@@ -112,21 +115,22 @@ const insertGames = async () => {
     for (const game of gamesData) {
       await createGame({
         productName: game.productName,
-        price: game.price,
-        productImage: game.productImage,
         genre: game.genre,
-        playerRange: game.playerRange,
-        esrb: game.esrb,
-        condition: game.condition,
-        publisher: game.publisher,
-        description: game.description,
         delivery: game.delivery,
+        price: game.price,
+        stock: game.stock,
+        condition: game.condition,
+        description: game.description,
+        publisher: game.publisher,
+        productImage: game.productImage,
+        playerRange: game.playerRange,
+        esrb: game.esrb
       });
     }
-  } catch(error){
-    console.error("Error inserting seed data for games");
+  } catch (error) {
+    console.error("Error inserting games seed data for games");
   }
-}
+};
 
 const seedDatabase = async () => {
   try {
