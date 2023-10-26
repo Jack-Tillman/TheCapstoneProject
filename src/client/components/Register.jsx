@@ -91,9 +91,35 @@ export const Register = () => {
                 />
                 </FormControl>
                 <br />
-                <label>
+                {/* <label>
                     Confirm Password: <input type="password" value={password} onChange={(e) => setPasswordAgain(e.target.value)} minLength={8} required/>
-                </label>
+                </label> */}
+                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
+                <OutlinedInput
+                    id="outlined-adornment-password"
+                    type={showPassword ? 'text' : 'password'}
+                    endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                        >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    </InputAdornment>
+                    }
+                    label="Password"
+                    // type='password'
+                    // id='password'
+                    value={passwordAgain}
+                    onChange={(e) => setPasswordAgain(e.target.value)}
+                    minLength={8}
+                    required
+                />
+                </FormControl>
                 <PasswordChecklist
                     rules={["minLength", "specialChar", "number", "capital", "match"]}
                     minLength={8}
@@ -108,9 +134,7 @@ export const Register = () => {
                     }}
                 />
 
-                <button id="submit" type="submit">Submit</button>
-                {/* <button type="submit">Submit</button> */}
-                <Button disabled={false} color="primary" variant="filled" type="submit">Submit</Button>
+                <Button id="submit" disabled={false} color="primary" variant="filled" type="submit">Submit</Button>
             </form>        
         </>
     ) 
