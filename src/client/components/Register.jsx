@@ -12,6 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Button } from '@mui/material';
 
 export const Register = () => {
     const [username, setUsername] = useState("");
@@ -87,7 +88,8 @@ export const Register = () => {
                 />
                 </FormControl>
                 <br />
-                <button type="submit">Submit</button>
+                {/* <button type="submit">Submit</button> */}
+                <Button disabled={false} color="primary" variant="filled" type="submit">Submit</Button>
             </form>        
         </>
     ) 

@@ -12,6 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Button } from '@mui/material';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -106,7 +107,8 @@ export const Login = () => {
           />
           </FormControl>
         </div>
-        <button type='submit'>Login</button>
+        {/* <button type='submit'>Login</button> */}
+        <Button disabled={false} color="primary" variant="filled" type="submit">Login</Button>
       </form>
       <p>{message}</p>
     </div>
