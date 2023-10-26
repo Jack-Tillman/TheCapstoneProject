@@ -12,8 +12,10 @@ export const MerchPage = () => {
         async function getProducts() {
           const response = await fetchItems("merch");
           const products = response.data.products;
-          if (response.success) {
-            setPosts(products);
+
+          // fix this if block since response.success doesn't come through and it throws a null error
+          if (response) {
+            setProducts(products);
           } else {
             setError(response.error);
             console.error(error);
@@ -31,6 +33,8 @@ export const MerchPage = () => {
 
     return (
       <>
+          <h1>Here's the Merch Product Page</h1>
+          <h2>There will be merch here!</h2>
         <div className="searchbar">
           <label>
             Search Products:{" "}
@@ -43,8 +47,7 @@ export const MerchPage = () => {
         </div>
         
         <div className="productCard">
-          <h1>Here's the Merch Product Page</h1>
-          <h2>There will be merch here!</h2>
+          
         </div>
       </>
     );

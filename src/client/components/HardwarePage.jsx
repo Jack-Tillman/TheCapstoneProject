@@ -11,9 +11,12 @@ export const HardwarePage = () => {
     useEffect(() => {
         async function getProducts() {
           const response = await fetchItems("hardware");
-          const products = response.data.products;
-          if (response.success) {
-            setPosts(products);
+          console.log(response);
+          const products = response.data;
+
+          // fix this if block since response.success doesn't come through and it throws a null error
+          if (response) {
+            setProducts(products);
           } else {
             setError(response.error);
             console.error(error);
@@ -31,6 +34,7 @@ export const HardwarePage = () => {
 
     return (
       <>
+      <h1>Here's the Hardware Product Page</h1>
         <div className="searchbar">
           <label>
             Search Products:{" "}
@@ -43,8 +47,8 @@ export const HardwarePage = () => {
         </div>
         
         <div className="productCard">
-          <h1>Here's the Hardware Product Page</h1>
-          <h2>There will be hareware here!</h2>
+          <h3>Product card placeholder</h3>
+          
         </div>
       </>
     );
