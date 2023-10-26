@@ -35,8 +35,17 @@ apiRouter.use("/users", usersRouter);
 const gamesRouter = require("./games");
 apiRouter.use("/games", gamesRouter);
 
+
+const hardwareRouter = require("./hardware");
+apiRouter.use("/hardware", hardwareRouter)
+
+const merchRouter = require('./merch');
+apiRouter.use('/merch', merchRouter)
+
+
 apiRouter.use((err, req, res, next) => {
-  res.status(500).send(err);
+    res.status(500).send(err)
 });
+
 
 module.exports = apiRouter;

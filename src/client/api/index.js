@@ -1,8 +1,10 @@
-const API_URL = `http://localhost:3000`
+const API_URL = "http://localhost:3000/api"
+
 
 export async function fetchItems(category) {
     try {
-        const response = await fetch(`${API_URL}/api/${category}`);
+        const response = await fetch(`${API_URL}/${category}`);
+        console.log(response);
         const result = await response.json();
         return result;
     } catch (err) {
@@ -12,7 +14,7 @@ export async function fetchItems(category) {
 
 export async function registerUser(username, password) {
     try {
-        const response = await fetch(`${API_URL}/api/users/register`, {
+        const response = await fetch(`${API_URL}/users/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -34,7 +36,7 @@ export async function registerUser(username, password) {
 
 export async function userLogin (username, password){
     try {
-        const response = await fetch(`${API_URL}/api/users/login`, {
+        const response = await fetch(`${API_URL}/users/login`, {
             method: "POST",
             body: JSON.stringify({
                 user: {
