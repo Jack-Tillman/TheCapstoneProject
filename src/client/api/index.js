@@ -1,5 +1,6 @@
 const API_URL = "http://localhost:3000/api"
 
+
 export async function fetchItems(category) {
     try {
         const response = await fetch(`${API_URL}/${category}`);
