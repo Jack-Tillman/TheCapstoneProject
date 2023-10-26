@@ -12,10 +12,13 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import PasswordChecklist from "react-password-checklist";
+
 
 export const Register = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordAgain, setPasswordAgain] = useState("");
     const [error, setError] = useState(null);
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -87,7 +90,24 @@ export const Register = () => {
                 />
                 </FormControl>
                 <br />
-                <button type="submit">Submit</button>
+                <label>
+                    Confirm Password: <input type="password" value={password} onChange={(e) => setPasswordAgain(e.target.value)} minLength={8} required/>
+                </label>
+                <PasswordChecklist
+                    rules={["minLength", "specialChar", "number", "capital", "match"]}
+                    minLength={8}
+                    value={password}
+                    valueAgain={passwordAgain}
+                    messages={{
+                        minLength: "Password must be 8 characters or more.",
+                        specialChar: "Password must contain a special character",
+                        number: "Password must contain a number",
+                        capital: "Password must contain a capital letter",
+                        match: "Password fields must match"
+                    }}
+                />
+
+                <button id="submit" type="submit">Submit</button>
             </form>        
         </>
     ) 
