@@ -1,7 +1,7 @@
 const db = require("./client");
 const { createUser } = require("./users");
 const { faker } = require("@faker-js/faker");
-const { createHardware } = require("./createHardware");
+const { createHardware } = require("./hardware");
 const { createMerch } = require("./merch");
 const { createGame } = require("./games");
 const usersData = [];
