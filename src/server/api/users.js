@@ -39,6 +39,7 @@ usersRouter.get("/:id", async (req, res, next) => {
 
 usersRouter.post("/login", async (req, res, next) => {
   const { email, password } = req.body;
+  console.log(req.body);
   if (!email || !password) {
     next({
       name: "MissingCredentialsError",
@@ -47,7 +48,7 @@ usersRouter.post("/login", async (req, res, next) => {
   }
   try {
     const user = await getUser({ email, password });
-    if (user && user.password == password) {
+    if (user) {
       const token = jwt.sign(
         {
           id: user.id,
@@ -67,7 +68,7 @@ usersRouter.post("/login", async (req, res, next) => {
     } else {
       next({
         name: "IncorrectCredentialsError",
-        message: "Username or password is incorrect",
+        message: "Email or password is incorrect",
       });
     }
   } catch (err) {
@@ -86,9 +87,6 @@ usersRouter.post("/register", async (req, res, next) => {
         name: "UserExistsError",
         message: "A user with that email already exists",
       });
-    }
-    if (!_user.isAdmin) {
-      _user.isAdmin = false;
     }
     const user = await createUser({
       name,

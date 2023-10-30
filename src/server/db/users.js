@@ -1,9 +1,19 @@
 const db = require("./client");
 const bcrypt = require("bcrypt");
 const SALT_COUNT = 10;
+const { JWT_SECRET } = process.env;
 
 const createUser = async ({ name, email, password, isAdmin }) => {
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+  //if isAdmin is undefined/null, set to false
+  if (!isAdmin){
+    isAdmin=false;
+  }
+  
+  //if name is null, set to same as email
+  if (!name){
+    name=email;
+  }
 
   try {
     const {
@@ -31,8 +41,11 @@ const getUser = async ({ email, password }) => {
     if (!user) return;
     const hashedPassword = user.password;
     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
-    if (!passwordsMatch) return;
-    delete user.password;
+    if (!passwordsMatch){
+      return;
+    } else {
+      delete user.password;
+    }
     return user;
   } catch (err) {
     throw err;

@@ -9,16 +9,41 @@ const gamesData = [];
 const merchData = [];
 const hardwareData = [];
 
+// const seedUsers = () => {
+//   for (let i = 0; i < 5; i++) {
+//     const fakeUsers = {
+//       name: faker.person.fullName(),
+//       email: faker.internet.email(),
+//       password: faker.internet.password(),
+//       isAdmin: false,
+//     };
+//     usersData.push(fakeUsers);
+//   }
+// };
+
 const seedUsers = () => {
-  for (let i = 0; i < 5; i++) {
-    const fakeUsers = {
-      name: faker.person.fullName(),
-      email: faker.internet.email(),
-      password: faker.internet.password(),
+    const fakeUsers1 = {
+      name: "Jack",
+      email: "email@email.com",
+      password: "Password123!",
       isAdmin: false,
-    };
-    usersData.push(fakeUsers);
-  }
+    }
+    const fakeUsers2 = {
+      name: "Joe",
+      email: "1email@email.com",
+      password: "Password1234!",
+      isAdmin: false,
+    }
+    const fakeUsers3 = {
+      name: "John",
+      email: "2email@email.com",
+      password: "Password12345!",
+      isAdmin: false,
+    }
+    usersData.push(fakeUsers1);
+    usersData.push(fakeUsers2);
+    usersData.push(fakeUsers3);
+  
 };
 
 const seedMerch = () => {
