@@ -52,7 +52,7 @@ export const Login = () => {
 
   return (
     
-    <div>
+    <div className='loginRegisterField'>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>

@@ -45,7 +45,7 @@ export const Register = () => {
     }
 
     return (
-        <>        
+        <div className='loginRegisterField'>        
             <h2 className="sign-up">Sign Up</h2>
             { error && <p>{error}</p> }
             <form onSubmit={handleSubmit}>
@@ -137,6 +137,6 @@ export const Register = () => {
                 <Button id="submit" disabled={false} color="primary" variant="filled" type="submit">Submit</Button>
             </form>        
             <p>Already have an account? <Link to="/login" style={{color:'black'}}>Login</Link></p>
-        </>
+        </div>
     ) 
 }
