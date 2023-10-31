@@ -16,6 +16,7 @@ import PasswordChecklist from "react-password-checklist";
 import { Link } from 'react-router-dom';
 
 import { Button } from '@mui/material';
+// import { Button }  from '@mui/material-next/Button';
 
 export const Register = () => {
     const [username, setUsername] = useState("");
@@ -135,7 +136,7 @@ export const Register = () => {
                         match: "Password fields must match"
                     }}
                 />
-                <Button id="submit" disabled={false} color="primary" variant="filled" type="submit">Submit</Button>
+                <Button id="submit" disabled={false} color="primary" variant="outlined" type="submit">Submit</Button>
             </form>        
             <p>Already have an account? <Link to="/login" style={{color:'black'}}>Login</Link></p>
         </div>

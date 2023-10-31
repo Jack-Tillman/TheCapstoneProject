@@ -111,7 +111,7 @@ export const Login = () => {
           </FormControl>
         </div>
         {/* <button type='submit'>Login</button> */}
-        <Button disabled={false} color="primary" variant="filled" type="submit">
+        <Button disabled={false} color="primary" variant="outlined" type="submit">
           Login
         </Button>
       </form>
