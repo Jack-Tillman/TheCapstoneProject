@@ -1,5 +1,6 @@
 import { fetchItems } from "../api";
 import { useState, useEffect } from "react";
+import { ProductCard } from "./ProductCard";
 
 export const GamesPage = () => {
     const [products, setProducts] = useState([]);
@@ -11,11 +12,11 @@ export const GamesPage = () => {
     useEffect(() => {
         async function getProducts() {
           const response = await fetchItems("games");
-          const products = response.data;
+          const result = await response.json();                 
 
           // fix this if block since response.success doesn't come through and it throws a null error
-          if (response) {
-            setProducts(products);
+          if (response.status === 200) {
+            setProducts(result);
           } else {
             setError(response.error);
             console.error(error);
@@ -47,7 +48,14 @@ export const GamesPage = () => {
         </div>
         
         <div className="productCard">
-          
+          <h3>Product card placeholder</h3>
+            {products.map((product, index) => (
+              <>
+                <div key={index}>
+                  <ProductCard product={product} />
+                </div>
+              </>
+          ))}
         </div>
       </>
     );
