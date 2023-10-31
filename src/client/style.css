@@ -31,4 +31,11 @@ div.navbar {
 
 a {color:white}
 
-/* Add more styling for other elements if needed */
+.loginRegisterField {
+  background-color: rgb(255, 230, 230);
+  text-align: center;
+  margin-top: 30px;
+  padding: 5px;
+  width: 50%;
+  margin: auto;
+}

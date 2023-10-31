@@ -13,6 +13,7 @@ import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import PasswordChecklist from "react-password-checklist";
+import { Link } from 'react-router-dom';
 
 import { Button } from '@mui/material';
 
@@ -44,7 +45,7 @@ export const Register = () => {
     }
 
     return (
-        <>        
+        <div className='loginRegisterField'>        
             <h2 className="sign-up">Sign Up</h2>
             { error && <p>{error}</p> }
             <form onSubmit={handleSubmit}>
@@ -133,9 +134,9 @@ export const Register = () => {
                         match: "Password fields must match"
                     }}
                 />
-
                 <Button id="submit" disabled={false} color="primary" variant="filled" type="submit">Submit</Button>
             </form>        
-        </>
+            <p>Already have an account? <Link to="/login" style={{color:'black'}}>Login</Link></p>
+        </div>
     ) 
 }
