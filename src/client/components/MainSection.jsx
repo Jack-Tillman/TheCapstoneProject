@@ -5,6 +5,7 @@ import { HomePage } from "./HomePage";
 import { GamesPage } from "./GamesPage";
 import { MerchPage } from "./MerchPage";
 import { HardwarePage } from "./HardwarePage";
+import { Dashboard } from "./Dashboard";
 
 const MainSection = () => {
     return (
@@ -16,6 +17,7 @@ const MainSection = () => {
                 <Route path="/games" element={<GamesPage />}/>
                 <Route path="/hardware" element={<HardwarePage />} />
                 <Route path="/merch" element={<MerchPage />}/>
+                <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
         </div>
     )

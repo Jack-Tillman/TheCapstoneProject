@@ -35,10 +35,10 @@ export const Register = () => {
     async function handleSubmit(event) {
         event.preventDefault();  
         const response = await registerUser(username, password)
-        sessionStorage.setItem("token", response.data.token)
-        const authToken = sessionStorage.getItem("token")
-        console.log(authToken);
-        if (response.success) {
+        // sessionStorage.setItem("token", response.data.token)
+        // const authToken = sessionStorage.getItem("token")
+        // console.log(response);
+        if (response) {
             return response;
         } else {
             setError(response.error);
