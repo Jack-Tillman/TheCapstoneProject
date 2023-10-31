@@ -122,6 +122,7 @@ export const Register = () => {
                 />
                 </FormControl>
                 <PasswordChecklist
+                    className="pwChecklist"
                     rules={["minLength", "specialChar", "number", "capital", "match"]}
                     minLength={8}
                     value={password}
