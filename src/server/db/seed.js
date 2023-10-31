@@ -10,6 +10,22 @@ const merchData = [];
 const hardwareData = [];
 
 const seedUsers = () => {
+  const testAdmin = {
+    name: "Admin Fella",
+    email: "fake@email.com",
+    password: "Password123!",
+    isAdmin: true,
+  };
+  usersData.push(testAdmin);
+
+  const testUser = {
+    name: "Jerry Jerald",
+    email: "jerry@email.com",
+    password: "FakePass1!",
+    isAdmin: false,
+  };
+  usersData.push(testUser);
+
   for (let i = 0; i < 5; i++) {
     const fakeUsers = {
       name: faker.person.fullName(),
@@ -94,7 +110,6 @@ const seedGames = () => {
     gamesData.push(fakeGames);
   }
 };
-
 
 const dropTables = async () => {
   try {
@@ -247,7 +262,7 @@ const insertGames = async () => {
         publisher: game.publisher,
         productImage: game.productImage,
         playerRange: game.playerRange,
-        esrb: game.esrb
+        esrb: game.esrb,
       });
     }
   } catch (error) {
