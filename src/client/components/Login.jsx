@@ -51,7 +51,7 @@ export const Login = () => {
   };
 
   return (
-    <div className='loginRegisterField'>
+    <Box className='loginRegisterField'>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -117,6 +117,6 @@ export const Login = () => {
       </form>
       <p>Don't have an account? <Link to="/register" style={{color:'black'}}>Register</Link></p>
       <p>{message}</p>
-    </div>
+    </Box>
   );
 };

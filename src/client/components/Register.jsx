@@ -46,7 +46,7 @@ export const Register = () => {
     }
 
     return (
-        <div className='loginRegisterField'>        
+        <Box className='loginRegisterField'>        
             <h2 className="sign-up">Sign Up</h2>
             { error && <p>{error}</p> }
             <form onSubmit={handleSubmit}>
@@ -67,9 +67,9 @@ export const Register = () => {
                     Password: <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} minLength={8} required/>
                 </label> */}
                 <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                <InputLabel htmlFor="outlined-adornment-password1">Password</InputLabel>
                 <OutlinedInput
-                    id="outlined-adornment-password"
+                    id="outlined-adornment-password1"
                     type={showPassword ? 'text' : 'password'}
                     endAdornment={
                     <InputAdornment position="end">
@@ -97,9 +97,9 @@ export const Register = () => {
                     Confirm Password: <input type="password" value={password} onChange={(e) => setPasswordAgain(e.target.value)} minLength={8} required/>
                 </label> */}
                 <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
+                <InputLabel htmlFor="outlined-adornment-password2">Confirm Password</InputLabel>
                 <OutlinedInput
-                    id="outlined-adornment-password"
+                    id="outlined-adornment-password2"
                     type={showPassword ? 'text' : 'password'}
                     endAdornment={
                     <InputAdornment position="end">
@@ -139,6 +139,6 @@ export const Register = () => {
                 <Button id="submit" disabled={false} color="primary" variant="outlined" type="submit">Submit</Button>
             </form>        
             <p>Already have an account? <Link to="/login" style={{color:'black'}}>Login</Link></p>
-        </div>
+        </Box>
     ) 
 }
