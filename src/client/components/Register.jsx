@@ -13,7 +13,7 @@ import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import PasswordChecklist from "react-password-checklist";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Button } from '@mui/material';
 // import { Button }  from '@mui/material-next/Button';
@@ -38,7 +38,7 @@ export const Register = () => {
         // sessionStorage.setItem("token", response.data.token)
         // const authToken = sessionStorage.getItem("token")
         // console.log(response);
-        if (response) {
+        if (response.status === 200) {
             return response;
         } else {
             setError(response.error);

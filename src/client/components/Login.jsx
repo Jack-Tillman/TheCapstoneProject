@@ -13,9 +13,13 @@ import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Alert } from '@mui/material';
+
 
 export const Login = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -39,9 +43,14 @@ export const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await userLogin(username, password);
-    if (response.success) {
-      return response;
+    const response = await userLogin(email, password);
+    console.log(response);
+
+    const result = response.json();
+    console.log(result);
+
+    if (response.status === 200) {
+      navigate("/");
     } else {
       setError(response.error);
     }
