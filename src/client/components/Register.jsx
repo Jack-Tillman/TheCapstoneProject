@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { registerUser } from "../api/index";
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -18,13 +18,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 // import { Button }  from '@mui/material-next/Button';
 
-export const Register = () => {
-    const [username, setUsername] = useState("");
+export const Register = ({token, setToken}) => {
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordAgain, setPasswordAgain] = useState("");
+    const [success, setSuccess] = useState(false);
+    const [authenticated, setAuthenticated] = useState(
+        sessionStorage.getItem("authenticated") || false
+    )
     const [error, setError] = useState(null);
+    
 
-    const [showPassword, setShowPassword] = React.useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
   
@@ -32,14 +39,29 @@ export const Register = () => {
       event.preventDefault();
     };
 
+    useEffect(() => {
+        if (authenticated) {
+          setToken(authenticated);
+        }
+    }, [authenticated]);
+
     async function handleSubmit(event) {
         event.preventDefault();  
-        const response = await registerUser(username, password)
-        // sessionStorage.setItem("token", response.data.token)
-        // const authToken = sessionStorage.getItem("token")
-        // console.log(response);
+        const response = await registerUser(email, password)
+        const result = await response.json();
+        console.log(result);
+        sessionStorage.setItem("token", result.token)
+        const authToken = sessionStorage.getItem("token")
+        
         if (response.status === 200) {
-            return response;
+            setToken(authToken)
+            // sessionStorage.setItem("token", response.data.token)            
+            setEmail("");
+            setPassword("");
+            setPasswordAgain("");
+            setAuthenticated(result.token);            
+            setSuccess(true);            
+            navigate("/")
         } else {
             setError(response.error);
         }
@@ -58,8 +80,8 @@ export const Register = () => {
                         required
                         id="outlined-required"
                         label="Email"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         minLength={8}
                     /></FormControl>
                 <br />

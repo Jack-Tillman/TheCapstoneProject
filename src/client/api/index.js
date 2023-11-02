@@ -22,8 +22,8 @@ export async function registerUser(email, password) {
           email,
           password,        
       }),
-    });
-    console.log(response);
+    });    
+   
     return response;
   } catch (err) {
     console.error(err);
@@ -42,6 +42,7 @@ export async function userLogin(email, password) {
         "Content-Type": "application/json",
       },
     });
+  
     return response;
   } catch (err) {
     console.error(err);

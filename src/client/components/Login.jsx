@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { userLogin } from '../api/index';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -17,7 +17,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
 
 
-export const Login = () => {
+export const Login = ({ token, setToken }) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -33,7 +33,7 @@ export const Login = () => {
     setPassword(e.target.value);
   };
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -44,12 +44,13 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await userLogin(email, password);
-    console.log(response);
-
-    const result = response.json();
+    const result = await response.json();
     console.log(result);
+    const storageToken = sessionStorage.setItem("token", result.token)
+    const authToken = sessionStorage.getItem("token")
 
-    if (response.status === 200) {
+    if (response.status === 200) { 
+      setToken(authToken)
       navigate("/");
     } else {
       setError(response.error);
