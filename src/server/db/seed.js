@@ -284,8 +284,6 @@ const insertGames = async () => {
         productImage: game.productImage,
         playerRange: game.playerRange,
         esrb: game.esrb,
-        created_at: game.created_at,
-        modified_at: game.modified_at
       });
     }
   } catch (error) {
@@ -294,30 +292,30 @@ const insertGames = async () => {
 };
 
 //nowhere near complete
-const insertCarts = async () => {
-  try {
-    console.log(gamesData);
-    for (const game of gamesData) {
-      await createGame({
-        productName: game.productName,
-        genre: game.genre,
-        delivery: game.delivery,
-        price: game.price,
-        stock: game.stock,
-        condition: game.condition,
-        description: game.description,
-        publisher: game.publisher,
-        productImage: game.productImage,
-        playerRange: game.playerRange,
-        esrb: game.esrb,
-        created_at: game.created_at,
-        modified_at: game.modified_at
-      });
-    }
-  } catch (error) {
-    console.error("Error inserting games seed data for games");
-  }
-};
+// const insertCarts = async () => {
+//   try {
+//     console.log(gamesData);
+//     for (const game of gamesData) {
+//       await createGame({
+//         productName: game.productName,
+//         genre: game.genre,
+//         delivery: game.delivery,
+//         price: game.price,
+//         stock: game.stock,
+//         condition: game.condition,
+//         description: game.description,
+//         publisher: game.publisher,
+//         productImage: game.productImage,
+//         playerRange: game.playerRange,
+//         esrb: game.esrb,
+//         created_at: game.created_at,
+//         modified_at: game.modified_at
+//       });
+//     }
+//   } catch (error) {
+//     console.error("Error inserting games seed data for games");
+//   }
+// };
 
 const seedDatabase = async () => {
   try {

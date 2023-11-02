@@ -19,5 +19,5 @@ export const Logout = () => {
         </button>
       </div>
     </>
-  )
-}
+  );
+};
