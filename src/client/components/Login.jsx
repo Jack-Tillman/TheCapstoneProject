@@ -51,7 +51,7 @@ export const Login = () => {
   };
 
   return (
-    <div className='loginRegisterField'>
+    <Box className='loginRegisterField'>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -63,7 +63,7 @@ export const Login = () => {
             onChange={handleEmailChange}
             required
           /> */}
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+          <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
             <TextField
               required
               id="outlined-required"
@@ -82,7 +82,7 @@ export const Login = () => {
             onChange={handlePasswordChange}
             required
           /> */}
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+          <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-password">
               Password
             </InputLabel>
@@ -111,12 +111,12 @@ export const Login = () => {
           </FormControl>
         </div>
         {/* <button type='submit'>Login</button> */}
-        <Button disabled={false} color="primary" variant="outlined" type="submit">
+        <Button disabled={false} color="primary" variant="contained" type="submit" sx={{width:"1"}}>
           Login
         </Button>
       </form>
       <p>Don't have an account? <Link to="/register" style={{color:'black'}}>Register</Link></p>
       <p>{message}</p>
-    </div>
+    </Box>
   );
 };
