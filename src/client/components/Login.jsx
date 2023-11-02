@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { userLogin } from '../api/index';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import TextField from '@mui/material/TextField';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { userLogin } from "../api/index";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Input from "@mui/material/Input";
+import FilledInput from "@mui/material/FilledInput";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -39,8 +39,8 @@ export const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await userLogin(username, password);
-    if (response.success) {
+    const response = await userLogin(email, password);
+    if (response.status === 200) {
       return response;
     } else {
       setError(response.error);
@@ -51,7 +51,7 @@ export const Login = () => {
   };
 
   return (
-    <div className='loginRegisterField'>
+    <div className="loginRegisterField">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -111,11 +111,21 @@ export const Login = () => {
           </FormControl>
         </div>
         {/* <button type='submit'>Login</button> */}
-        <Button disabled={false} color="primary" variant="outlined" type="submit">
+        <Button
+          disabled={false}
+          color="primary"
+          variant="outlined"
+          type="submit"
+        >
           Login
         </Button>
       </form>
-      <p>Don't have an account? <Link to="/register" style={{color:'black'}}>Register</Link></p>
+      <p>
+        Don't have an account?{" "}
+        <Link to="/register" style={{ color: "black" }}>
+          Register
+        </Link>
+      </p>
       <p>{message}</p>
     </div>
   );

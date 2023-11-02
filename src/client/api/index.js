@@ -18,9 +18,9 @@ export async function registerUser(email, password) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({        
-          email,
-          password,        
+      body: JSON.stringify({
+        email,
+        password,
       }),
     });
     console.log(response);
@@ -35,10 +35,8 @@ export async function userLogin(email, password) {
     const response = await fetch(`${API_URL}/users/login`, {
       method: "POST",
       body: JSON.stringify({
-        user: {
-          email: email,
-          password: password,
-        },
+        email: email, 
+        password: password,
       }),
       headers: {
         "Content-Type": "application/json",

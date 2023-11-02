@@ -15,6 +15,7 @@ const createUser = async ({ name, email, password, isAdmin }) => {
     name=email;
   }
 
+
   try {
     const {
       rows: [user],
@@ -96,7 +97,7 @@ const getUserById = async (id) => {
 async function getAllUsers() {
   try {
     const { rows } = await db.query(`
-    SELECT id, name, email, isAdmin
+    SELECT id, name, email, isAdmin, created_at, modified_at
     FROM users;
     `);
 

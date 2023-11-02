@@ -118,11 +118,19 @@ const dropTables = async () => {
         DROP TABLE IF EXISTS merch;
         DROP TABLE IF EXISTS hardware;
         DROP TABLE IF EXISTS games;
+        DROP TABLE IF EXISTS shopping_session;
+        DROP TABLE IF EXISTS shopping_cart_item;
+        
         `);
   } catch (err) {
     throw err;
   }
 };
+
+/*
+ * Add SKU for stripe implementation
+ * Add discount table, and related discount fields to games, merch, hardware stuff  !
+ */
 
 const createTables = async () => {
   try {
@@ -136,7 +144,6 @@ const createTables = async () => {
             isAdmin BOOLEAN default false
         );
 
-
         CREATE TABLE merch(
           id SERIAL PRIMARY KEY,
           productName VARCHAR(255) NOT NULL,
@@ -147,7 +154,7 @@ const createTables = async () => {
           condition VARCHAR(255) NOT NULL,
           description TEXT NOT NULL,
           manufacturer VARCHAR(255) NOT NULL,
-          productImage VARCHAR(255) NOT NULL 
+          productImage VARCHAR(255) NOT NULL
         );
 
         CREATE TABLE hardware(
@@ -160,10 +167,9 @@ const createTables = async () => {
           stock NUMERIC (15,2) NOT NULL,
           condition VARCHAR(255) NOT NULL,
           description TEXT NOT NULL,
-          productImage VARCHAR(255) NOT NULL 
+          productImage VARCHAR(255) NOT NULL
         );
-
-        
+  
         CREATE TABLE games(
           id SERIAL PRIMARY KEY,
           productName VARCHAR(255) NOT NULL,
@@ -177,10 +183,25 @@ const createTables = async () => {
           productImage VARCHAR(255) NOT NULL,
           playerRange VARCHAR(255) NOT NULL,
           esrb VARCHAR(255) NOT NULL
+          
       );
 
+      CREATE TABLE shopping_session(
+        id SERIAL PRIMARY KEY,
+        user_id INT NOT NULL,
+        total NUMERIC(15,2) NOT NULL
+      );
 
-        `);
+      CREATE TABLE shopping_cart_item(
+        id SERIAL PRIMARY KEY,
+        cart_id INT NOT NULL,
+        product_item_id INT NOT NULL,
+        stock INT NOT NULL
+      );
+        `
+        );
+
+      
   } catch (err) {
     throw err;
   }
@@ -263,6 +284,34 @@ const insertGames = async () => {
         productImage: game.productImage,
         playerRange: game.playerRange,
         esrb: game.esrb,
+        created_at: game.created_at,
+        modified_at: game.modified_at
+      });
+    }
+  } catch (error) {
+    console.error("Error inserting games seed data for games");
+  }
+};
+
+//nowhere near complete
+const insertCarts = async () => {
+  try {
+    console.log(gamesData);
+    for (const game of gamesData) {
+      await createGame({
+        productName: game.productName,
+        genre: game.genre,
+        delivery: game.delivery,
+        price: game.price,
+        stock: game.stock,
+        condition: game.condition,
+        description: game.description,
+        publisher: game.publisher,
+        productImage: game.productImage,
+        playerRange: game.playerRange,
+        esrb: game.esrb,
+        created_at: game.created_at,
+        modified_at: game.modified_at
       });
     }
   } catch (error) {

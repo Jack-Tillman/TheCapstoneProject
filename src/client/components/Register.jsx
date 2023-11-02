@@ -38,7 +38,7 @@ export const Register = () => {
         // sessionStorage.setItem("token", response.data.token)
         // const authToken = sessionStorage.getItem("token")
         // console.log(response);
-        if (response) {
+        if (response.status === 200) {
             return response;
         } else {
             setError(response.error);
