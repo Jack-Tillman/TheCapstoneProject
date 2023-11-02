@@ -14,6 +14,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import PasswordChecklist from "react-password-checklist";
 import { Link } from 'react-router-dom';
+import { sizing } from '@mui/system';
 
 import { Button } from '@mui/material';
 // import { Button }  from '@mui/material-next/Button';
@@ -53,7 +54,7 @@ export const Register = () => {
                 {/* <label>
                     Username: <input value={username} onChange={(e) => setUsername(e.target.value)} minLength={8} required/>
                 </label> */}
-                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <FormControl sx={{ m: 1, width: '1' }} variant="outlined">
                     <TextField
                         required
                         id="outlined-required"
@@ -66,7 +67,7 @@ export const Register = () => {
                 {/* <label>
                     Password: <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} minLength={8} required/>
                 </label> */}
-                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <FormControl sx={{ m: 1, width: '1' }} variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password1">Password</InputLabel>
                 <OutlinedInput
                     id="outlined-adornment-password1"
@@ -96,7 +97,7 @@ export const Register = () => {
                 {/* <label>
                     Confirm Password: <input type="password" value={password} onChange={(e) => setPasswordAgain(e.target.value)} minLength={8} required/>
                 </label> */}
-                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <FormControl sx={{ m: 1, width: '1' }} variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password2">Confirm Password</InputLabel>
                 <OutlinedInput
                     id="outlined-adornment-password2"
@@ -136,7 +137,7 @@ export const Register = () => {
                         match: "Password fields must match"
                     }}
                 />
-                <Button id="submit" disabled={false} color="primary" variant="outlined" type="submit">Submit</Button>
+                <Button id="submit" disabled={false} color="primary" variant="contained" type="submit" sx={{width:"1"}}>Submit</Button>
             </form>        
             <p>Already have an account? <Link to="/login" style={{color:'black'}}>Login</Link></p>
         </Box>
