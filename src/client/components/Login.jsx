@@ -1,21 +1,25 @@
-import React, { useState } from "react";
-import { userLogin } from "../api/index";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Input from "@mui/material/Input";
-import FilledInput from "@mui/material/FilledInput";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { userLogin } from '../api/index';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import FilledInput from '@mui/material/FilledInput';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Button } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { Alert } from '@mui/material';
 
-export const Login = () => {
+
+export const Login = ({ token, setToken }) => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -29,7 +33,7 @@ export const Login = () => {
     setPassword(e.target.value);
   };
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -40,8 +44,14 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await userLogin(email, password);
-    if (response.status === 200) {
-      return response;
+    const result = await response.json();
+    console.log(result);
+    const storageToken = sessionStorage.setItem("token", result.token)
+    const authToken = sessionStorage.getItem("token")
+
+    if (response.status === 200) { 
+      setToken(authToken)
+      navigate("/");
     } else {
       setError(response.error);
     }
@@ -51,7 +61,7 @@ export const Login = () => {
   };
 
   return (
-    <div className="loginRegisterField">
+    <Box className="loginRegisterField">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -63,7 +73,7 @@ export const Login = () => {
             onChange={handleEmailChange}
             required
           /> */}
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+          <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
             <TextField
               required
               id="outlined-required"
@@ -82,7 +92,7 @@ export const Login = () => {
             onChange={handlePasswordChange}
             required
           /> */}
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+          <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-password">
               Password
             </InputLabel>
@@ -111,12 +121,7 @@ export const Login = () => {
           </FormControl>
         </div>
         {/* <button type='submit'>Login</button> */}
-        <Button
-          disabled={false}
-          color="primary"
-          variant="outlined"
-          type="submit"
-        >
+        <Button disabled={false} color="primary" variant="contained" type="submit" sx={{width:"1"}}>
           Login
         </Button>
       </form>
@@ -127,6 +132,6 @@ export const Login = () => {
         </Link>
       </p>
       <p>{message}</p>
-    </div>
+    </Box>
   );
 };
