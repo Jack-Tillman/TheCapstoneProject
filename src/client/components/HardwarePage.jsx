@@ -7,14 +7,11 @@ export const HardwarePage = () => {
     const [searchParams, setSearchParams] = useState("");
     const [error, setError] = useState(null);
 
-    //tinker with passing the right value into fetchItems when DB is working
-
     useEffect(() => {
         async function getProducts() {
           const response = await fetchItems("hardware");
           const result = await response.json();          
 
-          // fix this if block since response.success doesn't come through and it throws a null error
           if (response.status === 200) {
             setProducts(result);
           } else {

@@ -14,7 +14,6 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import PasswordChecklist from "react-password-checklist";
 import { Link, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { sizing } from '@mui/system';
 
 import { Button } from '@mui/material';
@@ -56,8 +55,7 @@ export const Register = ({token, setToken}) => {
         const authToken = sessionStorage.getItem("token")
         
         if (response.status === 200) {
-            setToken(authToken)
-            // sessionStorage.setItem("token", response.data.token)            
+            setToken(authToken)           
             setEmail("");
             setPassword("");
             setPasswordAgain("");
