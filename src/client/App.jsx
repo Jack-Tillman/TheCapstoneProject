@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { ThemeProvider } from '@mui/material';
 import MainSection from './components/MainSection';
 import NavBar from './components/NavBar';
@@ -47,7 +48,22 @@ const theme = createTheme({
 
 
 function App() {
-  // const [mode, setMode] = React.useState<PaletteMode>('light');
+  
+  const [token, setToken] = useState(null);
+  const storageToken = sessionStorage.getItem("token")
+
+  useEffect(() => {
+    async function getToken(storageToken) {
+      if (storageToken) {
+        setToken(storageToken);
+      } else {
+        return;
+      }      
+    }
+    getToken(storageToken);
+  },[token, storageToken]);
+
+    // const [mode, setMode] = React.useState<PaletteMode>('light');
   // const colorMode = React.useMemo(
   //   () => ({
   //     // The dark mode switch would invoke this method
@@ -62,14 +78,23 @@ function App() {
 
   // // Update the theme only if the mode changes
   // const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+  
+  return (
+    <div className='App'>
+        <NavBar token={token} setToken={setToken} />
+
+        <MainSection token={token} setToken={setToken} />
+    </div>
+
+
 
   return (  
     // <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>    
         <div className='App'>
-          <NavBar />
+          <NavBar token={token} setToken={setToken} />
 
-          <MainSection />
+          <MainSection token={token} setToken={setToken} />
         </div>
       </ThemeProvider>
     // </ColorModeContext.Provider>

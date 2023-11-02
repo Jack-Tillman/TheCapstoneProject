@@ -22,8 +22,8 @@ export async function registerUser(email, password) {
           email,
           password,        
       }),
-    });
-    console.log(response);
+    });    
+   
     return response;
   } catch (err) {
     console.error(err);
@@ -34,18 +34,16 @@ export async function userLogin(email, password) {
   try {
     const response = await fetch(`${API_URL}/users/login`, {
       method: "POST",
-      body: JSON.stringify({
-        user: {
-          email: email,
-          password: password,
-        },
+      body: JSON.stringify({        
+          email,
+          password        
       }),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    const result = await response.json();
-    return result;
+  
+    return response;
   } catch (err) {
     console.error(err);
   }
