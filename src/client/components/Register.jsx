@@ -14,7 +14,6 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import PasswordChecklist from "react-password-checklist";
 import { Link, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { sizing } from '@mui/system';
 
 import { Button } from '@mui/material';
