@@ -8,6 +8,8 @@ const usersData = [];
 const gamesData = [];
 const merchData = [];
 const hardwareData = [];
+const cartData = [];
+const cartItemData = [];
 
 const seedUsers = () => {
   const testAdmin = {
@@ -34,6 +36,57 @@ const seedUsers = () => {
       isAdmin: false,
     };
     usersData.push(fakeUsers);
+  }
+};
+
+const seedCarts = () => {
+  for (let i = 0; i < 3; i++) {
+    const fakeCart1 = {
+      user_id: 1,
+      total: 34,
+    };
+    const fakeCart2 = {
+      user_id: 2,
+      total: 4,
+    };
+    const fakeCart3 = {
+      user_id: 3,
+      total: 12,
+    };
+    cartData.push(fakeCart1);
+    cartData.push(fakeCart2);
+    cartData.push(fakeCart3);
+  }
+};
+
+const seedCartItems = () => {
+  for (let i = 0; i < 3; i++) {
+    const fakeCartItem1 = {
+      cart_id: 1,
+      games_item_id: 1,
+      merch_item_id: 3,
+      hardware_item_id: 1,
+      quantity: 2,
+    };
+
+    const fakeCartItem2 = {
+      cart_id: 2,
+      games_item_id: 0,
+      merch_item_id: 1,
+      hardware_item_id: 2,
+      quantity: 3,
+    };
+
+    const fakeCartItem3 = {
+      cart_id: 3,
+      games_item_id: 1,
+      merch_item_id: 1,
+      hardware_item_id: 2,
+      quantity: 2,
+    };
+    cartItemData.push(fakeCartItem1);
+    cartItemData.push(fakeCartItem2);
+    cartItemData.push(fakeCartItem3);
   }
 };
 
@@ -114,12 +167,12 @@ const seedGames = () => {
 const dropTables = async () => {
   try {
     await db.query(`
-        DROP TABLE IF EXISTS users;
-        DROP TABLE IF EXISTS merch;
-        DROP TABLE IF EXISTS hardware;
-        DROP TABLE IF EXISTS games;
-        DROP TABLE IF EXISTS shopping_session;
-        DROP TABLE IF EXISTS shopping_cart_item;
+        DROP TABLE IF EXISTS users CASCADE;
+        DROP TABLE IF EXISTS merch CASCADE;
+        DROP TABLE IF EXISTS hardware CASCADE;
+        DROP TABLE IF EXISTS games CASCADE;
+        DROP TABLE IF EXISTS shopping_cart CASCADE;
+        DROP TABLE IF EXISTS shopping_cart_item CASCADE;
         
         `);
   } catch (err) {
@@ -183,25 +236,32 @@ const createTables = async () => {
           productImage VARCHAR(255) NOT NULL,
           playerRange VARCHAR(255) NOT NULL,
           esrb VARCHAR(255) NOT NULL
-          
       );
 
-      CREATE TABLE shopping_session(
+      CREATE TABLE shopping_cart(
         id SERIAL PRIMARY KEY,
-        user_id INT NOT NULL,
-        total NUMERIC(15,2) NOT NULL
+        user_id INT,
+        total NUMERIC(15,2),
+        CONSTRAINT fk_shopcart_user FOREIGN KEY (user_id) REFERENCES users (id)
       );
 
       CREATE TABLE shopping_cart_item(
         id SERIAL PRIMARY KEY,
-        cart_id INT NOT NULL,
-        product_item_id INT NOT NULL,
-        stock INT NOT NULL
+        cart_id INT,
+        games_item_id INT,
+        merch_item_id INT,
+        hardware_item_id INT,
+        quantity INT,
+        CONSTRAINT fk_shopcartitem_shopcart FOREIGN KEY (cart_id) REFERENCES
+        shopping_cart (id),
+        CONSTRAINT fk_shopcartitem_gamesitem FOREIGN KEY (games_item_id) REFERENCES 
+        games (id),
+        CONSTRAINT fk_shopcartitem_merchitem FOREIGN KEY (merch_item_id) REFERENCES 
+        merch (id),
+        CONSTRAINT fk_shopcartitem_hardwareitem FOREIGN KEY (hardware_item_id) REFERENCES 
+        hardware (id)
       );
-        `
-        );
-
-      
+        `);
   } catch (err) {
     throw err;
   }
@@ -268,7 +328,7 @@ const insertHardware = async () => {
   }
 };
 
-const insertGames = async () => {
+const insertGame = async () => {
   try {
     console.log(gamesData);
     for (const game of gamesData) {
@@ -291,31 +351,126 @@ const insertGames = async () => {
   }
 };
 
+const createCart = async ({ user_id, total }) => {
+  try {
+    const {
+      rows: [cart],
+    } = await db.query(
+      `
+      INSERT INTO shopping_cart(user_id, total)
+      VALUES($1, $2)
+      RETURNING *`,
+      [user_id, total]
+    );
+    return cart;
+  } catch (err) {
+    throw err;
+  }
+};
+
 //nowhere near complete
-// const insertCarts = async () => {
-//   try {
-//     console.log(gamesData);
-//     for (const game of gamesData) {
-//       await createGame({
-//         productName: game.productName,
-//         genre: game.genre,
-//         delivery: game.delivery,
-//         price: game.price,
-//         stock: game.stock,
-//         condition: game.condition,
-//         description: game.description,
-//         publisher: game.publisher,
-//         productImage: game.productImage,
-//         playerRange: game.playerRange,
-//         esrb: game.esrb,
-//         created_at: game.created_at,
-//         modified_at: game.modified_at
-//       });
-//     }
-//   } catch (error) {
-//     console.error("Error inserting games seed data for games");
-//   }
-// };
+const insertCart = async () => {
+  try {
+    console.log(cartData);
+    for (const cart of cartData) {
+      await createCart({
+        user_id: cart.user_id,
+        total: cart.total,
+      });
+    }
+    console.log("Seed data for shopping_carts inserted successfully");
+  } catch (error) {
+    console.error("Error inserting cart seed data for carts");
+  }
+};
+/*
+games/merch/hardware_item_id are distinct because they each reference primary IDs from respective tables
+cart items should only have a value in one of the 3 _item_id fields 
+Error is thrown when inserting 0 into fields for any of the 3 ids, so instead, a preliminary check 
+is initated to check which _item_id fields lack a non-0 number and replace them with null. 
+I *think* that there is a way to add 0s to PSQL databases without the aforementioned errors, so this will
+ideally be a short-term fix.
+*/
+const createCartItem = async ({
+  cart_id,
+  games_item_id,
+  merch_item_id,
+  hardware_item_id,
+  quantity,
+}) => {
+  try {
+    console.log(games_item_id);
+    console.log(merch_item_id);
+    console.log(hardware_item_id);
+    if (games_item_id) {
+      const {
+        rows: [ item ],
+      } = await db.query(
+        `
+        INSERT INTO shopping_cart_item(cart_id, games_item_id, merch_item_id, hardware_item_id, quantity)
+        VALUES($1, $2, $3, $4, $5)
+        RETURNING *`,
+        [cart_id, games_item_id, null, null, quantity]
+      );
+      return item;
+    };
+    if (merch_item_id) {
+      const {
+        rows: [ item ],
+      } = await db.query(
+        `
+        INSERT INTO shopping_cart_item(cart_id, games_item_id, merch_item_id, hardware_item_id, quantity)
+        VALUES($1, $2, $3, $4, $5)
+        RETURNING *`,
+        [cart_id, null, merch_item_id, null, quantity]
+      );
+      return item;
+    };
+    if (hardware_item_id) {
+      const {
+        rows: [ item ],
+      } = await db.query(
+        `
+        INSERT INTO shopping_cart_item(cart_id, games_item_id, merch_item_id, hardware_item_id, quantity)
+        VALUES($1, $2, $3, $4, $5)
+        RETURNING *`,
+        [cart_id, null, null, hardware_item_id, quantity]
+      );
+      return item;
+    }
+    else {
+      console.error("No items to add to cart!");
+    }
+  } catch (err) {
+    console.error("Error creating cart item seed data for cart items");
+    throw err;
+  }
+};
+/* 
+
+ok so 
+1) multiple checks for the destructured product_item_id 
+ - if id > 0, fire off the relevant SQL query that only inserts stuff into cart_id, product item, quantity
+  
+
+*/
+const insertCartItem = async () => {
+  try {
+    console.log(cartItemData);
+    for (const item of cartItemData) {
+      await createCartItem({
+        cart_id: item.cart_id,
+        games_item_id: item.games_item_id,
+        merch_item_id: item.merch_item_id,
+        hardware_item_id: item.hardware_item_id,
+        quantity: item.quantity,
+      });
+    }
+    console.log("Seed data for shopping_cart_item inserted successfully");
+  } catch (error) {
+    console.error("Error inserting cart item seed data for cart items");
+  }
+};
 
 const seedDatabase = async () => {
   try {
@@ -324,12 +479,16 @@ const seedDatabase = async () => {
     seedGames();
     seedMerch();
     seedHardware();
+    seedCarts();
+    seedCartItems();
     await dropTables();
     await createTables();
     await insertUsers();
     await insertMerch();
     await insertHardware();
-    await insertGames();
+    await insertGame();
+    await insertCart();
+    await insertCartItem();
   } catch (err) {
     throw err;
   } finally {
