@@ -4,6 +4,7 @@ const { faker } = require("@faker-js/faker");
 const { createHardware } = require("./hardware");
 const { createMerch } = require("./merch");
 const { createGame } = require("./games");
+const { createCart, createCartItem } = require("./cart");
 const usersData = [];
 const gamesData = [];
 const merchData = [];
@@ -60,34 +61,41 @@ const seedCarts = () => {
 };
 
 const seedCartItems = () => {
-  for (let i = 0; i < 3; i++) {
-    const fakeCartItem1 = {
-      cart_id: 1,
-      games_item_id: 1,
-      merch_item_id: 3,
-      hardware_item_id: 1,
-      quantity: 2,
-    };
+  const fakeCartItem1 = {
+    cart_id: 1,
+    games_item_id: 0,
+    merch_item_id: 3,
+    hardware_item_id: 0,
+    quantity: 2,
+  };
 
-    const fakeCartItem2 = {
-      cart_id: 2,
-      games_item_id: 0,
-      merch_item_id: 1,
-      hardware_item_id: 2,
-      quantity: 3,
-    };
+  const fakeCartItem2 = {
+    cart_id: 2,
+    games_item_id: 2,
+    merch_item_id: 0,
+    hardware_item_id: 0,
+    quantity: 3,
+  };
 
-    const fakeCartItem3 = {
-      cart_id: 3,
-      games_item_id: 1,
-      merch_item_id: 1,
-      hardware_item_id: 2,
-      quantity: 2,
-    };
-    cartItemData.push(fakeCartItem1);
-    cartItemData.push(fakeCartItem2);
-    cartItemData.push(fakeCartItem3);
-  }
+  const fakeCartItem3 = {
+    cart_id: 3,
+    games_item_id: 0,
+    merch_item_id: 0,
+    hardware_item_id: 1,
+    quantity: 4,
+  };
+
+  const fakeCartItem4 = {
+    cart_id: 3,
+    games_item_id: 0,
+    merch_item_id: 0,
+    hardware_item_id: 2,
+    quantity: 1,
+  };
+  cartItemData.push(fakeCartItem1);
+  cartItemData.push(fakeCartItem2);
+  cartItemData.push(fakeCartItem3);
+  cartItemData.push(fakeCartItem4);
 };
 
 const seedMerch = () => {
@@ -163,7 +171,8 @@ const seedGames = () => {
     gamesData.push(fakeGames);
   }
 };
-
+//Using the CASCADE keyword after a table to be dropped indicates that the table itself
+// will be dropped as well as the tables that depend on it (e.g., tables that utilize that tables' keys as foreign keys)
 const dropTables = async () => {
   try {
     await db.query(`
@@ -351,24 +360,6 @@ const insertGame = async () => {
   }
 };
 
-const createCart = async ({ user_id, total }) => {
-  try {
-    const {
-      rows: [cart],
-    } = await db.query(
-      `
-      INSERT INTO shopping_cart(user_id, total)
-      VALUES($1, $2)
-      RETURNING *`,
-      [user_id, total]
-    );
-    return cart;
-  } catch (err) {
-    throw err;
-  }
-};
-
-//nowhere near complete
 const insertCart = async () => {
   try {
     console.log(cartData);
@@ -383,77 +374,7 @@ const insertCart = async () => {
     console.error("Error inserting cart seed data for carts");
   }
 };
-/*
-games/merch/hardware_item_id are distinct because they each reference primary IDs from respective tables
-cart items should only have a value in one of the 3 _item_id fields 
-Error is thrown when inserting 0 into fields for any of the 3 ids, so instead, a preliminary check 
-is initated to check which _item_id fields lack a non-0 number and replace them with null. 
-I *think* that there is a way to add 0s to PSQL databases without the aforementioned errors, so this will
-ideally be a short-term fix.
-*/
-const createCartItem = async ({
-  cart_id,
-  games_item_id,
-  merch_item_id,
-  hardware_item_id,
-  quantity,
-}) => {
-  try {
-    console.log(games_item_id);
-    console.log(merch_item_id);
-    console.log(hardware_item_id);
-    if (games_item_id) {
-      const {
-        rows: [ item ],
-      } = await db.query(
-        `
-        INSERT INTO shopping_cart_item(cart_id, games_item_id, merch_item_id, hardware_item_id, quantity)
-        VALUES($1, $2, $3, $4, $5)
-        RETURNING *`,
-        [cart_id, games_item_id, null, null, quantity]
-      );
-      return item;
-    };
-    if (merch_item_id) {
-      const {
-        rows: [ item ],
-      } = await db.query(
-        `
-        INSERT INTO shopping_cart_item(cart_id, games_item_id, merch_item_id, hardware_item_id, quantity)
-        VALUES($1, $2, $3, $4, $5)
-        RETURNING *`,
-        [cart_id, null, merch_item_id, null, quantity]
-      );
-      return item;
-    };
-    if (hardware_item_id) {
-      const {
-        rows: [ item ],
-      } = await db.query(
-        `
-        INSERT INTO shopping_cart_item(cart_id, games_item_id, merch_item_id, hardware_item_id, quantity)
-        VALUES($1, $2, $3, $4, $5)
-        RETURNING *`,
-        [cart_id, null, null, hardware_item_id, quantity]
-      );
-      return item;
-    }
-    else {
-      console.error("No items to add to cart!");
-    }
-  } catch (err) {
-    console.error("Error creating cart item seed data for cart items");
-    throw err;
-  }
-};
-/* 
 
-ok so 
-1) multiple checks for the destructured product_item_id 
- - if id > 0, fire off the relevant SQL query that only inserts stuff into cart_id, product item, quantity
-  
-
-*/
 const insertCartItem = async () => {
   try {
     console.log(cartItemData);
