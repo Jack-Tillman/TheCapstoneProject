@@ -161,7 +161,8 @@ export const Register = ({token, setToken}) => {
                 />
                 <Button id="submit" disabled={false} color="primary" variant="contained" type="submit" sx={{width:"1"}}>Submit</Button>
             </form>        
-            <p>Already have an account? <Link to="/login" style={{color:'black'}}>Login</Link></p>
+            <p>Already have an account?</p> 
+            <Link to="/login" style={{color:'black'}}><Button variant="outlined" sx={{width:"1"}}>Login</Button></Link>
         </Box>
     ) 
 }
