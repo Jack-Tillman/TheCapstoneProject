@@ -4,8 +4,7 @@ import { fetchItems } from '../api';
 //featured items, 1-2 items per category
 //category selection
 
-export const HomePage = () => {
-    
+export const HomePage = () => {   
 
     return (
         <>
@@ -15,5 +14,4 @@ export const HomePage = () => {
             </div>
         </>
     )
-
 }
