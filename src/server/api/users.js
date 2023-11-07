@@ -11,6 +11,8 @@ const {
   getCartById,
   getCartContentsById,
   createCartItem,
+  updateCartContents,
+  deleteCartContents,
 } = require("../db");
 
 const jwt = require("jsonwebtoken");
@@ -241,6 +243,31 @@ usersRouter.post("/:id/cart/contents", async (req, res, next) => {
     }
   } catch (err) {
     next(err);
+  }
+});
+//UNFINISHED - set this up so that only quantity can be edited.
+usersRouter.put("/:id/cart/contents/:cartId", async (req, res, next) => {
+  try {
+    //take the user id from the URL, pass it along with the edited content in the request body as arguments
+    const updatedItem = await updateCartContents(req.params.cartId, req.body);
+    res.send(updatedItem);
+  } catch (error) {
+    next(error);
+  }
+});
+//functional, need to set up authorization so that only admin and the user who owns cart can delete it
+usersRouter.delete("/:id/cart/contents/:cartId", async (req, res, next) => {
+  try {
+    //take the user id from the URL, pass it along with the edited content in the request body as arguments
+    const deletedItem = await deleteCartContents(req.params.cartId);
+    if (deletedItem) {
+      res.send({
+        name: "Item successfully deleted",
+        message: `Your item has been deleted from the cart!`,
+      });
+    }
+  } catch (error) {
+    next(error);
   }
 });
 
