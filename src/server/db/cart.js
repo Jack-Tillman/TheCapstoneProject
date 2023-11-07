@@ -128,6 +128,62 @@ const createCartItem = async ({
   }
 };
 
+async function updateCartContents(cartId, fields = {}) {
+  /*
+    This function was adapted from the function of same name from gamestore project
+    This line of code creates a comma-separated string of key-value pairs
+    in the format of `"key"=$index`, where key is a property name from
+    the fields object (this is the request body that is passed as the second parameter in api/videogames.js),
+    and $index represents a placeholder for a parameter, starting index from 1 and incrementing
+    each key so that each following entry has an appropriate id
+    */
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+  // above ultimately results in: (name, description, price, inStock, isPopular, imgUrl)
+
+  // return early if this is called without fields
+  if (setString.length === 0) {
+    return;
+  }
+  
+  try {
+    const {
+      rows: [item],
+    } = await db.query(
+      `
+      UPDATE shopping_cart_item
+      SET ${setString}
+      WHERE id=${cartId}
+      RETURNING *;
+      `,
+      //below is the same as if it was body.name, body.description, etc. but shorthand
+      Object.values(fields)
+    );
+    return item;
+  } catch (error) {
+    throw error;
+  }
+};
+
+async function deleteCartContents(cartId) {
+  try {
+    const {
+      rows: [delContent],
+    } = await db.query(
+      `
+        DELETE FROM shopping_cart_item
+        WHERE id=$1
+        RETURNING *;
+        `,
+      [cartId]
+    );
+    return delContent;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createCart,
   getAllCarts,
@@ -135,4 +191,6 @@ module.exports = {
   createCartItem,
   getAllCartItems,
   getCartContentsById,
+  updateCartContents,
+  deleteCartContents
 };

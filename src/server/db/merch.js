@@ -10,14 +10,15 @@ const createMerch = async ({
   description,
   manufacturer,
   productImage,
+  featured
 }) => {
   try {
     const {
       rows: [merch],
     } = await db.query(
       `
-        INSERT INTO merch(productName, type, delivery, price, stock, condition, description, manufacturer, productImage)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        INSERT INTO merch(productName, type, delivery, price, stock, condition, description, manufacturer, productImage, featured)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING *`,
       [
         productName,
@@ -29,6 +30,7 @@ const createMerch = async ({
         description,
         manufacturer,
         productImage,
+        featured
       ]
     );
 
