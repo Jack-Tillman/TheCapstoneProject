@@ -44,7 +44,6 @@ export const HardwarePage = () => {
         </div>
         
         <div className="productCard">
-          <h3>Product card placeholder</h3>
             {products.map((product, index) => (
               <>
                 <div key={index}>

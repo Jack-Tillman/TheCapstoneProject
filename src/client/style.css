@@ -41,3 +41,8 @@ a {color:white}
 .pwChecklist {
   text-align: left;
 }
+
+.productCard {
+  display: flex;
+  flex-wrap: wrap;
+}
