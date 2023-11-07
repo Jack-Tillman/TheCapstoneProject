@@ -21,9 +21,8 @@ div.navbar {
   font-size: 30px;
   display: flex;
   width:100%;
-  padding:5px;
   position: fixed;
-  justify-content: space-around; 
+  justify-content: space-between; 
   right:0;
   left:0;
   top:0;
