@@ -130,12 +130,8 @@ export const Login = ({ token, setToken }) => {
           Login
         </Button>
       </form>
-      <p>
-        Don't have an account?{" "}
-        <Link to="/register" style={{ color: "black" }}>
-          Register
-        </Link>
-      </p>
+      <p>Don't have an account?</p>
+      <Link to="/register" style={{color:'black'}}><Button variant="outlined" sx={{width:"1"}}>Register</Button></Link>
       <p>{message}</p>
     </Box>
   );

@@ -176,10 +176,11 @@ export const Register = ({ token, setToken }) => {
       </form>
       <p>
         Already have an account?{" "}
-        <Link to="/login" style={{ color: "black" }}>
-          Login
-        </Link>
-      </p>
+       </p> 
+            <Link to="/login" style={{ color: "black" }}>
+          <Button variant="outlined" sx={{width:"1"}}>Login
+        </Button></Link>
+      
     </Box>
   );
 };
