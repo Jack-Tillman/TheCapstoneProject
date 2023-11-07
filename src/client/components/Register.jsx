@@ -66,6 +66,26 @@ export const Register = ({ token, setToken }) => {
       setError(response.error);
     }
   }
+    async function handleSubmit(event) {
+        event.preventDefault();  
+        const response = await registerUser(email, password)
+        const result = await response.json();
+        console.log(result);
+        sessionStorage.setItem("token", result.token)
+        const authToken = sessionStorage.getItem("token")
+        
+        if (response.status === 200) {
+            setToken(authToken)           
+            setEmail("");
+            setPassword("");
+            setPasswordAgain("");
+            setAuthenticated(result.token);            
+            setSuccess(true);            
+            navigate("/")
+        } else {
+            setError(response.error);
+        }
+    }
 
   return (
     <Box className="loginRegisterField">

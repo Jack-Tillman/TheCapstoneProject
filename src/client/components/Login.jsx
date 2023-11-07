@@ -45,6 +45,7 @@ export const Login = ({ token, setToken }) => {
     const response = await userLogin(email, password);
     const result = await response.json();
     console.log(result);
+
     sessionStorage.setItem("token", result.token);
     const authToken = sessionStorage.getItem("token");
 
