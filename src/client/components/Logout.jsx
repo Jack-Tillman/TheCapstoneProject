@@ -22,5 +22,5 @@ export const Logout = () => {
         <Link to="/"><Button variant="contained">Home</Button></Link>
       </div>
     </>
-  )
-}
+  );
+};

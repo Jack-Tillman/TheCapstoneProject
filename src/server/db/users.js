@@ -15,6 +15,7 @@ const createUser = async ({ name, email, password, isAdmin }) => {
     name=email;
   }
 
+
   try {
     const {
       rows: [user],
