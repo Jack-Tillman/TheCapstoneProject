@@ -19,7 +19,7 @@ merchRouter.get("/", async (req, res, next) => {
   }
 });
 
-// // GET - /api/merch/:id - get a single piece of merch by id
+// GET - /api/merch/:id - get a single piece of merch by id
 merchRouter.get("/:id", async (req, res, next) => {
   try {
     const merch = await getMerchById(req.params.id);
@@ -42,7 +42,7 @@ merchRouter.post("/", async (req, res, next) => {
 // PUT - /api/merch/:id - update a single piece of merch by id
 merchRouter.put("/:id", async (req, res, next) => {
   try {
-    const mercdh = await updateMerch(req.params.id, req.body);
+    const merch = await updateMerch(req.params.id, req.body);
     res.send(merch);
   } catch (error) {
     next(error);

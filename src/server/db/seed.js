@@ -54,9 +54,14 @@ const seedCarts = () => {
       user_id: 3,
       total: 12,
     };
+    const fakeCart4 = {
+      user_id: 2,
+      total: 8,
+    };
     cartData.push(fakeCart1);
     cartData.push(fakeCart2);
     cartData.push(fakeCart3);
+    cartData.push(fakeCart4);
   }
 };
 
@@ -86,10 +91,10 @@ const seedCartItems = () => {
   };
 
   const fakeCartItem4 = {
-    cart_id: 3,
+    cart_id: 2,
     games_item_id: 0,
-    merch_item_id: 0,
-    hardware_item_id: 2,
+    merch_item_id: 1,
+    hardware_item_id: 0,
     quantity: 1,
   };
   cartItemData.push(fakeCartItem1);
@@ -256,18 +261,18 @@ const createTables = async () => {
 
       CREATE TABLE shopping_cart_item(
         id SERIAL PRIMARY KEY,
-        cart_id INT,
+        cart_id INT NOT NULL,
         games_item_id INT,
         merch_item_id INT,
         hardware_item_id INT,
         quantity INT,
         CONSTRAINT fk_shopcartitem_shopcart FOREIGN KEY (cart_id) REFERENCES
         shopping_cart (id),
-        CONSTRAINT fk_shopcartitem_gamesitem FOREIGN KEY (games_item_id) REFERENCES 
+        CONSTRAINT fk_shopcartitem_gamesitemid FOREIGN KEY (games_item_id) REFERENCES 
         games (id),
-        CONSTRAINT fk_shopcartitem_merchitem FOREIGN KEY (merch_item_id) REFERENCES 
+        CONSTRAINT fk_shopcartitem_merchitemid FOREIGN KEY (merch_item_id) REFERENCES 
         merch (id),
-        CONSTRAINT fk_shopcartitem_hardwareitem FOREIGN KEY (hardware_item_id) REFERENCES 
+        CONSTRAINT fk_shopcartitem_hardwareitemid FOREIGN KEY (hardware_item_id) REFERENCES 
         hardware (id)
       );
         `);

@@ -18,12 +18,12 @@ const getAllCarts = async () => {
     throw err;
   }
 };
-
+//below only returns 1 cart even if there is more than 1 cart in the DB 
 const getCartById = async (id) => {
   try {
     console.log(id);
     const {
-      rows: [cart],
+      rows: cart,
     } = await db.query(
       `
         SELECT * FROM shopping_cart
@@ -36,26 +36,25 @@ const getCartById = async (id) => {
     throw error;
   }
 };
-// not done - only grabs 1 item even if there are multiple matches.
-// look up:   psql select all fields that match id
+//functional; using const { rows: [contents], } would only return the first matching cart item
 const getCartContentsById = async (id) => {
-    try {
-      console.log(id);
+  try {
+    console.log(id);
       const {
-        rows: [contents],
+        rows: contents,
       } = await db.query(
         `
-          SELECT * FROM shopping_cart_item
-          WHERE cart_id = $1;
-          `,
-        [id]
+          SELECT *
+          FROM shopping_cart_item 
+          WHERE cart_id=$1;`,[id]
       );
+      console.log(`contents are: `);
       console.log(contents);
       return contents;
-    } catch (error) {
-      throw error;
-    }
-  };
+  } catch (error) {
+    throw error;
+  }
+};
 
 const createCart = async ({ user_id, total }) => {
   try {
@@ -111,15 +110,17 @@ const createCartItem = async ({
     if (!hardware_item_id) {
       hardware_item_id = null;
     }
+
     const {
       rows: [item],
     } = await db.query(
       `
         INSERT INTO shopping_cart_item(cart_id, games_item_id, merch_item_id, hardware_item_id, quantity)
         VALUES($1, $2, $3, $4, $5)
-        RETURNING *`,
+        RETURNING *;`,
       [cart_id, games_item_id, merch_item_id, hardware_item_id, quantity]
     );
+    console.log(item);
     return item;
   } catch (err) {
     console.error("Error creating cart item seed data for cart items");
@@ -133,5 +134,5 @@ module.exports = {
   getCartById,
   createCartItem,
   getAllCartItems,
-  getCartContentsById
+  getCartContentsById,
 };
