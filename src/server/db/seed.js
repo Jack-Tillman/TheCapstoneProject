@@ -108,8 +108,10 @@ const seedMerch = () => {
   const randomCondition = Math.floor(Math.random() * conditionArray.length);
   const deliveryArray = ["Same Day", "Two Day Delivery", "Next Day Delivery"];
   const randomDelivery = Math.floor(Math.random() * deliveryArray.length);
+  const featuredArray = [true, false];
+  const randomFeature = Math.floor(Math.random() * featuredArray.length);
   // create 25 merchandise items
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 10; i++) {
     let fakeMerch = {
       productName: faker.commerce.productName(),
       type: faker.commerce.product(),
@@ -120,6 +122,7 @@ const seedMerch = () => {
       description: faker.commerce.productDescription(),
       manufacturer: faker.word.words(),
       productImage: faker.image.url(),
+      featured: randomFeature
     };
     merchData.push(fakeMerch);
   }
@@ -130,8 +133,10 @@ const seedHardware = () => {
   const randomCondition = Math.floor(Math.random() * conditionArray.length);
   const deliveryArray = ["Same Day", "Two Day Delivery", "Next Day Delivery"];
   const randomDelivery = Math.floor(Math.random() * deliveryArray.length);
+  const featuredArray = [true, false];
+  const randomFeature = Math.floor(Math.random() * featuredArray.length);
   // create 25 hardware items
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 10; i++) {
     let fakeHardware = {
       productName: faker.commerce.productName(),
       type: faker.commerce.product(),
@@ -142,6 +147,7 @@ const seedHardware = () => {
       description: faker.commerce.productDescription(),
       delivery: deliveryArray[randomDelivery],
       productImage: faker.image.url(),
+      featured: randomFeature
     };
     hardwareData.push(fakeHardware);
   }
@@ -149,7 +155,7 @@ const seedHardware = () => {
 
 // Add more user objects as needed
 const seedGames = () => {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     //these 8 variables are temporary measure to introduce random variety to seeded data
     const esrbArray = ["E", "E10", "T", "M"];
     const randomEsrb = Math.floor(Math.random() * esrbArray.length);
@@ -159,6 +165,8 @@ const seedGames = () => {
     const randomCondition = Math.floor(Math.random() * conditionArray.length);
     const deliveryArray = ["Same Day", "Pickup", "Will deliver"];
     const randomDelivery = Math.floor(Math.random() * deliveryArray.length);
+    const featuredArray = [true, false];
+    const randomFeature = Math.floor(Math.random() * featuredArray.length);
 
     const fakeGames = {
       productName: `${faker.commerce.productName()}, the Game`,
@@ -172,6 +180,7 @@ const seedGames = () => {
       productImage: faker.image.url(),
       playerRange: playerRangeArray[randomRange],
       esrb: esrbArray[randomEsrb],
+      featured: randomFeature
     };
     gamesData.push(fakeGames);
   }
@@ -187,7 +196,6 @@ const dropTables = async () => {
         DROP TABLE IF EXISTS games CASCADE;
         DROP TABLE IF EXISTS shopping_cart CASCADE;
         DROP TABLE IF EXISTS shopping_cart_item CASCADE;
-        
         `);
   } catch (err) {
     throw err;
@@ -221,7 +229,8 @@ const createTables = async () => {
           condition VARCHAR(255) NOT NULL,
           description TEXT NOT NULL,
           manufacturer VARCHAR(255) NOT NULL,
-          productImage VARCHAR(255) NOT NULL
+          productImage VARCHAR(255) NOT NULL,
+          featured BOOLEAN default false
         );
 
         CREATE TABLE hardware(
@@ -234,7 +243,8 @@ const createTables = async () => {
           stock NUMERIC (15,2) NOT NULL,
           condition VARCHAR(255) NOT NULL,
           description TEXT NOT NULL,
-          productImage VARCHAR(255) NOT NULL
+          productImage VARCHAR(255) NOT NULL,
+          featured BOOLEAN default false
         );
   
         CREATE TABLE games(
@@ -249,7 +259,8 @@ const createTables = async () => {
           publisher VARCHAR(255) NOT NULL,
           productImage VARCHAR(255) NOT NULL,
           playerRange VARCHAR(255) NOT NULL,
-          esrb VARCHAR(255) NOT NULL
+          esrb VARCHAR(255) NOT NULL,
+          featured BOOLEAN default false
       );
 
       CREATE TABLE shopping_cart(
@@ -312,6 +323,7 @@ const insertMerch = async () => {
         description: merch.description,
         manufacturer: merch.manufacturer,
         productImage: merch.productImage,
+        featured: merch.featured
       });
     }
     console.log("Seed data inserted successfully.");
@@ -334,6 +346,7 @@ const insertHardware = async () => {
         description: hardware.description,
         delivery: hardware.delivery,
         productImage: hardware.productImage,
+        featured: hardware.featured
       });
     }
     console.log("Seed data inserted successfully.");
@@ -358,6 +371,7 @@ const insertGame = async () => {
         productImage: game.productImage,
         playerRange: game.playerRange,
         esrb: game.esrb,
+        featured: game.featured
       });
     }
   } catch (error) {
