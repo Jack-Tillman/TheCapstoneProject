@@ -21,6 +21,7 @@ export function ProductCard(props) {
         borderColor: "primary",
         borderWidth: 1,        
         borderStyle: "solid",
+        borderRadius: 3,
         boxShadow: "0px",
         '&:hover': {
           boxShadow: "0px 0px 10px black",
