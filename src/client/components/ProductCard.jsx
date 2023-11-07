@@ -7,27 +7,20 @@ export function ProductCard(props) {
   const cart = useContext(CartContext);
   const productQuantity = cart.getProductQuantity(product.id);
   console.log(cart.items);
-  
-  return (
-    // <>
-    //   <div>
-    //     <h2>{product.productname}</h2>
-    //     <h3>${product.price}</h3>
-    //   </div>
-    // </>
 
+  return (    
     <Card>
       <Card.Body>
-          <Card.Title>{product.title}</Card.Title>
+          <Card.Title>{product.productname}</Card.Title>
           <Card.Text>${product.price}</Card.Text>
           { productQuantity > 0 ?
           <>
             <Form as={Row}>
             <Form.Label column="true" sm="6">In Cart: {productQuantity}</Form.Label>
-            <Col sm="6">                            
-              <Button sm="6" onClick={() => cart.removeOneFromCart(product.id)} className="mx-2">-</Button>
-              <Button sm="6" onClick={() => cart.addOneToCart(product.id)} className="mx-2">+</Button>
-            </Col>
+              <Col sm="6">                            
+                <Button sm="6" onClick={() => cart.removeOneFromCart(product.id)} className="mx-2">-</Button>
+                <Button sm="6" onClick={() => cart.addOneToCart(product.id)} className="mx-2">+</Button>
+              </Col>
             </Form>
             <Button variant="danger" onClick={() => cart.deleteFromCart(product.id)} className="my-2">Remove all from Cart</Button>
           </>    
@@ -37,4 +30,4 @@ export function ProductCard(props) {
       </Card.Body>
     </Card>
   );
-}
+};

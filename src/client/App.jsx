@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import createTheme from '@mui/material/styles/createTheme';
 import { useTheme } from '@mui/material/styles';
 import { red, purple } from '@mui/material/colors';
+import { CartProvider } from './CartContext';
 
 const theme = createTheme({
   palette: {
@@ -91,6 +92,7 @@ function App() {
   
   return (  
     // <ColorModeContext.Provider value={colorMode}>
+    <CartProvider>
       <ThemeProvider theme={theme}>    
         <div className='App'>
           <NavBar token={token} setToken={setToken} />
@@ -98,6 +100,7 @@ function App() {
           <MainSection token={token} setToken={setToken} />
         </div>
       </ThemeProvider>
+    </CartProvider>
     // </ColorModeContext.Provider>
   );
 }
