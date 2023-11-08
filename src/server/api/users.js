@@ -10,6 +10,7 @@ const {
   getAllCarts,
   getCartById,
   getCartContentsById,
+  createCart,
   createCartItem,
   updateCartContents,
   deleteCartContents,
@@ -35,9 +36,9 @@ usersRouter.get("/", async (req, res, next) => {
 });
 
 //Get User By Id
-usersRouter.get("/:id", async (req, res, next) => {
+usersRouter.get("/:userId", async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const id = req.params.userId;
     const users = await getUserById(id);
     if (!users) {
       res.send({
@@ -78,7 +79,16 @@ usersRouter.post("/login", async (req, res, next) => {
           expiresIn: "1w",
         }
       );
-
+      //check to see if cart exists for this user
+      const cartExists = await getCartById(user.id);
+      console.log(`cartExists is ${cartExists}`);
+      //if length > 0, then cart exists 
+      if (cartExists.length > 0) {
+        console.log('cart does exists!');
+      } else {
+        //if cart doesn't exist, create one using user's id
+        const cart = await createCart({ user_id: user.id, total: 0 });
+      }
       res.send({
         message: "Login successful!",
         token,
@@ -124,6 +134,17 @@ usersRouter.post("/register", async (req, res, next) => {
         expiresIn: "1w",
       }
     );
+    //grab user_id from recently made user account 
+    const user_id = await getUser({ email, password });
+    const { id } = user_id;
+    //make cart when user registers using the new user's id 
+    if (id) {
+      const cart = await createCart({ user_id: user.id, total: 0 });
+      console.log(`Cart created for user!`);
+    } else {
+      next({ name, message });
+    }
+
     //createCart and associate it with the userId that is made from account creation
     res.send({
       message: "Sign up successful!",
@@ -139,9 +160,9 @@ CART-SPECIFIC
 */
 
 //Get cart by userId
-usersRouter.get("/:id/cart", async (req, res, next) => {
+usersRouter.get("/:userId/cart", async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const id = req.params.userId;
     console.log(id);
     const cart = await getCartById(id);
     console.log(cart);
@@ -161,13 +182,15 @@ usersRouter.get("/:id/cart", async (req, res, next) => {
 });
 
 //get cart contents by userId
-usersRouter.get("/:id/cart/contents", async (req, res, next) => {
+usersRouter.get("/:userId/cart/contents", async (req, res, next) => {
   try {
-    const id = req.params.id;
-    console.log(id);
-    const cartContents = await getCartContentsById(id);
+    //use userId to get cartId 
+    const cart = await getCartById(req.params.userId);
+    //extract cartId from cart object
+    const cartId = cart[0].id;
+    const cartContents = await getCartContentsById(cartId);
     console.log(`cartContents is: ${cartContents}`);
-    console.log(cartContents);
+    console.log(cartContents);  
     if (!cartContents) {
       res.send({
         name: "No cart found",
@@ -185,9 +208,9 @@ usersRouter.get("/:id/cart/contents", async (req, res, next) => {
 
 //UNFINISHED    get cart total with userId
 // * Remove id and user_id from returned object from getCartById, then convert to number
-usersRouter.get("/:id/cart/total", async (req, res, next) => {
+usersRouter.get("/:userId/cart/total", async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const id = req.params.userId;
     console.log(id);
     const cart = await getCartById(id);
     console.log(cart);
@@ -210,7 +233,7 @@ usersRouter.get("/:id/cart/total", async (req, res, next) => {
 });
 
 //Add new item to cart
-usersRouter.post("/:id/cart/contents", async (req, res, next) => {
+usersRouter.post("/:userId/cart/contents", async (req, res, next) => {
   const { cart_id, games_item_id, merch_item_id, hardware_item_id, quantity } =
     req.body;
   console.log(req.body);
@@ -245,8 +268,9 @@ usersRouter.post("/:id/cart/contents", async (req, res, next) => {
     next(err);
   }
 });
+
 //UNFINISHED - set this up so that only quantity can be edited.
-usersRouter.put("/:id/cart/contents/:cartId", async (req, res, next) => {
+usersRouter.put("/:userId/cart/contents/:cartId", async (req, res, next) => {
   try {
     //take the user id from the URL, pass it along with the edited content in the request body as arguments
     const updatedItem = await updateCartContents(req.params.cartId, req.body);
@@ -255,8 +279,9 @@ usersRouter.put("/:id/cart/contents/:cartId", async (req, res, next) => {
     next(error);
   }
 });
+
 //functional, need to set up authorization so that only admin and the user who owns cart can delete it
-usersRouter.delete("/:id/cart/contents/:cartId", async (req, res, next) => {
+usersRouter.delete("/:userId/cart/contents/:cartContentId", async (req, res, next) => {
   try {
     //take the user id from the URL, pass it along with the edited content in the request body as arguments
     const deletedItem = await deleteCartContents(req.params.cartId);
