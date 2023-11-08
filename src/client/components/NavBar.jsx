@@ -102,7 +102,7 @@ const NavBar = ({ token, setToken }) => {
           
           <Button onClick={handleShow}>Cart ({productsCount} Items)</Button>
         
-            {/* <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Shopping Cart</Modal.Title>
                 </Modal.Header>
@@ -125,7 +125,7 @@ const NavBar = ({ token, setToken }) => {
                     }
                         
                 </Modal.Body>
-            </Modal> */}
+            </Modal>
 
       {/* <Link to="/games">Games</Link>
       <Link to="/hardware">Hardware</Link>
