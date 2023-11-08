@@ -3,9 +3,9 @@ import { Login } from "./Login";
 import { Logout } from "./Logout";
 import { Register } from "./Register";
 import { HomePage } from "./HomePage";
-import { GamesPage } from "./GamesPage";
-import { MerchPage } from "./MerchPage";
-import { HardwarePage } from "./HardwarePage";
+// import { GamesPage } from "./GamesPage";
+// import { MerchPage } from "./MerchPage";
+// import { HardwarePage } from "./HardwarePage";
 import { Dashboard } from "./Dashboard";
 import { StorePage } from "./StorePage";
 
