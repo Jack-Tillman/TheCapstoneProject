@@ -1,6 +1,8 @@
 import { fetchItems } from "../api";
 import { useState, useEffect } from "react";
 import { ProductCard } from "./ProductCard";
+import { FormControl } from "@mui/material";
+import { TextField } from "@mui/material";
 
 export const HardwarePage = () => {
     const [products, setProducts] = useState([]);
@@ -31,20 +33,17 @@ export const HardwarePage = () => {
 
     return (
       <>
-      <h1>Here's the Hardware Product Page</h1>
+      <h1>Hardware</h1>
         <div className="searchbar">
-          <label>
-            Search Products:{" "}
-            <input
-              type="text"
-              placeholder="Search"
-              onChange={(e) => setSearchParams(e.target.value.toLowerCase())}
-            />
-          </label>
-        </div>
+            <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
+              <TextField
+                label="Search products"
+                onChange={(e) => setSearchParams(e.target.value.toLowerCase())}
+              />
+            </FormControl>
+          </div>
         
         <div className="productCard">
-          <h3>Product card placeholder</h3>
             {products.map((product, index) => (
               <>
                 <div key={index}>
