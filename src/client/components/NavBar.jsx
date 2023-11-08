@@ -17,6 +17,7 @@ import { TextField } from "@mui/material";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import DevicesIcon from '@mui/icons-material/Devices';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
+import PersonIcon from '@mui/icons-material/Person';
 
 
 //conditional render login/register if user is logged out
@@ -26,6 +27,7 @@ import CheckroomIcon from '@mui/icons-material/Checkroom';
     { name: "Games", link: "/games", icon: <SportsEsportsIcon />},
     { name: "Hardware", link: "/hardware", icon: <DevicesIcon />},
     { name: "Merch", link: "/merch", icon: <CheckroomIcon />},
+    { name: "Dashboard", link: "/dashboard", icon: <PersonIcon />},
   ];
 
 const NavBar = ({ token, setToken }) => {
