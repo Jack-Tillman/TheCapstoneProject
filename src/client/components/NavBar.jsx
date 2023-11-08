@@ -24,6 +24,7 @@ import PersonIcon from '@mui/icons-material/Person';
 //don't render login/register is user is logged out
 //render dashboard/logout if user is logged in
   const data = [
+    { name: "Home", link: "/", icon: <HomeIcon />},
     { name: "Games", link: "/games", icon: <SportsEsportsIcon />},
     { name: "Hardware", link: "/hardware", icon: <DevicesIcon />},
     { name: "Merch", link: "/merch", icon: <CheckroomIcon />},
