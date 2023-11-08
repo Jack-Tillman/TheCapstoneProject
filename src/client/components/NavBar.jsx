@@ -85,11 +85,14 @@ const NavBar = ({ token, setToken }) => {
 
           <FormControl sx={{ m: 1, width: "1"}}>
             <TextField
+              InputLabelProps={{
+                sx: {color: "red"}
+              }}
               label="Search products"
               onChange={(e) => setSearchParams(e.target.value.toLowerCase())}
-              sx={{input: { color: 'white' }}}
+              sx={{input: { color: 'white', }}}
               size="small"
-              variant="filled"
+              variant="outlined"
             />
           </FormControl>
 

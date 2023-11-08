@@ -160,7 +160,7 @@ export const Register = ({ token, setToken }) => {
                 </IconButton>
               </InputAdornment>
             }
-            label="Password"
+            label="Confirm Password"
             // type='password'
             // id='password'
             value={passwordAgain}
