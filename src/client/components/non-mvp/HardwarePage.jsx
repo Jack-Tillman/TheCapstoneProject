@@ -1,6 +1,6 @@
-import { fetchItems } from "../api";
+import { fetchItems } from "../../api";
 import { useState, useEffect } from "react";
-import { ProductCard } from "./ProductCard";
+import { ProductCard } from "../ProductCard";
 import { FormControl } from "@mui/material";
 import { TextField } from "@mui/material";
 
@@ -30,6 +30,8 @@ export const HardwarePage = () => {
     //         product.name.toLowerCase().includes(searchParams)
     //         )
     //     : products;
+
+    
 
     return (
       <>

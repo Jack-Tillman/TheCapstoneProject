@@ -8,7 +8,7 @@ export function ProductCard(props) {
   const product = props.product;
   const cart = useContext(CartContext);
   const productQuantity = cart.getProductQuantity(product.id);
-  console.log(cart.items);
+  console.log(product);
 
   return (    
     <Box 
