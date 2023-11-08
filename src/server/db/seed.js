@@ -147,7 +147,6 @@ const seedMerch = () => {
   const featuredArray = [true, false];
   const randomFeature = Math.floor(Math.random() * featuredArray.length);
   // create 10 merchandise items
-  for (let i = 0; i < 2; i++) {
     const merchandise1 = {
       id: 1,
       productName: "Assassin's Creed Hoodie",
@@ -226,7 +225,7 @@ const seedMerch = () => {
     merchData.push(merchandise3);
     merchData.push(merchandise4);
     merchData.push(merchandise5);
-  }
+  
 };
 
 const seedHardware = () => {
@@ -237,7 +236,6 @@ const seedHardware = () => {
   const featuredArray = [true, false];
   const randomFeature = Math.floor(Math.random() * featuredArray.length);
   // create 10 hardware items
-  for (let i = 0; i < 2; i++) {
     const hardware1 = {
       id: 1,
       productName: "Razer DeathAdder Elite",
@@ -313,12 +311,11 @@ const seedHardware = () => {
     hardwareData.push(hardware3);
     hardwareData.push(hardware4);
     hardwareData.push(hardware5);
-  }
+ 
 };
 
 // Add more user objects as needed
 const seedGames = () => {
-  for (let i = 0; i < 2; i++) {
     //these 8 variables are temporary measure to introduce random variety to seeded data
     const esrbArray = ["E", "E10", "T", "M"];
     const randomEsrb = Math.floor(Math.random() * esrbArray.length);
@@ -332,6 +329,7 @@ const seedGames = () => {
     const randomFeature = Math.floor(Math.random() * featuredArray.length);
 
     const videoGame1 = {
+      // id:
       productName: "The Legend of Zelda: Breath of the Wild",
       genre: "Action-Adventure",
       delivery: deliveryArray[randomDelivery],
@@ -347,6 +345,7 @@ const seedGames = () => {
       featured: false,
     };
     const videoGame2 = {
+      // id:
       productName: "Fortnite",
       genre: "Battle Royale",
       delivery: "Digital Download",
@@ -362,6 +361,7 @@ const seedGames = () => {
       featured: false,
     };
     const videoGame3 = {
+      // id:
       productName: "FIFA 23",
       genre: "Sports",
       delivery: "Physical Disc",
@@ -376,6 +376,7 @@ const seedGames = () => {
       featured: false,
     };
     const videoGame4 = {
+      // id:
       productName: "Call of Duty: Modern Warfare",
       genre: "First-Person Shooter",
       delivery: "Digital Download",
@@ -391,6 +392,7 @@ const seedGames = () => {
       featured: false,
     };
     const videoGame5 = {
+      // id:
       productName: "The Elder Scrolls V: Skyrim",
       genre: "Role-Playing Game",
       delivery: "Physical Copy",
@@ -410,7 +412,7 @@ const seedGames = () => {
     gamesData.push(videoGame3);
     gamesData.push(videoGame4);
     gamesData.push(videoGame5);
-  }
+  
 };
 //Using the CASCADE keyword after a table to be dropped indicates that the table itself
 // will be dropped as well as the tables that depend on it (e.g., tables that utilize that tables' keys as foreign keys)
@@ -447,7 +449,7 @@ const createTables = async () => {
         );
 
         CREATE TABLE merch(
-          id SERIAL PRIMARY KEY,
+          id INT PRIMARY KEY,
           productName VARCHAR(255) NOT NULL,
           type VARCHAR(255) NOT NULL,
           delivery VARCHAR(255) NOT NULL,
@@ -461,7 +463,7 @@ const createTables = async () => {
         );
 
         CREATE TABLE hardware(
-          id SERIAL PRIMARY KEY,
+          id INT PRIMARY KEY,
           productName VARCHAR(255) NOT NULL,
           type VARCHAR(255) NOT NULL,
           manufacturer VARCHAR(255) NOT NULL,
@@ -475,7 +477,7 @@ const createTables = async () => {
         );
   
         CREATE TABLE games(
-          id SERIAL PRIMARY KEY,
+          id INT PRIMARY KEY,
           productName VARCHAR(255) NOT NULL,
           genre VARCHAR(255) NOT NULL, 
           delivery VARCHAR(255) NOT NULL,
