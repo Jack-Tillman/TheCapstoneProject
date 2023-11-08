@@ -21,13 +21,13 @@ const getAllCarts = async () => {
 //below only returns 1 cart even if there is more than 1 cart in the DB 
 const getCartById = async (id) => {
   try {
-    console.log(id);
+    console.log("id passed to getCartById is:" + id);
     const {
       rows: cart,
     } = await db.query(
       `
         SELECT * FROM shopping_cart
-        WHERE id = $1;
+        WHERE user_id = $1;
         `,
       [id]
     );
@@ -67,6 +67,7 @@ const createCart = async ({ user_id, total }) => {
         RETURNING *`,
       [user_id, total]
     );
+    console.log("cart created!");
     return cart;
   } catch (err) {
     throw err;
@@ -112,7 +113,7 @@ const createCartItem = async ({
     }
 
     const {
-      rows: [item],
+      rows: item,
     } = await db.query(
       `
         INSERT INTO shopping_cart_item(cart_id, games_item_id, merch_item_id, hardware_item_id, quantity)
@@ -123,7 +124,7 @@ const createCartItem = async ({
     console.log(item);
     return item;
   } catch (err) {
-    console.error("Error creating cart item seed data for cart items");
+    console.error("Error creating cart item data for cart items");
     throw err;
   }
 };
@@ -146,7 +147,7 @@ async function updateCartContents(cartId, fields = {}) {
   if (setString.length === 0) {
     return;
   }
-  
+
   try {
     const {
       rows: [item],

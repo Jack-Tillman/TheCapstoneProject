@@ -41,9 +41,9 @@ const seedUsers = () => {
 };
 
 const seedCarts = () => {
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 1; i++) {
     const fakeCart1 = {
-      user_id: 1,
+      user_id: 2,
       total: 34,
     };
     const fakeCart2 = {
@@ -51,11 +51,11 @@ const seedCarts = () => {
       total: 4,
     };
     const fakeCart3 = {
-      user_id: 3,
+      user_id: 2,
       total: 12,
     };
     const fakeCart4 = {
-      user_id: 2,
+      user_id: 3,
       total: 8,
     };
     cartData.push(fakeCart1);
@@ -83,7 +83,7 @@ const seedCartItems = () => {
   };
 
   const fakeCartItem3 = {
-    cart_id: 3,
+    cart_id: 2,
     games_item_id: 0,
     merch_item_id: 0,
     hardware_item_id: 1,
@@ -91,16 +91,32 @@ const seedCartItems = () => {
   };
 
   const fakeCartItem4 = {
-    cart_id: 2,
+    cart_id: 3,
     games_item_id: 0,
     merch_item_id: 1,
     hardware_item_id: 0,
+    quantity: 1,
+  };
+  const fakeCartItem5 = {
+    cart_id: 3,
+    games_item_id: 3,
+    merch_item_id: 0,
+    hardware_item_id: 0,
+    quantity: 1,
+  };
+  const fakeCartItem6 = {
+    cart_id: 3,
+    games_item_id: 0,
+    merch_item_id: 0,
+    hardware_item_id: 1,
     quantity: 1,
   };
   cartItemData.push(fakeCartItem1);
   cartItemData.push(fakeCartItem2);
   cartItemData.push(fakeCartItem3);
   cartItemData.push(fakeCartItem4);
+  cartItemData.push(fakeCartItem5);
+  cartItemData.push(fakeCartItem6);
 };
 
 const seedMerch = () => {
