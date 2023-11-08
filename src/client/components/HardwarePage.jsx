@@ -34,14 +34,6 @@ export const HardwarePage = () => {
     return (
       <>
       <h1>Hardware</h1>
-        <div className="searchbar">
-            <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
-              <TextField
-                label="Search products"
-                onChange={(e) => setSearchParams(e.target.value.toLowerCase())}
-              />
-            </FormControl>
-          </div>
         
         <div className="productCard">
             {products.map((product, index) => (
