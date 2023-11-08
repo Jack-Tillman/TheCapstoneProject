@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { Button, Modal, Navbar } from 'react-bootstrap'
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
-import { IconButton } from "@mui/material";
+import { IconButton, ListItemIcon } from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import { CartContext } from "../CartContext";
@@ -14,15 +14,21 @@ import { ListItemText } from "@mui/material";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { FormControl } from "@mui/material";
 import { TextField } from "@mui/material";
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import DevicesIcon from '@mui/icons-material/Devices';
+import CheckroomIcon from '@mui/icons-material/Checkroom';
+import PersonIcon from '@mui/icons-material/Person';
 
 
 //conditional render login/register if user is logged out
 //don't render login/register is user is logged out
 //render dashboard/logout if user is logged in
   const data = [
-    { name: "Games", link: "/games"},
-    { name: "Hardware", link: "/hardware"},
-    { name: "Merch", link: "/merch"},
+    { name: "Home", link: "/", icon: <HomeIcon />},
+    { name: "Games", link: "/games", icon: <SportsEsportsIcon />},
+    { name: "Hardware", link: "/hardware", icon: <DevicesIcon />},
+    { name: "Merch", link: "/merch", icon: <CheckroomIcon />},
+    { name: "Dashboard", link: "/dashboard", icon: <PersonIcon />},
   ];
 
 const NavBar = ({ token, setToken }) => {
@@ -53,6 +59,7 @@ const NavBar = ({ token, setToken }) => {
       {data.map((item, index) => (
         <Link to={item.link}>
           <ListItem key={index}>
+            <ListItemIcon color={"primary"}>{item.icon}</ListItemIcon>
             <ListItemText primary={item.name} sx={{color: "text.primary"}}/>
           </ListItem>
         </Link>
@@ -76,13 +83,16 @@ const NavBar = ({ token, setToken }) => {
       </IconButton>
       </Link>
 
-          <FormControl sx={{ m: 1, width: "1"}}>
+          <FormControl sx={{ m: 1, width: "1", border: "1px solid red", borderRadius: "5px"}}>
             <TextField
-              label="Search products"
+              InputLabelProps={{
+                sx: {color: "red",}
+              }}
+              placeholder="Search Products"
               onChange={(e) => setSearchParams(e.target.value.toLowerCase())}
-              sx={{input: { color: 'white' }}}
+              sx={{input: { color: 'white', }}}
               size="small"
-              variant="filled"
+              variant="outlined"
             />
           </FormControl>
 
