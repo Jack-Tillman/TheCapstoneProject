@@ -7,11 +7,19 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import { CartContext } from "../CartContext";
 import { CartProduct } from "./CartProduct";
+import { Drawer } from "@mui/material";
+import { ListItem } from "@mui/material";
+import { ListItemText } from "@mui/material"
 
 
 //conditional render login/register if user is logged out
 //don't render login/register is user is logged out
 //render dashboard/logout if user is logged in
+  const data = [
+    { name: "Games", link: "/games"},
+    { name: "Hardware", link: "/hardware"},
+    { name: "Merch", link: "/merch"},
+  ];
 
 const NavBar = ({ token, setToken }) => {
   useEffect(() => {
@@ -34,9 +42,29 @@ const NavBar = ({ token, setToken }) => {
 
   const productsCount = cart.items.reduce((sum, product) => sum + product.quantity, 0);
 
+  const [open, setOpen] = useState(false);
+
+  const getList = () => (
+    <div style={{ width: 250 }} onClick={() => setOpen(false)}>
+      {data.map((item, index) => (
+        <Link to={item.link}>
+          <ListItem key={index}>
+            <ListItemText primary={item.name} sx={{color: "text.primary"}}/>
+            {/* <p>{item.name}</p> */}
+          </ListItem>
+        </Link>
+      ))}
+    </div>
+  );
   return (
     <div className="navbar">
       
+      <Button onClick={() => setOpen(true)}>Click me</Button>
+      <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
+        {getList()}
+      </Drawer>
+
+
       <Link to="/">
       <IconButton aria-label="Home" color="primary">
         <HomeIcon />
