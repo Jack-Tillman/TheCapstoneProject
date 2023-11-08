@@ -1,6 +1,8 @@
 import { fetchItems } from "../api";
 import { useState, useEffect } from "react";
 import { ProductCard } from "./ProductCard";
+import { FormControl } from "@mui/material";
+import { TextField } from "@mui/material";
 
 export const MerchPage = () => {
     const [products, setProducts] = useState([]);
@@ -32,18 +34,15 @@ export const MerchPage = () => {
 
     return (
       <>
-          <h1>Here's the Merch Product Page</h1>
-          <h2>There will be merch here!</h2>
-        <div className="searchbar">
-          <label>
-            Search Products:{" "}
-            <input
-              type="text"
-              placeholder="Search"
-              onChange={(e) => setSearchParams(e.target.value.toLowerCase())}
-            />
-          </label>
-        </div>
+          <h1>Merch</h1>
+          <div className="searchbar">
+            <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
+              <TextField
+                label="Search products"
+                onChange={(e) => setSearchParams(e.target.value.toLowerCase())}
+              />
+            </FormControl>
+          </div>
         
         <div className="productCard">
             {products.map((product, index) => (
