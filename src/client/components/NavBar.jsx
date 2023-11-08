@@ -83,12 +83,12 @@ const NavBar = ({ token, setToken }) => {
       </IconButton>
       </Link>
 
-          <FormControl sx={{ m: 1, width: "1"}}>
+          <FormControl sx={{ m: 1, width: "1", border: "1px solid red", borderRadius: "5px"}}>
             <TextField
               InputLabelProps={{
-                sx: {color: "red"}
+                sx: {color: "red",}
               }}
-              label="Search products"
+              placeholder="Search Products"
               onChange={(e) => setSearchParams(e.target.value.toLowerCase())}
               sx={{input: { color: 'white', }}}
               size="small"
