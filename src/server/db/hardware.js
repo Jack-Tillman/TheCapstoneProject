@@ -1,11 +1,11 @@
 const db = require("./client");
 
-const createHardware = async({productName, type, manufacturer, price, stock, condition, description, delivery, productImage, featured}) => {
+const createHardware = async({stripe_id, productName, type, manufacturer, price, stock, condition, description, delivery, productImage, featured}) => {
     try {
         const { rows: [ hardware ] } = await db.query(`
-        INSERT INTO hardware(productName, type, manufacturer, price, stock, condition, description, delivery, productImage,featured)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-        RETURNING *`, [productName, type, manufacturer, price, stock, condition, description, delivery, productImage, featured]);
+        INSERT INTO hardware(stripe_id, productName, type, manufacturer, price, stock, condition, description, delivery, productImage,featured)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        RETURNING *`, [stripe_id, productName, type, manufacturer, price, stock, condition, description, delivery, productImage, featured]);
         return hardware;
     } catch (err) {
         throw err;

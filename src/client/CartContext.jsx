@@ -15,8 +15,8 @@ export function CartProvider({children}) {
 
     // [ { id: 1, quantity: 2 }, { id: 2, quantity: 1} ]
 
-    function getProductQuantity(id) {
-        const quantity = cartProducts.find(product => product.id === id)?.quantity
+    function getProductQuantity(stripe_id) {
+        const quantity = cartProducts.find(product => product.stripe_id === stripe_id)?.quantity
 
         if (quantity === undefined) {
             return 0;
@@ -25,16 +25,17 @@ export function CartProvider({children}) {
         return quantity;
     }
 
-    function addOneToCart(id) {
-        const quantity = getProductQuantity(id);
+    function addOneToCart(stripe_id, price) {
+        const quantity = getProductQuantity(stripe_id);
 
         if (quantity === 0) { //product is not in cart
             setCartProducts(
                 [
                     ...cartProducts,
                     {
-                        id: id,
-                        quantity: 1
+                        stripe_id: stripe_id,
+                        price: price,
+                        quantity: 1,
                     }
                 ]
             )
@@ -42,7 +43,7 @@ export function CartProvider({children}) {
             setCartProducts(
                 cartProducts.map(
                     product =>
-                    product.id === id                               // if condition
+                    product.stripe_id === stripe_id                               // if condition
                     ? { ...product, quantity: product.quantity + 1} // if statement is true
                     : product                                       // if statement is false
                 )
@@ -50,16 +51,16 @@ export function CartProvider({children}) {
         }
     }
 
-    function removeOneFromCart(id) {
-        const quantity = getProductQuantity(id);
+    function removeOneFromCart(stripe_id) {
+        const quantity = getProductQuantity(stripe_id);
 
         if (quantity === 1) {
-            deleteFromCart(id);
+            deleteFromCart(stripe_id);
         } else {
             setCartProducts(
                 cartProducts.map(
                     product =>
-                    product.id === id                               // if condition
+                    product.stripe_id === stripe_id                               // if condition
                     ? { ...product, quantity: product.quantity - 1} // if statement is true
                     : product                                       // if statement is false
                 )
@@ -67,20 +68,32 @@ export function CartProvider({children}) {
         }
     }
 
-    function deleteFromCart(id) {
+    function deleteFromCart(stripe_id) {
         setCartProducts(
             cartProducts => 
             cartProducts.filter(currentProduct => {
-                return currentProduct.id !== id;
+                return currentProduct.stripe_id !== stripe_id;
             })
         )
     }
 
+    function getProductData(stripe_id) {
+        let productData = cartProducts.find(product => product.stripe_id === stripe_id)
+    
+        if (productData == undefined) {
+            console.log(`Product data does not exist for ID: ${stripe_id}`);
+            return undefined;
+        } else {
+            console.log(productData);
+            return productData;
+        }
+    }
+
     function getTotalCost() {
         let totalCost = 0;
-        cartProducts.map((cartItem) => {
-            const productData = getProductData(cartItem.id);
-            totalCost += (productData.price * cartItem.quantity)
+        cartProducts.map((product) => {
+            const productData = getProductData(product.stripe_id);
+            totalCost += (productData.price * product.quantity)
         })
         return totalCost;
     }
@@ -91,6 +104,7 @@ export function CartProvider({children}) {
         addOneToCart,
         removeOneFromCart,
         deleteFromCart,
+        getProductData,
         getTotalCost
     }
 
@@ -100,6 +114,5 @@ export function CartProvider({children}) {
         </CartContext.Provider>
     )
 }
-
 // Context (cart, addToCart, removeCart))
 // Provider => Gives React app access to all the things in context

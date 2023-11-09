@@ -67,6 +67,7 @@ const NavBar = ({ token, setToken }) => {
           </ListItem>
         </Link>
       ))}
+      { token && { name: "Dashboard", link: "/dashboard", icon: <PersonIcon />}}
     </div>
   );
   return (
@@ -103,7 +104,7 @@ const NavBar = ({ token, setToken }) => {
           
           <Button onClick={handleShow}>Cart ({productsCount} Items)</Button>
         
-            {/* <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Shopping Cart</Modal.Title>
                 </Modal.Header>
@@ -112,21 +113,21 @@ const NavBar = ({ token, setToken }) => {
                         <>
                             <p>Items in your cart:</p> 
                             {cart.items.map((currentProduct, idx) => (
-                                <CartProduct key={idx} id={currentProduct.id} quantity={currentProduct.quantity} />
+                                <CartProduct key={idx} stripe_id={currentProduct.stripe_id} quantity={currentProduct.quantity} price={currentProduct.price} />
                             ))}
 
                             <h1>Total: ${cart.getTotalCost().toFixed(2)}</h1>
 
-                            <Button variant="success" onClick={checkout}>
+                            {/* <Button variant="success" onClick={checkout}>
                                 Purchase Items!
-                            </Button>
+                            </Button> */}
                         </>
                     :
                         <h1>No items in cart. 😔</h1>
                     }
                         
                 </Modal.Body>
-            </Modal> */}
+            </Modal>
 
       {/* <Link to="/games">Games</Link>
       <Link to="/hardware">Hardware</Link>
