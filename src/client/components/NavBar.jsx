@@ -18,6 +18,7 @@ import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import DevicesIcon from '@mui/icons-material/Devices';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
 import PersonIcon from '@mui/icons-material/Person';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
 
 
@@ -26,7 +27,7 @@ import PersonIcon from '@mui/icons-material/Person';
 //render dashboard/logout if user is logged in
   const data = [
     { name: "Home", link: "/", icon: <HomeIcon />},
-    { name: "Store", link: "/store", icon: <DevicesIcon />},
+    { name: "Store", link: "/store", icon: <ShoppingBagIcon />},
     { name: "Games", link: "/store#games", icon: <SportsEsportsIcon />},
     { name: "Hardware", link: "/store#hardware", icon: <DevicesIcon />},
     { name: "Merch", link: "/store#merch", icon: <CheckroomIcon />},
