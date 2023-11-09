@@ -1,6 +1,7 @@
 const db = require("./client");
 
 const createMerch = async ({
+  stripe_id,
   productName,
   type,
   delivery,
@@ -17,10 +18,11 @@ const createMerch = async ({
       rows: [merch],
     } = await db.query(
       `
-        INSERT INTO merch(productName, type, delivery, price, stock, condition, description, manufacturer, productImage, featured)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        INSERT INTO merch(stripe_id, productName, type, delivery, price, stock, condition, description, manufacturer, productImage, featured)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
         RETURNING *`,
       [
+        stripe_id,
         productName,
         type,
         delivery,

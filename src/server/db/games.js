@@ -33,6 +33,7 @@ async function getGameById(id) {
 
 //post a new game
 const createGame = async ({
+  stripe_id,
   productName,
   genre,
   delivery,
@@ -51,10 +52,11 @@ const createGame = async ({
       rows: [game],
     } = await db.query(
       `
-        INSERT INTO games(productName, genre, delivery, price, stock, condition, description, publisher, productImage, playerRange, esrb, featured)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+        INSERT INTO games(stripe_id, productName, genre, delivery, price, stock, condition, description, publisher, productImage, playerRange, esrb, featured)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
         RETURNING *`,
       [
+        stripe_id,
         productName,
         genre,
         delivery,

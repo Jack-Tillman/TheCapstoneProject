@@ -7,8 +7,8 @@ import { useContext } from "react";
 export function ProductCard(props) {
   const product = props.product;
   const cart = useContext(CartContext);
-  const productQuantity = cart.getProductQuantity(product.productname);
-  // console.log(product);
+  const productQuantity = cart.getProductQuantity(product.stripe_id);
+  
 
   return (    
     <Box 
@@ -41,14 +41,14 @@ export function ProductCard(props) {
                 <Button sm="6" onClick={() => cart.addOneToCart(product.id)}>+</Button>
               </Col> */}
               <ButtonGroup size="small" variant="outlined" aria-label="add/remove item from cart">
-                <Button onClick={() => cart.removeOneFromCart(product.productname)}>-</Button>
-                <Button onClick={() => cart.addOneToCart(product.productname)}>+</Button>
-              </ButtonGroup>
+                <Button onClick={() => cart.removeOneFromCart(product.stripe_id)}>-</Button>
+                <Button onClick={() => cart.addOneToCart(product.stripe_id)}>+</Button>
+              </ButtonGroup>  
             </Form>
-            <Button sx={{marginTop: 1,}} variant="outlined" onClick={() => cart.deleteFromCart(product.productname)}>Remove all from Cart</Button>
+            <Button sx={{marginTop: 1,}} variant="outlined" onClick={() => cart.deleteFromCart(product.stripe_id)}>Remove all from Cart</Button>
           </>    
           :
-          <Button variant="contained" onClick={() => cart.addOneToCart(product.productname)}>Add To Cart</Button>
+          <Button variant="contained" onClick={() => cart.addOneToCart(product.stripe_id, product.price)}>Add To Cart</Button>
         }
       </Card.Body>
     </Card>
