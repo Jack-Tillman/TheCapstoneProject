@@ -29,8 +29,7 @@ import PersonIcon from '@mui/icons-material/Person';
     { name: "Store", link: "/store", icon: <DevicesIcon />},
     // { name: "Games", link: "/games", icon: <SportsEsportsIcon />},
     // { name: "Hardware", link: "/hardware", icon: <DevicesIcon />},
-    // { name: "Merch", link: "/merch", icon: <CheckroomIcon />},
-    { name: "Dashboard", link: "/dashboard", icon: <PersonIcon />},
+    // { name: "Merch", link: "/merch", icon: <CheckroomIcon />},    
   ];
 
 const NavBar = ({ token, setToken }) => {
@@ -66,6 +65,7 @@ const NavBar = ({ token, setToken }) => {
           </ListItem>
         </Link>
       ))}
+      { token && { name: "Dashboard", link: "/dashboard", icon: <PersonIcon />}}
     </div>
   );
   return (

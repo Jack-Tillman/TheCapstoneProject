@@ -148,7 +148,7 @@ const seedMerch = () => {
   const randomFeature = Math.floor(Math.random() * featuredArray.length);
   // create 10 merchandise items
     const merchandise1 = {
-      id: 1,
+      stripe_id: "price_1OAZogHfk6TyDeClPok77okA",
       productName: "Assassin's Creed Hoodie",
       type: "Apparel",
       delivery: deliveryArray[randomDelivery],
@@ -163,7 +163,7 @@ const seedMerch = () => {
     };
 
     const merchandise2 = {
-      id: 2,
+      stripe_id: "price_1OAZp1Hfk6TyDeCl1tG6G3K2",
       productName: "Legend of Zelda Backpack",
       type: "Accessories",
       delivery: deliveryArray[randomDelivery],
@@ -178,7 +178,7 @@ const seedMerch = () => {
     };
 
     const merchandise3 = {
-      id: 3,
+      stripe_id: "price_1OAZpWHfk6TyDeCl8LVT87vY",
       productName: "Overwatch Mousepad",
       type: "Peripherals",
       delivery: deliveryArray[randomDelivery],
@@ -193,7 +193,7 @@ const seedMerch = () => {
     };
 
     const merchandise4 = {
-      id: 4,
+      stripe_id: "price_1OAZpsHfk6TyDeClXpy2T1Cr",
       productName: "Minecraft Creeper Plushie",
       type: "Toys",
       delivery: deliveryArray[randomDelivery],
@@ -207,7 +207,7 @@ const seedMerch = () => {
     };
 
     const merchandise5 = {
-      id: 5,
+      stripe_id: "price_1OAZqHHfk6TyDeCl1EVBRK40",
       productName: "Fortnite Water Bottle",
       type: "Collectibles",
       delivery: deliveryArray[randomDelivery],
@@ -237,7 +237,7 @@ const seedHardware = () => {
   const randomFeature = Math.floor(Math.random() * featuredArray.length);
   // create 10 hardware items
     const hardware1 = {
-      id: 1,
+      stripe_id: "price_1OAZs2Hfk6TyDeClWaFi3x14",
       productName: "Razer DeathAdder Elite",
       type: "Mouse",
       manufacturer: "Razer",
@@ -251,7 +251,7 @@ const seedHardware = () => {
       featured: false,
     };
     const hardware2 = {
-      id: 2,
+      stripe_id: "price_1OAZsOHfk6TyDeClpgzRFBC6",
       productName: "Corsair K95 RGB Platinum XT",
       type: "Keyboard",
       manufacturer: "Corsair",
@@ -265,7 +265,7 @@ const seedHardware = () => {
       featured: true,
     };
     const hardware3 = {
-      id: 3,
+      stripe_id: "price_1OAZskHfk6TyDeClXhfC99wL",
       productName: "HyperX Cloud II",
       type: "Headset",
       manufacturer: "HyperX",
@@ -279,7 +279,7 @@ const seedHardware = () => {
       featured: false,
     };
     const hardware4 = {
-      id: 4,
+      stripe_id: "price_1OAZt4Hfk6TyDeCluMDXLznj",
       productName: "NVIDIA GeForce RTX 3080",
       type: "Graphics Card",
       manufacturer: "NVIDIA",
@@ -293,7 +293,7 @@ const seedHardware = () => {
       featured: false,
     };
     const hardware5 = {
-      id: 5,
+      stripe_id: "price_1OAZtKHfk6TyDeClbRZp5bKt",
       productName: "Dell Alienware AW3420DW",
       type: "Monitor",
       manufacturer: "Dell",
@@ -329,7 +329,7 @@ const seedGames = () => {
     const randomFeature = Math.floor(Math.random() * featuredArray.length);
 
     const videoGame1 = {
-      // id:
+      stripe_id: "price_1OAZliHfk6TyDeCl3kcd9qG9",
       productName: "The Legend of Zelda: Breath of the Wild",
       genre: "Action-Adventure",
       delivery: deliveryArray[randomDelivery],
@@ -345,7 +345,7 @@ const seedGames = () => {
       featured: false,
     };
     const videoGame2 = {
-      // id:
+      stripe_id: "price_1OAZmkHfk6TyDeCliOZf7gyW",
       productName: "Fortnite",
       genre: "Battle Royale",
       delivery: "Digital Download",
@@ -361,7 +361,7 @@ const seedGames = () => {
       featured: false,
     };
     const videoGame3 = {
-      // id:
+      stripe_id: "price_1OAZnDHfk6TyDeClPzFwXPUV",
       productName: "FIFA 23",
       genre: "Sports",
       delivery: "Physical Disc",
@@ -376,7 +376,7 @@ const seedGames = () => {
       featured: false,
     };
     const videoGame4 = {
-      // id:
+      stripe_id: "price_1OAZndHfk6TyDeClJ9PCdRcF",
       productName: "Call of Duty: Modern Warfare",
       genre: "First-Person Shooter",
       delivery: "Digital Download",
@@ -392,7 +392,7 @@ const seedGames = () => {
       featured: false,
     };
     const videoGame5 = {
-      // id:
+      stripe_id: "price_1OAZnwHfk6TyDeClTydWaZUe",
       productName: "The Elder Scrolls V: Skyrim",
       genre: "Role-Playing Game",
       delivery: "Physical Copy",
@@ -449,7 +449,8 @@ const createTables = async () => {
         );
 
         CREATE TABLE merch(
-          id INT PRIMARY KEY,
+          id SERIAL PRIMARY KEY,
+          stripe_id VARCHAR(255) NOT NULL,
           productName VARCHAR(255) NOT NULL,
           type VARCHAR(255) NOT NULL,
           delivery VARCHAR(255) NOT NULL,
@@ -463,7 +464,8 @@ const createTables = async () => {
         );
 
         CREATE TABLE hardware(
-          id INT PRIMARY KEY,
+          id SERIAL PRIMARY KEY,
+          stripe_id VARCHAR(255) NOT NULL,
           productName VARCHAR(255) NOT NULL,
           type VARCHAR(255) NOT NULL,
           manufacturer VARCHAR(255) NOT NULL,
@@ -477,7 +479,8 @@ const createTables = async () => {
         );
   
         CREATE TABLE games(
-          id INT PRIMARY KEY,
+          id SERIAL PRIMARY KEY,
+          stripe_id VARCHAR(255) NOT NULL,
           productName VARCHAR(255) NOT NULL,
           genre VARCHAR(255) NOT NULL, 
           delivery VARCHAR(255) NOT NULL,
@@ -543,6 +546,7 @@ const insertMerch = async () => {
     console.log(merchData);
     for (const merch of merchData) {
       await createMerch({
+        stripe_id: merch.stripe_id,
         productName: merch.productName,
         type: merch.type,
         delivery: merch.delivery,
@@ -566,6 +570,7 @@ const insertHardware = async () => {
     console.log(hardwareData);
     for (const hardware of hardwareData) {
       await createHardware({
+        stripe_id: hardware.stripe_id,
         productName: hardware.productName,
         type: hardware.type,
         manufacturer: hardware.manufacturer,
@@ -589,6 +594,7 @@ const insertGame = async () => {
     console.log(gamesData);
     for (const game of gamesData) {
       await createGame({
+        stripe_id: game.stripe_id,
         productName: game.productName,
         genre: game.genre,
         delivery: game.delivery,
