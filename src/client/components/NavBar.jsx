@@ -20,6 +20,7 @@ import CheckroomIcon from '@mui/icons-material/Checkroom';
 import PersonIcon from '@mui/icons-material/Person';
 
 
+
 //conditional render login/register if user is logged out
 //don't render login/register is user is logged out
 //render dashboard/logout if user is logged in
@@ -97,6 +98,34 @@ const NavBar = ({ token, setToken }) => {
           </FormControl>
 
 
+          
+          <Button onClick={handleShow}>Cart ({productsCount} Items)</Button>
+        
+            {/* <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Shopping Cart</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {productsCount > 0 ?
+                        <>
+                            <p>Items in your cart:</p> 
+                            {cart.items.map((currentProduct, idx) => (
+                                <CartProduct key={idx} id={currentProduct.id} quantity={currentProduct.quantity} />
+                            ))}
+
+                            <h1>Total: ${cart.getTotalCost().toFixed(2)}</h1>
+
+                            <Button variant="success" onClick={checkout}>
+                                Purchase Items!
+                            </Button>
+                        </>
+                    :
+                        <h1>No items in cart. 😔</h1>
+                    }
+                        
+                </Modal.Body>
+            </Modal> */}
+
       {/* <Link to="/games">Games</Link>
       <Link to="/hardware">Hardware</Link>
       <Link to="/merch">Merchandise</Link> */}
@@ -124,35 +153,7 @@ const NavBar = ({ token, setToken }) => {
               setToken(null);
             }}
           >
-            {/* <Navbar expand="sm">
-        <Navbar.Collapse className="justify-content-end">
-          <Button onClick={handleShow}>Cart ({productsCount} Items)</Button>
-        </Navbar.Collapse>
-      </Navbar>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Shopping Cart</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {productsCount > 0 ?
-                        <>
-                            <p>Items in your cart:</p> 
-                            {cart.items.map((currentProduct, idx) => (
-                                <CartProduct key={idx} id={currentProduct.id} quantity={currentProduct.quantity} />
-                            ))}
-
-                            <h1>Total: ${cart.getTotalCost().toFixed(2)}</h1>
-
-                            <Button variant="success" onClick={checkout}>
-                                Purchase Items!
-                            </Button>
-                        </>
-                    :
-                        <h1>No items in cart. 😔</h1>
-                    }
-                        
-                </Modal.Body>
-            </Modal> */}
+            
 
 
             <IconButton aria-label="Log out" color="primary">
