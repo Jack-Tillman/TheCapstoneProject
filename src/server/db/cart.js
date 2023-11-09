@@ -18,13 +18,11 @@ const getAllCarts = async () => {
     throw err;
   }
 };
-//below only returns 1 cart even if there is more than 1 cart in the DB 
+//below only returns 1 cart even if there is more than 1 cart in the DB
 const getCartById = async (id) => {
   try {
     console.log("id passed to getCartById is:" + id);
-    const {
-      rows: cart,
-    } = await db.query(
+    const { rows: cart } = await db.query(
       `
         SELECT * FROM shopping_cart
         WHERE user_id = $1;
@@ -40,17 +38,16 @@ const getCartById = async (id) => {
 const getCartContentsById = async (id) => {
   try {
     console.log(id);
-      const {
-        rows: contents,
-      } = await db.query(
-        `
+    const { rows: contents } = await db.query(
+      `
           SELECT *
           FROM shopping_cart_item 
-          WHERE cart_id=$1;`,[id]
-      );
-      console.log(`contents are: `);
-      console.log(contents);
-      return contents;
+          WHERE cart_id=$1;`,
+      [id]
+    );
+    console.log(`contents are: `);
+    console.log(contents);
+    return contents;
   } catch (error) {
     throw error;
   }
@@ -94,32 +91,48 @@ I *think* that there is a way to add 0s to PSQL databases without the aforementi
 ideally be a short-term fix.
 */
 
-const createCartItem = async ({
-  cart_id,
-  games_item_id,
-  merch_item_id,
-  hardware_item_id,
-  quantity,
-}) => {
+const createCartGame = async ({ cart_id, games_item_id, quantity }) => {
   try {
-    if (!games_item_id) {
-      games_item_id = null;
-    }
-    if (!merch_item_id) {
-      merch_item_id = null;
-    }
-    if (!hardware_item_id) {
-      hardware_item_id = null;
-    }
-
-    const {
-      rows: item,
-    } = await db.query(
+    const { rows: item } = await db.query(
       `
-        INSERT INTO shopping_cart_item(cart_id, games_item_id, merch_item_id, hardware_item_id, quantity)
-        VALUES($1, $2, $3, $4, $5)
+        INSERT INTO shopping_cart_games(cart_id, games_item_id, quantity)
+        VALUES($1, $2, $3)
         RETURNING *;`,
-      [cart_id, games_item_id, merch_item_id, hardware_item_id, quantity]
+      [cart_id, games_item_id, quantity]
+    );
+    console.log(item);
+    return item;
+  } catch (err) {
+    console.error("Error creating cart game data for cart items");
+    throw err;
+  }
+};
+
+const createCartMerch = async ({ cart_id, merch_item_id, quantity }) => {
+  try {
+    const { rows: item } = await db.query(
+      `
+        INSERT INTO shopping_cart_merch(cart_id, merch_item_id, quantity)
+        VALUES($1, $2, $3)
+        RETURNING *;`,
+      [cart_id, merch_item_id, quantity]
+    );
+    console.log(item);
+    return item;
+  } catch (err) {
+    console.error("Error creating cart item data for cart items");
+    throw err;
+  }
+};
+
+const createCartHardware = async ({ cart_id, hardware_item_id, quantity }) => {
+  try {
+    const { rows: item } = await db.query(
+      `
+        INSERT INTO shopping_cart_hardware(cart_id, hardware_item_id, quantity)
+        VALUES($1, $2, $3)
+        RETURNING *;`,
+      [cart_id, hardware_item_id, quantity]
     );
     console.log(item);
     return item;
@@ -165,7 +178,7 @@ async function updateCartContents(cartId, fields = {}) {
   } catch (error) {
     throw error;
   }
-};
+}
 
 async function deleteCartContents(cartId) {
   try {
@@ -189,9 +202,11 @@ module.exports = {
   createCart,
   getAllCarts,
   getCartById,
-  createCartItem,
+  createCartGame,
+  createCartMerch,
+  createCartHardware,
   getAllCartItems,
   getCartContentsById,
   updateCartContents,
-  deleteCartContents
+  deleteCartContents,
 };

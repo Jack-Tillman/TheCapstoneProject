@@ -4,13 +4,20 @@ const { faker } = require("@faker-js/faker");
 const { createHardware } = require("./hardware");
 const { createMerch } = require("./merch");
 const { createGame } = require("./games");
-const { createCart, createCartItem } = require("./cart");
+const {
+  createCart,
+  createCartGame,
+  createCartMerch,
+  createCartHardware,
+} = require("./cart");
 const usersData = [];
 const gamesData = [];
 const merchData = [];
 const hardwareData = [];
 const cartData = [];
-const cartItemData = [];
+const cartItemGames = [];
+const cartItemMerch = [];
+const cartItemHardware = [];
 
 const seedUsers = () => {
   const testAdmin = {
@@ -86,57 +93,66 @@ const seedCarts = () => {
 };
 
 const seedCartItems = () => {
+  //fake games in cart
   const fakeCartItem1 = {
     cart_id: 1,
-    games_item_id: 0,
-    merch_item_id: 3,
-    hardware_item_id: 0,
+    games_item_id: 1,
     quantity: 2,
   };
-
   const fakeCartItem2 = {
     cart_id: 2,
     games_item_id: 2,
-    merch_item_id: 0,
-    hardware_item_id: 0,
+    quantity: 1,
+  };
+  const fakeCartItem3 = {
+    cart_id: 3,
+    games_item_id: 3,
+    quantity: 4,
+  };
+  cartItemGames.push(fakeCartItem1);
+  cartItemGames.push(fakeCartItem2);
+  cartItemGames.push(fakeCartItem3);
+  //fake merch in cart
+  const fakeCartItem4 = {
+    cart_id: 1,
+    merch_item_id: 1,
+    quantity: 2,
+  };
+  const fakeCartItem5 = {
+    cart_id: 2,
+    merch_item_id: 2,
     quantity: 3,
   };
 
-  const fakeCartItem3 = {
-    cart_id: 2,
-    games_item_id: 0,
-    merch_item_id: 0,
-    hardware_item_id: 1,
-    quantity: 4,
-  };
-
-  const fakeCartItem4 = {
-    cart_id: 3,
-    games_item_id: 0,
-    merch_item_id: 1,
-    hardware_item_id: 0,
-    quantity: 1,
-  };
-  const fakeCartItem5 = {
-    cart_id: 3,
-    games_item_id: 3,
-    merch_item_id: 0,
-    hardware_item_id: 0,
-    quantity: 1,
-  };
   const fakeCartItem6 = {
     cart_id: 3,
-    games_item_id: 0,
-    merch_item_id: 0,
+    merch_item_id: 3,
+    quantity: 1,
+  };
+
+  cartItemMerch.push(fakeCartItem4);
+  cartItemMerch.push(fakeCartItem5);
+  cartItemMerch.push(fakeCartItem6);
+
+  const fakeCartItem7 = {
+    cart_id: 1,
     hardware_item_id: 1,
     quantity: 1,
   };
-  cartItemData.push(fakeCartItem1);
-  cartItemData.push(fakeCartItem2);
-  cartItemData.push(fakeCartItem3);
-  cartItemData.push(fakeCartItem4);
-  cartItemData.push(fakeCartItem5);
-  cartItemData.push(fakeCartItem6);
+  const fakeCartItem8 = {
+    cart_id: 2,
+    hardware_item_id: 2,
+    quantity: 2,
+  };
+  const fakeCartItem9 = {
+    cart_id: 3,
+    hardware_item_id: 3,
+    quantity: 3,
+  };
+
+  cartItemHardware.push(fakeCartItem7);
+  cartItemHardware.push(fakeCartItem8);
+  cartItemHardware.push(fakeCartItem9);
 };
 
 const seedMerch = () => {
@@ -422,7 +438,9 @@ const dropTables = async () => {
         DROP TABLE IF EXISTS hardware CASCADE;
         DROP TABLE IF EXISTS games CASCADE;
         DROP TABLE IF EXISTS shopping_cart CASCADE;
-        DROP TABLE IF EXISTS shopping_cart_item CASCADE;
+        DROP TABLE IF EXISTS shopping_cart_games CASCADE;
+        DROP TABLE IF EXISTS shopping_cart_merch CASCADE;
+        DROP TABLE IF EXISTS shopping_cart_hardware CASCADE;
         `);
   } catch (err) {
     throw err;
@@ -497,22 +515,38 @@ const createTables = async () => {
         CONSTRAINT fk_shopcart_user FOREIGN KEY (user_id) REFERENCES users (id)
       );
 
-      CREATE TABLE shopping_cart_item(
+      CREATE TABLE shopping_cart_games(
         id SERIAL PRIMARY KEY,
         cart_id INT NOT NULL,
         games_item_id INT,
-        merch_item_id INT,
-        hardware_item_id INT,
         quantity INT,
         CONSTRAINT fk_shopcartitem_shopcart FOREIGN KEY (cart_id) REFERENCES
         shopping_cart (id),
         CONSTRAINT fk_shopcartitem_gamesitemid FOREIGN KEY (games_item_id) REFERENCES 
-        games (id),
-        CONSTRAINT fk_shopcartitem_merchitemid FOREIGN KEY (merch_item_id) REFERENCES 
-        merch (id),
-        CONSTRAINT fk_shopcartitem_hardwareitemid FOREIGN KEY (hardware_item_id) REFERENCES 
-        hardware (id)
-      );
+        games (id)
+        );
+
+      CREATE TABLE shopping_cart_merch(
+          id SERIAL PRIMARY KEY,
+          cart_id INT NOT NULL,
+          merch_item_id INT,
+          quantity INT,
+          CONSTRAINT fk_shopcartitem_shopcart FOREIGN KEY (cart_id) REFERENCES
+          shopping_cart (id),
+          CONSTRAINT fk_shopcartitem_merchitemid FOREIGN KEY (merch_item_id) REFERENCES 
+          merch (id)
+          );
+
+      CREATE TABLE shopping_cart_hardware(
+            id SERIAL PRIMARY KEY,
+            cart_id INT NOT NULL,
+            hardware_item_id INT,
+            quantity INT,
+            CONSTRAINT fk_shopcartitem_shopcart FOREIGN KEY (cart_id) REFERENCES
+            shopping_cart (id),
+            CONSTRAINT fk_shopcartitem_hardwareitemid FOREIGN KEY (hardware_item_id) REFERENCES 
+            hardware (id)
+            );
         `);
   } catch (err) {
     throw err;
@@ -621,21 +655,54 @@ const insertCart = async () => {
   }
 };
 
-const insertCartItem = async () => {
+const insertCartGames = async () => {
   try {
-    console.log(cartItemData);
-    for (const item of cartItemData) {
-      await createCartItem({
+    console.log(cartItemGames);
+    for (const item of cartItemGames) {
+      console.log(item);
+      await createCartGame({
         cart_id: item.cart_id,
         games_item_id: item.games_item_id,
+        quantity: item.quantity,
+      });
+    }
+    console.log("Seed data for shopping_cart_games inserted successfully");
+  } catch (error) {
+    console.error("Error inserting cart game seed data for cart items");
+  }
+};
+
+const insertCartMerch = async () => {
+  try {
+    console.log(cartItemMerch);
+    for (const item of cartItemMerch) {
+      console.log(item);
+      await createCartMerch({
+        cart_id: item.cart_id,
         merch_item_id: item.merch_item_id,
+        quantity: item.quantity,
+      });
+    }
+    console.log("Seed data for shopping_cart_merch inserted successfully");
+  } catch (error) {
+    console.error("Error inserting cart merch seed data for cart items");
+  }
+};
+
+const insertCartHardware = async () => {
+  try {
+    console.log(cartItemHardware);
+    for (const item of cartItemHardware) {
+      console.log(item);
+      await createCartHardware({
+        cart_id: item.cart_id,
         hardware_item_id: item.hardware_item_id,
         quantity: item.quantity,
       });
     }
-    console.log("Seed data for shopping_cart_item inserted successfully");
+    console.log("Seed data for shopping_cart_hardware inserted successfully");
   } catch (error) {
-    console.error("Error inserting cart item seed data for cart items");
+    console.error("Error inserting cart hardware seed data for cart items");
   }
 };
 
@@ -655,7 +722,9 @@ const seedDatabase = async () => {
     await insertHardware();
     await insertGame();
     await insertCart();
-    await insertCartItem();
+    await insertCartGames();
+    await insertCartMerch();
+    await insertCartHardware();
   } catch (err) {
     throw err;
   } finally {
