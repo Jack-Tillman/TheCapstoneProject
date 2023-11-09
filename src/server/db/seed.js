@@ -43,7 +43,7 @@ const seedUsers = () => {
 const seedCarts = () => {
   for (let i = 0; i < 1; i++) {
     const fakeCart1 = {
-      user_id: 2,
+      user_id: 1,
       total: 34,
     };
     const fakeCart2 = {
@@ -51,17 +51,37 @@ const seedCarts = () => {
       total: 4,
     };
     const fakeCart3 = {
-      user_id: 2,
+      user_id: 3,
       total: 12,
     };
     const fakeCart4 = {
-      user_id: 3,
+      user_id: 4,
       total: 8,
+    };
+    const fakeCart5 = {
+      user_id: 5,
+      total: 60,
+    };
+    const fakeCart6 = {
+      user_id: 6,
+      total: 80,
+    };
+    const fakeCart7 = {
+      user_id: 7,
+      total: 120,
+    };
+    const fakeCart8 = {
+      user_id: 7,
+      total: 23,
     };
     cartData.push(fakeCart1);
     cartData.push(fakeCart2);
     cartData.push(fakeCart3);
     cartData.push(fakeCart4);
+    cartData.push(fakeCart5);
+    cartData.push(fakeCart6);
+    cartData.push(fakeCart7);
+    cartData.push(fakeCart8);
   }
 };
 
@@ -126,21 +146,86 @@ const seedMerch = () => {
   const randomDelivery = Math.floor(Math.random() * deliveryArray.length);
   const featuredArray = [true, false];
   const randomFeature = Math.floor(Math.random() * featuredArray.length);
-  // create 25 merchandise items
-  for (let i = 0; i < 10; i++) {
-    let fakeMerch = {
-      productName: faker.commerce.productName(),
-      type: faker.commerce.product(),
+  // create 10 merchandise items
+  for (let i = 0; i < 2; i++) {
+    const merchandise1 = {
+      id: 1,
+      productName: "Assassin's Creed Hoodie",
+      type: "Apparel",
       delivery: deliveryArray[randomDelivery],
-      price: faker.commerce.price(),
-      stock: Math.floor(Math.random() * 100.0),
-      condition: conditionArray[randomCondition],
-      description: faker.commerce.productDescription(),
-      manufacturer: faker.word.words(),
-      productImage: faker.image.url(),
-      featured: randomFeature
+      price: 39.99,
+      stock: 100,
+      condition: "New",
+      description:
+        "Stay stylish and comfortable with this Assassin's Creed-themed hoodie.",
+      manufacturer: "Ubisoft Merchandise",
+      productImage: "assassins_creed_hoodie.jpg",
+      featured: true,
     };
-    merchData.push(fakeMerch);
+
+    const merchandise2 = {
+      id: 2,
+      productName: "Legend of Zelda Backpack",
+      type: "Accessories",
+      delivery: deliveryArray[randomDelivery],
+      price: 49.99,
+      stock: 75,
+      condition: "New",
+      description:
+        "Carry your gear with pride in this Legend of Zelda-themed backpack.",
+      manufacturer: "Nintendo Gear",
+      productImage: "zelda_backpack.jpg",
+      featured: false,
+    };
+
+    const merchandise3 = {
+      id: 3,
+      productName: "Overwatch Mousepad",
+      type: "Peripherals",
+      delivery: deliveryArray[randomDelivery],
+      price: 14.99,
+      stock: 120,
+      condition: "New",
+      description:
+        "Enhance your gaming setup with this Overwatch-themed mousepad.",
+      manufacturer: "Blizzard Gear",
+      productImage: "overwatch_mousepad.jpg",
+      featured: false,
+    };
+
+    const merchandise4 = {
+      id: 4,
+      productName: "Minecraft Creeper Plushie",
+      type: "Toys",
+      delivery: deliveryArray[randomDelivery],
+      price: 19.99,
+      stock: 50,
+      condition: "New",
+      description: "Cuddle up with this adorable Minecraft Creeper plushie.",
+      manufacturer: "Mojang Merch",
+      productImage: "minecraft_plushie.jpg",
+      featured: true,
+    };
+
+    const merchandise5 = {
+      id: 5,
+      productName: "Fortnite Water Bottle",
+      type: "Collectibles",
+      delivery: deliveryArray[randomDelivery],
+      price: 9.99,
+      stock: 90,
+      condition: "New",
+      description:
+        "Stay hydrated on your gaming adventures with this Fortnite-themed water bottle.",
+      manufacturer: "Epic Games Store",
+      productImage: "fortnite_water_bottle.jpg",
+      featured: false,
+    };
+    merchData.push(merchandise1);
+    merchData.push(merchandise2);
+    merchData.push(merchandise3);
+    merchData.push(merchandise4);
+    merchData.push(merchandise5);
   }
 };
 
@@ -151,27 +236,89 @@ const seedHardware = () => {
   const randomDelivery = Math.floor(Math.random() * deliveryArray.length);
   const featuredArray = [true, false];
   const randomFeature = Math.floor(Math.random() * featuredArray.length);
-  // create 25 hardware items
-  for (let i = 0; i < 10; i++) {
-    let fakeHardware = {
-      productName: faker.commerce.productName(),
-      type: faker.commerce.product(),
-      manufacturer: faker.word.words(),
-      price: faker.commerce.price(),
-      stock: Math.floor(Math.random() * 100.0),
-      condition: conditionArray[randomCondition],
-      description: faker.commerce.productDescription(),
+  // create 10 hardware items
+  for (let i = 0; i < 2; i++) {
+    const hardware1 = {
+      id: 1,
+      productName: "Razer DeathAdder Elite",
+      type: "Mouse",
+      manufacturer: "Razer",
       delivery: deliveryArray[randomDelivery],
-      productImage: faker.image.url(),
-      featured: randomFeature
+      price: 69.99,
+      stock: 150,
+      condition: "New",
+      description:
+        "High-precision gaming mouse with customizable RGB lighting.",
+      productImage: "razer_deathadder.jpg",
+      featured: false,
     };
-    hardwareData.push(fakeHardware);
+    const hardware2 = {
+      id: 2,
+      productName: "Corsair K95 RGB Platinum XT",
+      type: "Keyboard",
+      manufacturer: "Corsair",
+      delivery: deliveryArray[randomDelivery],
+      price: 199.99,
+      stock: 100,
+      condition: "New",
+      description:
+        "Mechanical gaming keyboard with Cherry MX switches and RGB lighting.",
+      productImage: "corsair_k95.jpg",
+      featured: true,
+    };
+    const hardware3 = {
+      id: 3,
+      productName: "HyperX Cloud II",
+      type: "Headset",
+      manufacturer: "HyperX",
+      delivery: deliveryArray[randomDelivery],
+      price: 89.99,
+      stock: 120,
+      condition: "New",
+      description:
+        "Over-ear gaming headset with virtual 7.1 surround sound and detachable microphone.",
+      productImage: "hyperx_cloud_ii.jpg",
+      featured: false,
+    };
+    const hardware4 = {
+      id: 4,
+      productName: "NVIDIA GeForce RTX 3080",
+      type: "Graphics Card",
+      manufacturer: "NVIDIA",
+      delivery: deliveryArray[randomDelivery],
+      price: 799.99,
+      stock: 50,
+      condition: "New",
+      description:
+        "Powerful graphics card for high-end gaming and content creation.",
+      productImage: "rtx_3080.jpg",
+      featured: false,
+    };
+    const hardware5 = {
+      id: 5,
+      productName: "Dell Alienware AW3420DW",
+      type: "Monitor",
+      manufacturer: "Dell",
+      delivery: deliveryArray[randomDelivery],
+      price: 999.99,
+      stock: 80,
+      condition: "New",
+      description:
+        "34-inch curved gaming monitor with G-Sync and 120Hz refresh rate.",
+      productImage: "alienware_aw3420dw.jpg",
+      featured: true,
+    };
+    hardwareData.push(hardware1);
+    hardwareData.push(hardware2);
+    hardwareData.push(hardware3);
+    hardwareData.push(hardware4);
+    hardwareData.push(hardware5);
   }
 };
 
 // Add more user objects as needed
 const seedGames = () => {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 2; i++) {
     //these 8 variables are temporary measure to introduce random variety to seeded data
     const esrbArray = ["E", "E10", "T", "M"];
     const randomEsrb = Math.floor(Math.random() * esrbArray.length);
@@ -184,21 +331,85 @@ const seedGames = () => {
     const featuredArray = [true, false];
     const randomFeature = Math.floor(Math.random() * featuredArray.length);
 
-    const fakeGames = {
-      productName: `${faker.commerce.productName()}, the Game`,
-      genre: faker.word.words(),
+    const videoGame1 = {
+      productName: "The Legend of Zelda: Breath of the Wild",
+      genre: "Action-Adventure",
       delivery: deliveryArray[randomDelivery],
-      price: Math.floor(Math.random() * 100.0),
-      stock: Math.floor(Math.random() * 100.0),
-      condition: conditionArray[randomCondition],
-      description: faker.commerce.productDescription(),
-      publisher: faker.word.words(),
-      productImage: faker.image.url(),
-      playerRange: playerRangeArray[randomRange],
-      esrb: esrbArray[randomEsrb],
-      featured: randomFeature
+      price: 59.99,
+      stock: 100,
+      condition: "New",
+      description:
+        "Explore the vast world of Hyrule in this action-packed adventure.",
+      publisher: "Nintendo",
+      productImage: "zelda_image.jpg",
+      playerRange: "Single Player",
+      esrb: "E10+",
+      featured: false,
     };
-    gamesData.push(fakeGames);
+    const videoGame2 = {
+      productName: "Fortnite",
+      genre: "Battle Royale",
+      delivery: "Digital Download",
+      price: 0.0,
+      stock: 500,
+      condition: "New",
+      description:
+        "Join the battle royale and build to outlast your opponents.",
+      publisher: "Epic Games",
+      productImage: "fortnite_image.jpg",
+      playerRange: "Multiplayer",
+      esrb: "T",
+      featured: false,
+    };
+    const videoGame3 = {
+      productName: "FIFA 23",
+      genre: "Sports",
+      delivery: "Physical Disc",
+      price: 49.99,
+      stock: 75,
+      condition: "New",
+      description: "Play the latest edition of the popular FIFA soccer series.",
+      publisher: "Electronic Arts",
+      productImage: "fifa23_image.jpg",
+      playerRange: "Multiplayer",
+      esrb: "E",
+      featured: false,
+    };
+    const videoGame4 = {
+      productName: "Call of Duty: Modern Warfare",
+      genre: "First-Person Shooter",
+      delivery: "Digital Download",
+      price: 59.99,
+      stock: 100,
+      condition: "Used",
+      description:
+        "Experience realistic and intense modern warfare in this action-packed FPS game.",
+      publisher: "Activision",
+      productImage: "cod_modern_warfare.jpg",
+      playerRange: "Singleplayer, Multiplayer",
+      esrb: "M",
+      featured: false,
+    };
+    const videoGame5 = {
+      productName: "The Elder Scrolls V: Skyrim",
+      genre: "Role-Playing Game",
+      delivery: "Physical Copy",
+      price: 39.99,
+      stock: 50,
+      condition: "Used",
+      description:
+        "Embark on an epic open-world adventure in this critically acclaimed RPG.",
+      publisher: "Bethesda Softworks",
+      productImage: "skyrim.jpg",
+      playerRange: "Single Player",
+      esrb: "M",
+      featured: true,
+    };
+    gamesData.push(videoGame1);
+    gamesData.push(videoGame2);
+    gamesData.push(videoGame3);
+    gamesData.push(videoGame4);
+    gamesData.push(videoGame5);
   }
 };
 //Using the CASCADE keyword after a table to be dropped indicates that the table itself
@@ -339,7 +550,7 @@ const insertMerch = async () => {
         description: merch.description,
         manufacturer: merch.manufacturer,
         productImage: merch.productImage,
-        featured: merch.featured
+        featured: merch.featured,
       });
     }
     console.log("Seed data inserted successfully.");
@@ -362,7 +573,7 @@ const insertHardware = async () => {
         description: hardware.description,
         delivery: hardware.delivery,
         productImage: hardware.productImage,
-        featured: hardware.featured
+        featured: hardware.featured,
       });
     }
     console.log("Seed data inserted successfully.");
@@ -387,7 +598,7 @@ const insertGame = async () => {
         productImage: game.productImage,
         playerRange: game.playerRange,
         esrb: game.esrb,
-        featured: game.featured
+        featured: game.featured,
       });
     }
   } catch (error) {
