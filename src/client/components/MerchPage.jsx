@@ -1,18 +1,19 @@
-import { fetchItems } from "../../api";
+import { fetchItems } from "../api";
 import { useState, useEffect } from "react";
-import { ProductCard } from "../ProductCard";
+import { ProductCard } from "./ProductCard";
 import { FormControl } from "@mui/material";
 import { TextField } from "@mui/material";
 
-export const HardwarePage = () => {
+export const MerchPage = () => {
     const [products, setProducts] = useState([]);
     const [searchParams, setSearchParams] = useState("");
     const [error, setError] = useState(null);
 
     useEffect(() => {
         async function getProducts() {
-          const response = await fetchItems("hardware");
+          const response = await fetchItems("merch");
           const result = await response.json();          
+          console.log(result);
 
           if (response.status === 200) {
             setProducts(result);
@@ -31,12 +32,10 @@ export const HardwarePage = () => {
     //         )
     //     : products;
 
-    
-
     return (
       <>
-      <h1>Hardware</h1>
-        <div className="searchbar">
+          <h1>Merch</h1>
+          <div className="searchbar">
             <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
               <TextField
                 label="Search products"
