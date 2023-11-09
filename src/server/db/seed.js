@@ -163,7 +163,6 @@ const seedMerch = () => {
   const featuredArray = [true, false];
   const randomFeature = Math.floor(Math.random() * featuredArray.length);
   // create 10 merchandise items
-
   const merchandise1 = {
     stripe_id: "price_1OAZogHfk6TyDeClPok77okA",
     productName: "Assassin's Creed Hoodie",
@@ -322,6 +321,7 @@ const seedHardware = () => {
 
 // Add more user objects as needed
 const seedGames = () => {
+
   //these 8 variables are temporary measure to introduce random variety to seeded data
   const esrbArray = ["E", "E10", "T", "M"];
   const randomEsrb = Math.floor(Math.random() * esrbArray.length);
