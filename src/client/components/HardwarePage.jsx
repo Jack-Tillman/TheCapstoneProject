@@ -31,6 +31,8 @@ export const HardwarePage = () => {
     //         )
     //     : products;
 
+    
+
     return (
       <>
       <h1>Hardware</h1>

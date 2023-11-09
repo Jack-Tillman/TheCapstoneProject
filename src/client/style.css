@@ -4,6 +4,9 @@
   height: 100vh; 
   padding-top: 40px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* temporary theme because my eyes are burning */
+  /* background-color: rgb(26, 26, 26); 
+  color: white; */
 }
 
 .App-header {
