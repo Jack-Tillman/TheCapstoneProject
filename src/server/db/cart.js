@@ -342,7 +342,7 @@ async function deleteCartHardware(cartId, hardware_item_id) {
 //   } else {
 //       return productData;
 //   }
-// }
+// };
 
 module.exports = {
   createCart,
