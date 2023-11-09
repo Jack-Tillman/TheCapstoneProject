@@ -282,12 +282,12 @@ async function deleteCartGames(cart_id, games_item_id) {
       rows: [delContent],
     } = await db.query(
       `
-        DELETE *
+        DELETE
         FROM shopping_cart_games
-        WHERE games_item_id=$1
+        WHERE cart_id=$1
         RETURNING *;
         `,
-      [games_item_id]
+      [cart_id]
     );
     return delContent;
   } catch (error) {
@@ -296,17 +296,17 @@ async function deleteCartGames(cart_id, games_item_id) {
 }
 
 //incomplete not functional yet
-async function deleteCartMerch(cartId, merch_item_id) {
+async function deleteCartMerch(cart_id, merch_item_id) {
   try {
     const {
       rows: [delContent],
     } = await db.query(
       `
-        DELETE * FROM shopping_cart_merch
-        WHERE id=$1
+        DELETE FROM shopping_cart_merch
+        WHERE cart_id=$1
         RETURNING *;
         `,
-      [cartId]
+      [cart_id]
     );
     return delContent;
   } catch (error) {
@@ -321,8 +321,8 @@ async function deleteCartHardware(cartId, hardware_item_id) {
       rows: [delContent],
     } = await db.query(
       `
-        DELETE * FROM shopping_cart_hardware
-        WHERE id=$1
+        DELETE FROM shopping_cart_hardware
+        WHERE cart_id=$1
         RETURNING *;
         `,
       [cartId]
