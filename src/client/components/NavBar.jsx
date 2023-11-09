@@ -27,9 +27,9 @@ import PersonIcon from '@mui/icons-material/Person';
   const data = [
     { name: "Home", link: "/", icon: <HomeIcon />},
     { name: "Store", link: "/store", icon: <DevicesIcon />},
-    // { name: "Games", link: "/games", icon: <SportsEsportsIcon />},
-    // { name: "Hardware", link: "/hardware", icon: <DevicesIcon />},
-    // { name: "Merch", link: "/merch", icon: <CheckroomIcon />},
+    { name: "Games", link: "/store#games", icon: <SportsEsportsIcon />},
+    { name: "Hardware", link: "/store#hardware", icon: <DevicesIcon />},
+    { name: "Merch", link: "/store#merch", icon: <CheckroomIcon />},
     { name: "Dashboard", link: "/dashboard", icon: <PersonIcon />},
   ];
 
