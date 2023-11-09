@@ -12,7 +12,7 @@ export function ProductCard(props) {
 
   return (    
     <Box 
-      height={200}
+      height={250}
       width={250}
       gap={0}
       sx={{
