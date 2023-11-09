@@ -5,6 +5,21 @@ const jwt = require("jsonwebtoken");
 const volleyball = require("volleyball");
 apiRouter.use(volleyball);
 
+//maybe useful for authorization stuff to set headers
+// function makeHeaders(authToken){
+//   if (authToken) {
+//     const loggedInHeader = {
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${authToken}`
+//     }
+//     return loggedInHeader;
+//   } else {
+//     return {
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer`
+//     };
+//   }
+// }
 // TO BE COMPLETED - set `req.user` if possible, using token sent in the request header
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
