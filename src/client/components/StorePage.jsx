@@ -62,16 +62,7 @@ export const StorePage = () => {
 
     return (
       <>
-       <div className="searchbar">
-          <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
-            <TextField
-              label="Search products"
-              onChange={(e) => setSearchParams(e.target.value.toLowerCase())}
-            />
-          </FormControl>
-        </div>
-
-        <h1>Games</h1>
+        <a id="games"><h1 style={{color: "black"}}>Games</h1></a>
        
         
         <div className="productCard">
@@ -84,7 +75,7 @@ export const StorePage = () => {
           ))}
         </div>
       
-      <h1>Hardware</h1>
+      <a id="hardware"><h1 style={{color: "black"}}>Hardware</h1></a>
                 
         <div className="productCard">
             {hardwares.map((hardware, index) => (
@@ -96,7 +87,7 @@ export const StorePage = () => {
           ))}
         </div>
 
-        <h1>Merch</h1>
+        <a id="merch"><h1 style={{color: "black"}}>Merch</h1></a>
                  
         <div className="productCard">
             {merches.map((merch, index) => (
