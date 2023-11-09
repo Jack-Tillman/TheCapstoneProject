@@ -5,7 +5,7 @@ import { useContext } from 'react'
 
 export function CartProduct(props) {
     const cart = useContext(CartContext);
-    const id = props.id;
+    const id = props;
     const quantity = props.quantity;
     const productData = getProductData(id);
 
