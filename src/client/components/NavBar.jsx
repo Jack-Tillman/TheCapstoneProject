@@ -26,9 +26,10 @@ import PersonIcon from '@mui/icons-material/Person';
 //render dashboard/logout if user is logged in
   const data = [
     { name: "Home", link: "/", icon: <HomeIcon />},
-    { name: "Games", link: "/games", icon: <SportsEsportsIcon />},
-    { name: "Hardware", link: "/hardware", icon: <DevicesIcon />},
-    { name: "Merch", link: "/merch", icon: <CheckroomIcon />},
+    { name: "Store", link: "/store", icon: <DevicesIcon />},
+    // { name: "Games", link: "/games", icon: <SportsEsportsIcon />},
+    // { name: "Hardware", link: "/hardware", icon: <DevicesIcon />},
+    // { name: "Merch", link: "/merch", icon: <CheckroomIcon />},
     { name: "Dashboard", link: "/dashboard", icon: <PersonIcon />},
   ];
 
