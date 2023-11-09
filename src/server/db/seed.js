@@ -4,13 +4,20 @@ const { faker } = require("@faker-js/faker");
 const { createHardware } = require("./hardware");
 const { createMerch } = require("./merch");
 const { createGame } = require("./games");
-const { createCart, createCartItem } = require("./cart");
+const {
+  createCart,
+  createCartGame,
+  createCartMerch,
+  createCartHardware,
+} = require("./cart");
 const usersData = [];
 const gamesData = [];
 const merchData = [];
 const hardwareData = [];
 const cartData = [];
-const cartItemData = [];
+const cartItemGames = [];
+const cartItemMerch = [];
+const cartItemHardware = [];
 
 const seedUsers = () => {
   const testAdmin = {
@@ -86,57 +93,66 @@ const seedCarts = () => {
 };
 
 const seedCartItems = () => {
+  //fake games in cart
   const fakeCartItem1 = {
     cart_id: 1,
-    games_item_id: 0,
-    merch_item_id: 3,
-    hardware_item_id: 0,
+    games_item_id: 1,
     quantity: 2,
   };
-
   const fakeCartItem2 = {
     cart_id: 2,
     games_item_id: 2,
-    merch_item_id: 0,
-    hardware_item_id: 0,
+    quantity: 1,
+  };
+  const fakeCartItem3 = {
+    cart_id: 3,
+    games_item_id: 3,
+    quantity: 4,
+  };
+  cartItemGames.push(fakeCartItem1);
+  cartItemGames.push(fakeCartItem2);
+  cartItemGames.push(fakeCartItem3);
+  //fake merch in cart
+  const fakeCartItem4 = {
+    cart_id: 1,
+    merch_item_id: 1,
+    quantity: 2,
+  };
+  const fakeCartItem5 = {
+    cart_id: 2,
+    merch_item_id: 2,
     quantity: 3,
   };
 
-  const fakeCartItem3 = {
-    cart_id: 2,
-    games_item_id: 0,
-    merch_item_id: 0,
-    hardware_item_id: 1,
-    quantity: 4,
-  };
-
-  const fakeCartItem4 = {
-    cart_id: 3,
-    games_item_id: 0,
-    merch_item_id: 1,
-    hardware_item_id: 0,
-    quantity: 1,
-  };
-  const fakeCartItem5 = {
-    cart_id: 3,
-    games_item_id: 3,
-    merch_item_id: 0,
-    hardware_item_id: 0,
-    quantity: 1,
-  };
   const fakeCartItem6 = {
     cart_id: 3,
-    games_item_id: 0,
-    merch_item_id: 0,
+    merch_item_id: 3,
+    quantity: 1,
+  };
+
+  cartItemMerch.push(fakeCartItem4);
+  cartItemMerch.push(fakeCartItem5);
+  cartItemMerch.push(fakeCartItem6);
+
+  const fakeCartItem7 = {
+    cart_id: 1,
     hardware_item_id: 1,
     quantity: 1,
   };
-  cartItemData.push(fakeCartItem1);
-  cartItemData.push(fakeCartItem2);
-  cartItemData.push(fakeCartItem3);
-  cartItemData.push(fakeCartItem4);
-  cartItemData.push(fakeCartItem5);
-  cartItemData.push(fakeCartItem6);
+  const fakeCartItem8 = {
+    cart_id: 2,
+    hardware_item_id: 2,
+    quantity: 2,
+  };
+  const fakeCartItem9 = {
+    cart_id: 3,
+    hardware_item_id: 3,
+    quantity: 3,
+  };
+
+  cartItemHardware.push(fakeCartItem7);
+  cartItemHardware.push(fakeCartItem8);
+  cartItemHardware.push(fakeCartItem9);
 };
 
 const seedMerch = () => {
@@ -147,85 +163,80 @@ const seedMerch = () => {
   const featuredArray = [true, false];
   const randomFeature = Math.floor(Math.random() * featuredArray.length);
   // create 10 merchandise items
-    const merchandise1 = {
-      stripe_id: "price_1OAZogHfk6TyDeClPok77okA",
-      productName: "Assassin's Creed Hoodie",
-      type: "Apparel",
-      delivery: deliveryArray[randomDelivery],
-      price: 39.99,
-      stock: 100,
-      condition: "New",
-      description:
-        "Stay stylish and comfortable with this Assassin's Creed-themed hoodie.",
-      manufacturer: "Ubisoft Merchandise",
-      productImage: "assassins_creed_hoodie.jpg",
-      featured: true,
-    };
+  const merchandise1 = {
+    stripe_id: "price_1OAZogHfk6TyDeClPok77okA",
+    productName: "Assassin's Creed Hoodie",
+    type: "Apparel",
+    delivery: deliveryArray[randomDelivery],
+    price: 39.99,
+    stock: 100,
+    condition: "New",
+    description: "Stay stylish and comfortable with this Assassin's Creed-themed hoodie.",
+    manufacturer: "Ubisoft Merchandise",
+    productImage: "assassins_creed_hoodie.jpg",
+    featured: true,
+  };
 
-    const merchandise2 = {
-      stripe_id: "price_1OAZp1Hfk6TyDeCl1tG6G3K2",
-      productName: "Legend of Zelda Backpack",
-      type: "Accessories",
-      delivery: deliveryArray[randomDelivery],
-      price: 49.99,
-      stock: 75,
-      condition: "New",
-      description:
-        "Carry your gear with pride in this Legend of Zelda-themed backpack.",
-      manufacturer: "Nintendo Gear",
-      productImage: "zelda_backpack.jpg",
-      featured: false,
-    };
+  const merchandise2 = {
+    stripe_id: "price_1OAZp1Hfk6TyDeCl1tG6G3K2",
+    productName: "Legend of Zelda Backpack",
+    type: "Accessories",
+    delivery: deliveryArray[randomDelivery],
+    price: 49.99,
+    stock: 75,
+    condition: "New",
+    description: "Carry your gear with pride in this Legend of Zelda-themed backpack.",
+    manufacturer: "Nintendo Gear",
+    productImage: "zelda_backpack.jpg",
+    featured: false,
+  };
 
-    const merchandise3 = {
-      stripe_id: "price_1OAZpWHfk6TyDeCl8LVT87vY",
-      productName: "Overwatch Mousepad",
-      type: "Peripherals",
-      delivery: deliveryArray[randomDelivery],
-      price: 14.99,
-      stock: 120,
-      condition: "New",
-      description:
-        "Enhance your gaming setup with this Overwatch-themed mousepad.",
-      manufacturer: "Blizzard Gear",
-      productImage: "overwatch_mousepad.jpg",
-      featured: false,
-    };
+  const merchandise3 = {
+    stripe_id: "price_1OAZpWHfk6TyDeCl8LVT87vY",
+    productName: "Overwatch Mousepad",
+    type: "Peripherals",
+    delivery: deliveryArray[randomDelivery],
+    price: 14.99,
+    stock: 120,
+    condition: "New",
+    description: "Enhance your gaming setup with this Overwatch-themed mousepad.",
+    manufacturer: "Blizzard Gear",
+    productImage: "overwatch_mousepad.jpg",
+    featured: false,
+  };
 
-    const merchandise4 = {
-      stripe_id: "price_1OAZpsHfk6TyDeClXpy2T1Cr",
-      productName: "Minecraft Creeper Plushie",
-      type: "Toys",
-      delivery: deliveryArray[randomDelivery],
-      price: 19.99,
-      stock: 50,
-      condition: "New",
-      description: "Cuddle up with this adorable Minecraft Creeper plushie.",
-      manufacturer: "Mojang Merch",
-      productImage: "minecraft_plushie.jpg",
-      featured: true,
-    };
+  const merchandise4 = {
+    stripe_id: "price_1OAZpsHfk6TyDeClXpy2T1Cr",
+    productName: "Minecraft Creeper Plushie",
+    type: "Toys",
+    delivery: deliveryArray[randomDelivery],
+    price: 19.99,
+    stock: 50,
+    condition: "New",
+    description: "Cuddle up with this adorable Minecraft Creeper plushie.",
+    manufacturer: "Mojang Merch",
+    productImage: "minecraft_plushie.jpg",
+    featured: true,
+  };
 
-    const merchandise5 = {
-      stripe_id: "price_1OAZqHHfk6TyDeCl1EVBRK40",
-      productName: "Fortnite Water Bottle",
-      type: "Collectibles",
-      delivery: deliveryArray[randomDelivery],
-      price: 9.99,
-      stock: 90,
-      condition: "New",
-      description:
-        "Stay hydrated on your gaming adventures with this Fortnite-themed water bottle.",
-      manufacturer: "Epic Games Store",
-      productImage: "fortnite_water_bottle.jpg",
-      featured: false,
-    };
-    merchData.push(merchandise1);
-    merchData.push(merchandise2);
-    merchData.push(merchandise3);
-    merchData.push(merchandise4);
-    merchData.push(merchandise5);
-  
+  const merchandise5 = {
+    stripe_id: "price_1OAZqHHfk6TyDeCl1EVBRK40",
+    productName: "Fortnite Water Bottle",
+    type: "Collectibles",
+    delivery: deliveryArray[randomDelivery],
+    price: 9.99,
+    stock: 90,
+    condition: "New",
+    description: "Stay hydrated on your gaming adventures with this Fortnite-themed water bottle.",
+    manufacturer: "Epic Games Store",
+    productImage: "fortnite_water_bottle.jpg",
+    featured: false,
+  };
+  merchData.push(merchandise1);
+  merchData.push(merchandise2);
+  merchData.push(merchandise3);
+  merchData.push(merchandise4);
+  merchData.push(merchandise5);
 };
 
 const seedHardware = () => {
@@ -235,184 +246,174 @@ const seedHardware = () => {
   const randomDelivery = Math.floor(Math.random() * deliveryArray.length);
   const featuredArray = [true, false];
   const randomFeature = Math.floor(Math.random() * featuredArray.length);
-  // create 10 hardware items
-    const hardware1 = {
-      stripe_id: "price_1OAZs2Hfk6TyDeClWaFi3x14",
-      productName: "Razer DeathAdder Elite",
-      type: "Mouse",
-      manufacturer: "Razer",
-      delivery: deliveryArray[randomDelivery],
-      price: 69.99,
-      stock: 150,
-      condition: "New",
-      description:
-        "High-precision gaming mouse with customizable RGB lighting.",
-      productImage: "razer_deathadder.jpg",
-      featured: false,
-    };
-    const hardware2 = {
-      stripe_id: "price_1OAZsOHfk6TyDeClpgzRFBC6",
-      productName: "Corsair K95 RGB Platinum XT",
-      type: "Keyboard",
-      manufacturer: "Corsair",
-      delivery: deliveryArray[randomDelivery],
-      price: 199.99,
-      stock: 100,
-      condition: "New",
-      description:
-        "Mechanical gaming keyboard with Cherry MX switches and RGB lighting.",
-      productImage: "corsair_k95.jpg",
-      featured: true,
-    };
-    const hardware3 = {
-      stripe_id: "price_1OAZskHfk6TyDeClXhfC99wL",
-      productName: "HyperX Cloud II",
-      type: "Headset",
-      manufacturer: "HyperX",
-      delivery: deliveryArray[randomDelivery],
-      price: 89.99,
-      stock: 120,
-      condition: "New",
-      description:
-        "Over-ear gaming headset with virtual 7.1 surround sound and detachable microphone.",
-      productImage: "hyperx_cloud_ii.jpg",
-      featured: false,
-    };
-    const hardware4 = {
-      stripe_id: "price_1OAZt4Hfk6TyDeCluMDXLznj",
-      productName: "NVIDIA GeForce RTX 3080",
-      type: "Graphics Card",
-      manufacturer: "NVIDIA",
-      delivery: deliveryArray[randomDelivery],
-      price: 799.99,
-      stock: 50,
-      condition: "New",
-      description:
-        "Powerful graphics card for high-end gaming and content creation.",
-      productImage: "rtx_3080.jpg",
-      featured: false,
-    };
-    const hardware5 = {
-      stripe_id: "price_1OAZtKHfk6TyDeClbRZp5bKt",
-      productName: "Dell Alienware AW3420DW",
-      type: "Monitor",
-      manufacturer: "Dell",
-      delivery: deliveryArray[randomDelivery],
-      price: 999.99,
-      stock: 80,
-      condition: "New",
-      description:
-        "34-inch curved gaming monitor with G-Sync and 120Hz refresh rate.",
-      productImage: "alienware_aw3420dw.jpg",
-      featured: true,
-    };
-    hardwareData.push(hardware1);
-    hardwareData.push(hardware2);
-    hardwareData.push(hardware3);
-    hardwareData.push(hardware4);
-    hardwareData.push(hardware5);
- 
+
+  const hardware1 = {
+    stripe_id: "price_1OAZs2Hfk6TyDeClWaFi3x14",
+    productName: "Razer DeathAdder Elite",
+    type: "Mouse",
+    manufacturer: "Razer",
+    delivery: "Same Day",
+    price: 69.99,
+    stock: 150,
+    condition: "New",
+    description: "High-precision gaming mouse with customizable RGB lighting.",
+    productImage: "razer_deathadder.jpg",
+    featured: false,
+  };
+  const hardware2 = {
+    stripe_id: "price_1OAZsOHfk6TyDeClpgzRFBC6",
+    productName: "Corsair K95 RGB Platinum XT",
+    type: "Keyboard",
+    manufacturer: "Corsair",
+    delivery: "Same Day",
+    price: 19.99,
+    stock: 100,
+    condition: "New",
+    description: "Mechanical gaming keyboard with Cherry MX switches and RGB lighting.",
+    productImage: "corsair_k95.jpg",
+    featured: true,
+  };
+  const hardware3 = {
+    stripe_id: "price_1OAZskHfk6TyDeClXhfC99wL",
+    productName: "HyperX Cloud II",
+    type: "Headset",
+    manufacturer: "HyperX",
+    delivery: "Two Day Delivery",
+    price: 89.99,
+    stock: 120,
+    condition: "New",
+    description: "Over-ear gaming headset with virtual 7.1 surround sound and detachable microphone.",
+    productImage: "hyperx_cloud_ii.jpg",
+    featured: false,
+  };
+  const hardware4 = {
+    stripe_id: "price_1OAZt4Hfk6TyDeCluMDXLznj",
+    productName: "NVIDIA GeForce RTX 3080",
+    type: "Graphics Card",
+    manufacturer: "NVIDIA",
+    delivery: "Two Day Delivery",
+    price: 799.99,
+    stock: 50,
+    condition: "New",
+    description:"Powerful graphics card for high-end gaming and content creation.",
+    productImage: "rtx_3080.jpg",
+    featured: false,
+  };
+  const hardware5 = {
+    stripe_id: "price_1OAZtKHfk6TyDeClbRZp5bKt",
+    productName: "Dell Alienware AW3420DW",
+    type: "Monitor",
+    manufacturer: "Dell",
+    delivery: "Next Day Delivery",
+    price: 999.99,
+    stock: 80,
+    condition: "New",
+    description:"34-inch curved gaming monitor with G-Sync and 120Hz refresh rate.",
+    productImage: "alienware_aw3420dw.jpg",
+    featured: true,
+  };
+  hardwareData.push(hardware1);
+  hardwareData.push(hardware2);
+  hardwareData.push(hardware3);
+  hardwareData.push(hardware4);
+  hardwareData.push(hardware5);
 };
 
 // Add more user objects as needed
 const seedGames = () => {
-    //these 8 variables are temporary measure to introduce random variety to seeded data
-    const esrbArray = ["E", "E10", "T", "M"];
-    const randomEsrb = Math.floor(Math.random() * esrbArray.length);
-    const playerRangeArray = ["Singleplayer", "Multiplayer"];
-    const randomRange = Math.floor(Math.random() * playerRangeArray.length);
-    const conditionArray = ["New", "Used", "Refurbished"];
-    const randomCondition = Math.floor(Math.random() * conditionArray.length);
-    const deliveryArray = ["Same Day", "Pickup", "Will deliver"];
-    const randomDelivery = Math.floor(Math.random() * deliveryArray.length);
-    const featuredArray = [true, false];
-    const randomFeature = Math.floor(Math.random() * featuredArray.length);
 
-    const videoGame1 = {
-      stripe_id: "price_1OAZliHfk6TyDeCl3kcd9qG9",
-      productName: "The Legend of Zelda: Breath of the Wild",
-      genre: "Action-Adventure",
-      delivery: deliveryArray[randomDelivery],
-      price: 59.99,
-      stock: 100,
-      condition: "New",
-      description:
-        "Explore the vast world of Hyrule in this action-packed adventure.",
-      publisher: "Nintendo",
-      productImage: "zelda_image.jpg",
-      playerRange: "Single Player",
-      esrb: "E10+",
-      featured: false,
-    };
-    const videoGame2 = {
-      stripe_id: "price_1OAZmkHfk6TyDeCliOZf7gyW",
-      productName: "Fortnite",
-      genre: "Battle Royale",
-      delivery: "Digital Download",
-      price: 0.0,
-      stock: 500,
-      condition: "New",
-      description:
-        "Join the battle royale and build to outlast your opponents.",
-      publisher: "Epic Games",
-      productImage: "fortnite_image.jpg",
-      playerRange: "Multiplayer",
-      esrb: "T",
-      featured: false,
-    };
-    const videoGame3 = {
-      stripe_id: "price_1OAZnDHfk6TyDeClPzFwXPUV",
-      productName: "FIFA 23",
-      genre: "Sports",
-      delivery: "Physical Disc",
-      price: 49.99,
-      stock: 75,
-      condition: "New",
-      description: "Play the latest edition of the popular FIFA soccer series.",
-      publisher: "Electronic Arts",
-      productImage: "fifa23_image.jpg",
-      playerRange: "Multiplayer",
-      esrb: "E",
-      featured: false,
-    };
-    const videoGame4 = {
-      stripe_id: "price_1OAZndHfk6TyDeClJ9PCdRcF",
-      productName: "Call of Duty: Modern Warfare",
-      genre: "First-Person Shooter",
-      delivery: "Digital Download",
-      price: 59.99,
-      stock: 100,
-      condition: "Used",
-      description:
-        "Experience realistic and intense modern warfare in this action-packed FPS game.",
-      publisher: "Activision",
-      productImage: "cod_modern_warfare.jpg",
-      playerRange: "Singleplayer, Multiplayer",
-      esrb: "M",
-      featured: false,
-    };
-    const videoGame5 = {
-      stripe_id: "price_1OAZnwHfk6TyDeClTydWaZUe",
-      productName: "The Elder Scrolls V: Skyrim",
-      genre: "Role-Playing Game",
-      delivery: "Physical Copy",
-      price: 39.99,
-      stock: 50,
-      condition: "Used",
-      description:
-        "Embark on an epic open-world adventure in this critically acclaimed RPG.",
-      publisher: "Bethesda Softworks",
-      productImage: "skyrim.jpg",
-      playerRange: "Single Player",
-      esrb: "M",
-      featured: true,
-    };
-    gamesData.push(videoGame1);
-    gamesData.push(videoGame2);
-    gamesData.push(videoGame3);
-    gamesData.push(videoGame4);
-    gamesData.push(videoGame5);
-  
+  //these 8 variables are temporary measure to introduce random variety to seeded data
+  const esrbArray = ["E", "E10", "T", "M"];
+  const randomEsrb = Math.floor(Math.random() * esrbArray.length);
+  const playerRangeArray = ["Singleplayer", "Multiplayer"];
+  const randomRange = Math.floor(Math.random() * playerRangeArray.length);
+  const conditionArray = ["New", "Used", "Refurbished"];
+  const randomCondition = Math.floor(Math.random() * conditionArray.length);
+  const deliveryArray = ["Same Day", "Pickup", "Will deliver"];
+  const randomDelivery = Math.floor(Math.random() * deliveryArray.length);
+  const featuredArray = [true, false];
+  const randomFeature = Math.floor(Math.random() * featuredArray.length);
+
+  const videoGame1 = {
+    stripe_id: "price_1OAZliHfk6TyDeCl3kcd9qG9",
+    productName: "The Legend of Zelda: Breath of the Wild",
+    genre: "Action-Adventure",
+    delivery: deliveryArray[randomDelivery],
+    price: 59.99,
+    stock: 100,
+    condition: "New",
+    description: "Explore the vast world of Hyrule in this action-packed adventure.",
+    publisher: "Nintendo",
+    productImage: "zelda_image.jpg",
+    playerRange: "Single Player",
+    esrb: "E10+",
+    featured: false,
+  };
+  const videoGame2 = {
+    stripe_id: "price_1OAZmkHfk6TyDeCliOZf7gyW",
+    productName: "Fortnite",
+    genre: "Battle Royale",
+    delivery: "Digital Download",
+    price: 0.0,
+    stock: 500,
+    condition: "New",
+    description: "Join the battle royale and build to outlast your opponents.",
+    publisher: "Epic Games",
+    productImage: "fortnite_image.jpg",
+    playerRange: "Multiplayer",
+    esrb: "T",
+    featured: false,
+  };
+  const videoGame3 = {
+    stripe_id: "price_1OAZnDHfk6TyDeClPzFwXPUV",
+    productName: "FIFA 23",
+    genre: "Sports",
+    delivery: "Physical Disc",
+    price: 49.99,
+    stock: 75,
+    condition: "New",
+    description: "Play the latest edition of the popular FIFA soccer series.",
+    publisher: "Electronic Arts",
+    productImage: "fifa23_image.jpg",
+    playerRange: "Multiplayer",
+    esrb: "E",
+    featured: false,
+  };
+  const videoGame4 = {
+    stripe_id: "price_1OAZndHfk6TyDeClJ9PCdRcF",
+    productName: "Call of Duty: Modern Warfare",
+    genre: "First-Person Shooter",
+    delivery: "Digital Download",
+    price: 59.99,
+    stock: 100,
+    condition: "Used",
+    description: "Experience realistic and intense modern warfare in this action-packed FPS game.",
+    publisher: "Activision",
+    productImage: "cod_modern_warfare.jpg",
+    playerRange: "Singleplayer, Multiplayer",
+    esrb: "M",
+    featured: false,
+  };
+  const videoGame5 = {
+    stripe_id: "price_1OAZnwHfk6TyDeClTydWaZUe",
+    productName: "The Elder Scrolls V: Skyrim",
+    genre: "Role-Playing Game",
+    delivery: "Physical Copy",
+    price: 39.99,
+    stock: 50,
+    condition: "Used",
+    description: "Embark on an epic open-world adventure in this critically acclaimed RPG.",
+    publisher: "Bethesda Softworks",
+    productImage: "skyrim.jpg",
+    playerRange: "Single Player",
+    esrb: "M",
+    featured: true,
+  };
+  gamesData.push(videoGame1);
+  gamesData.push(videoGame2);
+  gamesData.push(videoGame3);
+  gamesData.push(videoGame4);
+  gamesData.push(videoGame5);
 };
 //Using the CASCADE keyword after a table to be dropped indicates that the table itself
 // will be dropped as well as the tables that depend on it (e.g., tables that utilize that tables' keys as foreign keys)
@@ -420,11 +421,13 @@ const dropTables = async () => {
   try {
     await db.query(`
         DROP TABLE IF EXISTS users CASCADE;
-        DROP TABLE IF EXISTS merch CASCADE;
         DROP TABLE IF EXISTS hardware CASCADE;
+        DROP TABLE IF EXISTS merch CASCADE;
         DROP TABLE IF EXISTS games CASCADE;
         DROP TABLE IF EXISTS shopping_cart CASCADE;
-        DROP TABLE IF EXISTS shopping_cart_item CASCADE;
+        DROP TABLE IF EXISTS shopping_cart_hardware CASCADE;
+        DROP TABLE IF EXISTS shopping_cart_games CASCADE;
+        DROP TABLE IF EXISTS shopping_cart_merch CASCADE;
         `);
   } catch (err) {
     throw err;
@@ -502,22 +505,39 @@ const createTables = async () => {
         CONSTRAINT fk_shopcart_user FOREIGN KEY (user_id) REFERENCES users (id)
       );
 
-      CREATE TABLE shopping_cart_item(
+      CREATE TABLE shopping_cart_games(
         id SERIAL PRIMARY KEY,
         cart_id INT NOT NULL,
         games_item_id INT,
-        merch_item_id INT,
-        hardware_item_id INT,
         quantity INT,
         CONSTRAINT fk_shopcartitem_shopcart FOREIGN KEY (cart_id) REFERENCES
         shopping_cart (id),
         CONSTRAINT fk_shopcartitem_gamesitemid FOREIGN KEY (games_item_id) REFERENCES 
-        games (id),
+        games (id)
+        );
+
+      CREATE TABLE shopping_cart_merch(
+        id SERIAL PRIMARY KEY,
+        cart_id INT NOT NULL,
+        merch_item_id INT,
+        quantity INT,
+        CONSTRAINT fk_shopcartitem_shopcart FOREIGN KEY (cart_id) REFERENCES
+        shopping_cart (id),
         CONSTRAINT fk_shopcartitem_merchitemid FOREIGN KEY (merch_item_id) REFERENCES 
-        merch (id),
-        CONSTRAINT fk_shopcartitem_hardwareitemid FOREIGN KEY (hardware_item_id) REFERENCES 
-        hardware (id)
+        merch (id)
       );
+
+      CREATE TABLE shopping_cart_hardware(
+        id SERIAL PRIMARY KEY,
+        cart_id INT NOT NULL,
+        hardware_item_id INT,
+        quantity INT,
+        CONSTRAINT fk_shopcartitem_shopcart FOREIGN KEY (cart_id) REFERENCES
+        shopping_cart (id),
+        CONSTRAINT fk_shopcartitem_hardwareitemid FOREIGN KEY (hardware_item_id) REFERENCES
+        hardware (id)
+        );
+
         `);
   } catch (err) {
     throw err;
@@ -583,9 +603,9 @@ const insertHardware = async () => {
         featured: hardware.featured,
       });
     }
-    console.log("Seed data inserted successfully.");
+    console.log("Hardware data inserted successfully.");
   } catch (error) {
-    console.error("Error inserting seed data:", error);
+    console.error("Error inserting seed data for hardware");
   }
 };
 
@@ -609,6 +629,7 @@ const insertGame = async () => {
         featured: game.featured,
       });
     }
+    console.log("Successfully inserted game seed data");
   } catch (error) {
     console.error("Error inserting games seed data for games");
   }
@@ -629,21 +650,54 @@ const insertCart = async () => {
   }
 };
 
-const insertCartItem = async () => {
+const insertCartGames = async () => {
   try {
-    console.log(cartItemData);
-    for (const item of cartItemData) {
-      await createCartItem({
+    console.log(cartItemGames);
+    for (const item of cartItemGames) {
+      console.log(item);
+      await createCartGame({
         cart_id: item.cart_id,
         games_item_id: item.games_item_id,
+        quantity: item.quantity,
+      });
+    }
+    console.log("Seed data for shopping_cart_games inserted successfully");
+  } catch (error) {
+    console.error("Error inserting cart game seed data for cart items");
+  }
+};
+
+const insertCartMerch = async () => {
+  try {
+    console.log(cartItemMerch);
+    for (const item of cartItemMerch) {
+      console.log(item);
+      await createCartMerch({
+        cart_id: item.cart_id,
         merch_item_id: item.merch_item_id,
+        quantity: item.quantity,
+      });
+    }
+    console.log("Seed data for shopping_cart_merch inserted successfully");
+  } catch (error) {
+    console.error("Error inserting cart merch seed data for cart items");
+  }
+};
+
+const insertCartHardware = async () => {
+  try {
+    console.log(cartItemHardware);
+    for (const item of cartItemHardware) {
+      console.log(item);
+      await createCartHardware({
+        cart_id: item.cart_id,
         hardware_item_id: item.hardware_item_id,
         quantity: item.quantity,
       });
     }
-    console.log("Seed data for shopping_cart_item inserted successfully");
+    console.log("Seed data for shopping_cart_hardware inserted successfully");
   } catch (error) {
-    console.error("Error inserting cart item seed data for cart items");
+    console.error("Error inserting cart hardware seed data for cart items");
   }
 };
 
@@ -663,7 +717,9 @@ const seedDatabase = async () => {
     await insertHardware();
     await insertGame();
     await insertCart();
-    await insertCartItem();
+    await insertCartGames();
+    await insertCartMerch();
+    await insertCartHardware();
   } catch (err) {
     throw err;
   } finally {

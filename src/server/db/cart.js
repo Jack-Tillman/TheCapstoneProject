@@ -18,13 +18,11 @@ const getAllCarts = async () => {
     throw err;
   }
 };
-//below only returns 1 cart even if there is more than 1 cart in the DB 
+//below only returns 1 cart even if there is more than 1 cart in the DB
 const getCartById = async (id) => {
   try {
     console.log("id passed to getCartById is:" + id);
-    const {
-      rows: cart,
-    } = await db.query(
+    const { rows: cart } = await db.query(
       `
         SELECT * FROM shopping_cart
         WHERE user_id = $1;
@@ -37,20 +35,55 @@ const getCartById = async (id) => {
   }
 };
 //functional; using const { rows: [contents], } would only return the first matching cart item
-const getCartContentsById = async (id) => {
+const getCartGamesById = async (id) => {
   try {
     console.log(id);
-      const {
-        rows: contents,
-      } = await db.query(
-        `
+    const { rows: contents } = await db.query(
+      `
           SELECT *
-          FROM shopping_cart_item 
-          WHERE cart_id=$1;`,[id]
-      );
-      console.log(`contents are: `);
-      console.log(contents);
-      return contents;
+          FROM shopping_cart_games 
+          WHERE cart_id=$1;`,
+      [id]
+    );
+    console.log(`contents are: `);
+    console.log(contents);
+    return contents;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getCartMerchById = async (id) => {
+  try {
+    console.log(id);
+    const { rows: contents } = await db.query(
+      `
+          SELECT *
+          FROM shopping_cart_merch 
+          WHERE cart_id=$1;`,
+      [id]
+    );
+    console.log(`contents are: `);
+    console.log(contents);
+    return contents;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getCartHardwareById = async (id) => {
+  try {
+    console.log(id);
+    const { rows: contents } = await db.query(
+      `
+          SELECT *
+          FROM shopping_cart_hardware 
+          WHERE cart_id=$1;`,
+      [id]
+    );
+    console.log(`contents are: `);
+    console.log(contents);
+    return contents;
   } catch (error) {
     throw error;
   }
@@ -77,7 +110,7 @@ const createCart = async ({ user_id, total }) => {
 const getAllCartItems = async () => {
   try {
     const { rows } = await db.query(`
-            SELECT * FROM shopping_cart_items;
+            SELECT * FROM shopping_cart_games, shopping_cart_merch, shopping_cart_hardware;
             `);
     return rows;
   } catch (err) {
@@ -94,42 +127,58 @@ I *think* that there is a way to add 0s to PSQL databases without the aforementi
 ideally be a short-term fix.
 */
 
-const createCartItem = async ({
-  cart_id,
-  games_item_id,
-  merch_item_id,
-  hardware_item_id,
-  quantity,
-}) => {
+const createCartGame = async ({ cart_id, games_item_id, quantity }) => {
   try {
-    if (!games_item_id) {
-      games_item_id = null;
-    }
-    if (!merch_item_id) {
-      merch_item_id = null;
-    }
-    if (!hardware_item_id) {
-      hardware_item_id = null;
-    }
-
-    const {
-      rows: item,
-    } = await db.query(
+    const { rows: item } = await db.query(
       `
-        INSERT INTO shopping_cart_item(cart_id, games_item_id, merch_item_id, hardware_item_id, quantity)
-        VALUES($1, $2, $3, $4, $5)
+        INSERT INTO shopping_cart_games(cart_id, games_item_id, quantity)
+        VALUES($1, $2, $3)
         RETURNING *;`,
-      [cart_id, games_item_id, merch_item_id, hardware_item_id, quantity]
+      [cart_id, games_item_id, quantity]
     );
     console.log(item);
     return item;
   } catch (err) {
-    console.error("Error creating cart item data for cart items");
+    console.error("Error creating cart game data for cart items");
     throw err;
   }
 };
 
-async function updateCartContents(cartId, fields = {}) {
+const createCartMerch = async ({ cart_id, merch_item_id, quantity }) => {
+  try {
+    const { rows: item } = await db.query(
+      `
+        INSERT INTO shopping_cart_merch(cart_id, merch_item_id, quantity)
+        VALUES($1, $2, $3)
+        RETURNING *;`,
+      [cart_id, merch_item_id, quantity]
+    );
+    console.log(item);
+    return item;
+  } catch (err) {
+    console.error("Error creating merch cart item data for cart items");
+    throw err;
+  }
+};
+
+const createCartHardware = async ({ cart_id, hardware_item_id, quantity }) => {
+  try {
+    const { rows: item } = await db.query(
+      `
+        INSERT INTO shopping_cart_hardware(cart_id, hardware_item_id, quantity)
+        VALUES($1, $2, $3)
+        RETURNING *;`,
+      [cart_id, hardware_item_id, quantity]
+    );
+    console.log(item);
+    return item;
+  } catch (err) {
+    console.error("Error creating hardware cart item data for cart items");
+    throw err;
+  }
+};
+
+async function updateCartGames(cartId, fields = {}) {
   /*
     This function was adapted from the function of same name from gamestore project
     This line of code creates a comma-separated string of key-value pairs
@@ -153,7 +202,7 @@ async function updateCartContents(cartId, fields = {}) {
       rows: [item],
     } = await db.query(
       `
-      UPDATE shopping_cart_item
+      UPDATE shopping_cart_games
       SET ${setString}
       WHERE id=${cartId}
       RETURNING *;
@@ -165,16 +214,115 @@ async function updateCartContents(cartId, fields = {}) {
   } catch (error) {
     throw error;
   }
-};
+}
 
-async function deleteCartContents(cartId) {
+async function updateCartMerch(cartId, fields = {}) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+  // above ultimately results in: (name, description, price, inStock, isPopular, imgUrl)
+
+  // return early if this is called without fields
+  if (setString.length === 0) {
+    return;
+  }
+
+  try {
+    const {
+      rows: [item],
+    } = await db.query(
+      `
+      UPDATE shopping_cart_merch
+      SET ${setString}
+      WHERE id=${cartId}
+      RETURNING *;
+      `,
+      //below is the same as if it was body.name, body.description, etc. but shorthand
+      Object.values(fields)
+    );
+    return item;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function updateCartHardware(cartId, fields = {}) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+  // above ultimately results in: (name, description, price, inStock, isPopular, imgUrl)
+
+  // return early if this is called without fields
+  if (setString.length === 0) {
+    return;
+  }
+
+  try {
+    const {
+      rows: [item],
+    } = await db.query(
+      `
+      UPDATE shopping_cart_hardware
+      SET ${setString}
+      WHERE id=${cartId}
+      RETURNING *;
+      `,
+      //below is the same as if it was body.name, body.description, etc. but shorthand
+      Object.values(fields)
+    );
+    return item;
+  } catch (error) {
+    throw error;
+  }
+}
+//incomplete not functional yet
+async function deleteCartGames(cart_id, games_item_id) {
   try {
     const {
       rows: [delContent],
     } = await db.query(
       `
-        DELETE FROM shopping_cart_item
-        WHERE id=$1
+        DELETE
+        FROM shopping_cart_games
+        WHERE cart_id=$1
+        RETURNING *;
+        `,
+      [cart_id]
+    );
+    return delContent;
+  } catch (error) {
+    throw error;
+  }
+}
+
+//incomplete not functional yet
+async function deleteCartMerch(cart_id, merch_item_id) {
+  try {
+    const {
+      rows: [delContent],
+    } = await db.query(
+      `
+        DELETE FROM shopping_cart_merch
+        WHERE cart_id=$1
+        RETURNING *;
+        `,
+      [cart_id]
+    );
+    return delContent;
+  } catch (error) {
+    throw error;
+  }
+}
+
+//incomplete not functional yet
+async function deleteCartHardware(cartId, hardware_item_id) {
+  try {
+    const {
+      rows: [delContent],
+    } = await db.query(
+      `
+        DELETE FROM shopping_cart_hardware
+        WHERE cart_id=$1
         RETURNING *;
         `,
       [cartId]
@@ -194,15 +342,23 @@ async function deleteCartContents(cartId) {
 //   } else {
 //       return productData;
 //   }
-// }
+// };
 
 module.exports = {
   createCart,
   getAllCarts,
   getCartById,
-  createCartItem,
+  createCartGame,
+  createCartMerch,
+  createCartHardware,
   getAllCartItems,
-  getCartContentsById,
-  updateCartContents,
-  deleteCartContents
+  getCartGamesById,
+  getCartMerchById,
+  getCartHardwareById,
+  updateCartGames,
+  updateCartMerch,
+  updateCartHardware,
+  deleteCartGames,
+  deleteCartMerch,
+  deleteCartHardware
 };

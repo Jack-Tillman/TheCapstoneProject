@@ -9,11 +9,19 @@ const {
   getAllUsers,
   getAllCarts,
   getCartById,
-  getCartContentsById,
+  getCartGamesById,
+  getCartMerchById,
+  getCartHardwareById,
   createCart,
-  createCartItem,
-  updateCartContents,
-  deleteCartContents,
+  createCartHardware,
+  createCartGame,
+  createCartMerch,
+  updateCartGames,
+  updateCartMerch,
+  updateCartHardware,
+  deleteCartGames,
+  deleteCartMerch,
+  deleteCartHardware,
 } = require("../db");
 
 const jwt = require("jsonwebtoken");
@@ -82,9 +90,9 @@ usersRouter.post("/login", async (req, res, next) => {
       //check to see if cart exists for this user
       const cartExists = await getCartById(user.id);
       console.log(`cartExists is ${cartExists}`);
-      //if length > 0, then cart exists 
+      //if length > 0, then cart exists
       if (cartExists.length > 0) {
-        console.log('cart does exists!');
+        console.log("cart does exists!");
       } else {
         //if cart doesn't exist, create one using user's id
         const cart = await createCart({ user_id: user.id, total: 0 });
@@ -134,10 +142,10 @@ usersRouter.post("/register", async (req, res, next) => {
         expiresIn: "1w",
       }
     );
-    //grab user_id from recently made user account 
+    //grab user_id from recently made user account
     const user_id = await getUser({ email, password });
     const { id } = user_id;
-    //make cart when user registers using the new user's id 
+    //make cart when user registers using the new user's id
     if (id) {
       const cart = await createCart({ user_id: user.id, total: 0 });
       console.log(`Cart created for user!`);
@@ -184,21 +192,27 @@ usersRouter.get("/:userId/cart", async (req, res, next) => {
 //get cart contents by userId
 usersRouter.get("/:userId/cart/contents", async (req, res, next) => {
   try {
-    //use userId to get cartId 
+    //use userId to get cartId
     const cart = await getCartById(req.params.userId);
     //extract cartId from cart object
     const cartId = cart[0].id;
-    const cartContents = await getCartContentsById(cartId);
-    console.log(`cartContents is: ${cartContents}`);
-    console.log(cartContents);  
-    if (!cartContents) {
+    const cartGames = await getCartGamesById(cartId);
+    console.log(cartGames);
+    const cartMerch = await getCartMerchById(cartId);
+    console.log(cartMerch);
+    const cartHardware = await getCartHardwareById(cartId);
+    console.log(cartHardware);
+
+    if (!cartGames && !cartMerch && !cartHardware) {
       res.send({
-        name: "No cart found",
-        message: "Error - a cart for the user with that ID does not exist.",
+        name: "No cart contents found",
+        message: "Error - no cart contents found for the inputed userId.",
       });
     } else {
       res.send({
-        cartContents,
+        cartGames,
+        cartMerch,
+        cartHardware,
       });
     }
   } catch ({ name, message }) {
@@ -232,7 +246,7 @@ usersRouter.get("/:userId/cart/total", async (req, res, next) => {
   }
 });
 
-//Add new item to cart
+//Add new item to cart MESSY - FUNCTIONAL BUT GOOD GOD - OPTIMIZE/REFACTOR WHEN ABLE TO
 usersRouter.post("/:userId/cart/contents", async (req, res, next) => {
   const { cart_id, games_item_id, merch_item_id, hardware_item_id, quantity } =
     req.body;
@@ -245,55 +259,133 @@ usersRouter.post("/:userId/cart/contents", async (req, res, next) => {
     });
   }
   try {
-    const cart_item = await createCartItem({
-      cart_id,
-      games_item_id,
-      merch_item_id,
-      hardware_item_id,
-      quantity,
-    });
-    if (cart_item) {
-      console.log(cart_item);
-      res.send({
-        name: "Item successfully added",
-        message: "Your item has been added to the cart!",
+    if (games_item_id) {
+      const cart_item = await createCartGame({
+        cart_id,
+        games_item_id,
+        quantity,
       });
-    } else {
-      next({
-        name: "Add Item Error",
-        message: "Error adding item to cart",
+      if (cart_item) {
+        console.log(cart_item);
+        res.send({
+          name: "Item successfully added",
+          message: "Your game has been added to the cart!",
+        });
+      }
+    } else if (merch_item_id) {
+      const cart_item = await createCartMerch({
+        cart_id,
+        merch_item_id,
+        quantity,
       });
+
+      if (cart_item) {
+        console.log(cart_item);
+        res.send({
+          name: "Item successfully added",
+          message: "Your merch has been added to the cart!",
+        });
+      }
+    } else if (hardware_item_id) {
+      const cart_item = await createCartHardware({
+        cart_id,
+        hardware_item_id,
+        quantity,
+      });
+      if (cart_item) {
+        console.log(cart_item);
+        res.send({
+          name: "Item successfully added",
+          message: "Your hardware has been added to the cart!",
+        });
+      } else {
+        next({
+          name: "Add Item Error",
+          message: "Error adding item to cart",
+        });
+      }
     }
   } catch (err) {
     next(err);
   }
 });
 
-//UNFINISHED - set this up so that only quantity can be edited.
+//functional 
 usersRouter.put("/:userId/cart/contents/:cartId", async (req, res, next) => {
+  const { cart_id, games_item_id, merch_item_id, hardware_item_id, quantity } =
+    req.body;
+  console.log(req.body);
   try {
-    //take the user id from the URL, pass it along with the edited content in the request body as arguments
-    const updatedItem = await updateCartContents(req.params.cartId, req.body);
-    res.send(updatedItem);
-  } catch (error) {
-    next(error);
-  }
-});
-
-//functional, need to set up authorization so that only admin and the user who owns cart can delete it
-usersRouter.delete("/:userId/cart/contents/:cartContentId", async (req, res, next) => {
-  try {
-    //take the user id from the URL, pass it along with the edited content in the request body as arguments
-    const deletedItem = await deleteCartContents(req.params.cartId);
-    if (deletedItem) {
-      res.send({
-        name: "Item successfully deleted",
-        message: `Your item has been deleted from the cart!`,
+    if (games_item_id) {
+      const updatedGames = await updateCartGames(req.params.cartId, {
+        cart_id,
+        games_item_id,
+        quantity,
+      });
+      res.send(updatedGames);
+    } else if (merch_item_id) {
+      const updatedMerch = await updateCartMerch(req.params.cartId, {
+        cart_id,
+        merch_item_id,
+        quantity,
+      });
+      res.send(updatedMerch);
+    } else if (hardware_item_id) {
+      const updatedHardware = await updateCartHardware(req.params.cartId, {
+        cart_id,
+        hardware_item_id,
+        quantity,
+      });
+      res.send(updatedHardware);
+    } else {
+      next({
+        name: "Update Item Error",
+        message: "Error updating item in cart",
       });
     }
   } catch (error) {
     next(error);
   }
 });
+
+
+//incomplete, not functional yet
+usersRouter.delete(
+  "/:userId/cart/contents/:cartContentId",
+  async (req, res, next) => {
+    const { cart_id, games_item_id, merch_item_id, hardware_item_id } =
+      req.body;
+    console.log("req body is: ");
+    console.log(req.body);
+    try {
+      if (games_item_id) {
+        const delGames = await deleteCartGames(
+          cart_id,
+          games_item_id
+        );
+        res.send(delGames);
+      } else if (merch_item_id) {
+        const delMerch = await deleteCartMerch(
+          cart_id,
+          merch_item_id
+        );
+        res.send(delMerch);
+      } else if (hardware_item_id) {
+        const delHardware = await deleteCartHardware(
+          cart_id,
+          hardware_item_id
+        );
+        res.send(delHardware);
+      } else {
+        next({
+          name: "Delete Item Error",
+          message: "Error deleting item in cart",
+        });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 module.exports = usersRouter;
