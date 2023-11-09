@@ -62,15 +62,6 @@ export const StorePage = () => {
 
     return (
       <>
-       <div className="searchbar">
-          <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
-            <TextField
-              label="Search products"
-              onChange={(e) => setSearchParams(e.target.value.toLowerCase())}
-            />
-          </FormControl>
-        </div>
-
         <a id="games"><h1 style={{color: "black"}}>Games</h1></a>
        
         
