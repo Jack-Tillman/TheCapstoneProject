@@ -171,9 +171,10 @@ const seedMerch = () => {
     price: 39.99,
     stock: 100,
     condition: "New",
-    description: "Stay stylish and comfortable with this Assassin's Creed-themed hoodie.",
+    description:
+      "Stay stylish and comfortable with this Assassin's Creed-themed hoodie.",
     manufacturer: "Ubisoft Merchandise",
-    productImage: "assassins_creed_hoodie.jpg",
+    productImage: "./Assets/Merch/Assassin's_Creed_Hoodie/coverimage.jpg",
     featured: true,
   };
 
@@ -185,9 +186,10 @@ const seedMerch = () => {
     price: 49.99,
     stock: 75,
     condition: "New",
-    description: "Carry your gear with pride in this Legend of Zelda-themed backpack.",
+    description:
+      "Carry your gear with pride in this Legend of Zelda-themed backpack.",
     manufacturer: "Nintendo Gear",
-    productImage: "zelda_backpack.jpg",
+    productImage: ".Assets/Merch/Legend_of_Zelda_Backpack/coverimage.jpg",
     featured: false,
   };
 
@@ -199,9 +201,10 @@ const seedMerch = () => {
     price: 14.99,
     stock: 120,
     condition: "New",
-    description: "Enhance your gaming setup with this Overwatch-themed mousepad.",
+    description:
+      "Enhance your gaming setup with this Overwatch-themed mousepad.",
     manufacturer: "Blizzard Gear",
-    productImage: "overwatch_mousepad.jpg",
+    productImage: "./Assets/Merch/Overwatch_Mousepad/coverimage.jpg",
     featured: false,
   };
 
@@ -215,7 +218,7 @@ const seedMerch = () => {
     condition: "New",
     description: "Cuddle up with this adorable Minecraft Creeper plushie.",
     manufacturer: "Mojang Merch",
-    productImage: "minecraft_plushie.jpg",
+    productImage: "./Assets/Merch/Minecraft_Creeper_Plushie/coverimage.jpg",
     featured: true,
   };
 
@@ -227,9 +230,10 @@ const seedMerch = () => {
     price: 9.99,
     stock: 90,
     condition: "New",
-    description: "Stay hydrated on your gaming adventures with this Fortnite-themed water bottle.",
+    description:
+      "Stay hydrated on your gaming adventures with this Fortnite-themed water bottle.",
     manufacturer: "Epic Games Store",
-    productImage: "fortnite_water_bottle.jpg",
+    productImage: "./Assets/Merch/Fortnite_Water_Bottle/coverimage.jpg",
     featured: false,
   };
   merchData.push(merchandise1);
@@ -257,7 +261,7 @@ const seedHardware = () => {
     stock: 150,
     condition: "New",
     description: "High-precision gaming mouse with customizable RGB lighting.",
-    productImage: "razer_deathadder.jpg",
+    productImage: "./Assets/Hardware/Razer_mouse/coverimage.jpg",
     featured: false,
   };
   const hardware2 = {
@@ -269,8 +273,9 @@ const seedHardware = () => {
     price: 19.99,
     stock: 100,
     condition: "New",
-    description: "Mechanical gaming keyboard with Cherry MX switches and RGB lighting.",
-    productImage: "corsair_k95.jpg",
+    description:
+      "Mechanical gaming keyboard with Cherry MX switches and RGB lighting.",
+    productImage: "./Assets/Hardware/Corsair_keyboard/coverimage.jpg",
     featured: true,
   };
   const hardware3 = {
@@ -282,8 +287,9 @@ const seedHardware = () => {
     price: 89.99,
     stock: 120,
     condition: "New",
-    description: "Over-ear gaming headset with virtual 7.1 surround sound and detachable microphone.",
-    productImage: "hyperx_cloud_ii.jpg",
+    description:
+      "Over-ear gaming headset with virtual 7.1 surround sound and detachable microphone.",
+    productImage: "./Assets/Hardware/HyperX_headset/coverimage.jpg",
     featured: false,
   };
   const hardware4 = {
@@ -295,8 +301,9 @@ const seedHardware = () => {
     price: 799.99,
     stock: 50,
     condition: "New",
-    description:"Powerful graphics card for high-end gaming and content creation.",
-    productImage: "rtx_3080.jpg",
+    description:
+      "Powerful graphics card for high-end gaming and content creation.",
+    productImage: "./Assets/Hardware/NVIDIA_graphics_card/coverimage.jpg",
     featured: false,
   };
   const hardware5 = {
@@ -308,8 +315,9 @@ const seedHardware = () => {
     price: 999.99,
     stock: 80,
     condition: "New",
-    description:"34-inch curved gaming monitor with G-Sync and 120Hz refresh rate.",
-    productImage: "alienware_aw3420dw.jpg",
+    description:
+      "34-inch curved gaming monitor with G-Sync and 120Hz refresh rate.",
+    productImage: "./Assets/Hardware/Dell_Alienware_Monitor/coverimage.jpg",
     featured: true,
   };
   hardwareData.push(hardware1);
@@ -321,7 +329,6 @@ const seedHardware = () => {
 
 // Add more user objects as needed
 const seedGames = () => {
-
   //these 8 variables are temporary measure to introduce random variety to seeded data
   const esrbArray = ["E", "E10", "T", "M"];
   const randomEsrb = Math.floor(Math.random() * esrbArray.length);
@@ -342,9 +349,10 @@ const seedGames = () => {
     price: 59.99,
     stock: 100,
     condition: "New",
-    description: "Explore the vast world of Hyrule in this action-packed adventure.",
+    description:
+      "Explore the vast world of Hyrule in this action-packed adventure.",
     publisher: "Nintendo",
-    productImage: "zelda_image.jpg",
+    productImage: "./Assets/Games/The_Legend_of_Zelda/coverimage.jpg",
     playerRange: "Single Player",
     esrb: "E10+",
     featured: false,
@@ -359,7 +367,7 @@ const seedGames = () => {
     condition: "New",
     description: "Join the battle royale and build to outlast your opponents.",
     publisher: "Epic Games",
-    productImage: "fortnite_image.jpg",
+    productImage: "./Assets/Games/Fortnite/coverimage.jpg",
     playerRange: "Multiplayer",
     esrb: "T",
     featured: false,
@@ -374,7 +382,7 @@ const seedGames = () => {
     condition: "New",
     description: "Play the latest edition of the popular FIFA soccer series.",
     publisher: "Electronic Arts",
-    productImage: "fifa23_image.jpg",
+    productImage: "./Assets/Games/FIFA_23/coverimage.jpg",
     playerRange: "Multiplayer",
     esrb: "E",
     featured: false,
@@ -387,9 +395,10 @@ const seedGames = () => {
     price: 59.99,
     stock: 100,
     condition: "Used",
-    description: "Experience realistic and intense modern warfare in this action-packed FPS game.",
+    description:
+      "Experience realistic and intense modern warfare in this action-packed FPS game.",
     publisher: "Activision",
-    productImage: "cod_modern_warfare.jpg",
+    productImage: "./Assets/Games/Call_of_Duty/Cover-img.jpg",
     playerRange: "Singleplayer, Multiplayer",
     esrb: "M",
     featured: false,
@@ -402,9 +411,10 @@ const seedGames = () => {
     price: 39.99,
     stock: 50,
     condition: "Used",
-    description: "Embark on an epic open-world adventure in this critically acclaimed RPG.",
+    description:
+      "Embark on an epic open-world adventure in this critically acclaimed RPG.",
     publisher: "Bethesda Softworks",
-    productImage: "skyrim.jpg",
+    productImage: "./Assets/Games/Skyrim,The_Elder_Scrolls/coverimage.jpg",
     playerRange: "Single Player",
     esrb: "M",
     featured: true,
