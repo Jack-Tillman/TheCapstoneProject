@@ -19,7 +19,8 @@ import DevicesIcon from '@mui/icons-material/Devices';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-
+import { ShoppingCart } from "@mui/icons-material";
+import { Badge } from "@mui/material";
 
 
 //conditional render login/register if user is logged out
@@ -102,7 +103,12 @@ const NavBar = ({ token, setToken }) => {
 
 
           
-          <Button onClick={handleShow}>Cart ({productsCount} Items)</Button>
+          {/* <Button onClick={handleShow}>Cart ({productsCount} Items)</Button> */}
+          <IconButton onClick={handleShow} color="primary">
+            <Badge badgeContent={productsCount} color="secondary">
+              <ShoppingCart />
+            </Badge>
+          </IconButton>
         
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
