@@ -128,7 +128,12 @@ const NavBar = ({ token, setToken }) => {
           </FormControl>
           
 
-          <Button onClick={handleShow}>Cart ({productsCount} Items)</Button>
+          {/* <Button onClick={handleShow}>Cart ({productsCount} Items)</Button> */}
+          <IconButton onClick={handleShow} color="primary">
+            <Badge badgeContent={productsCount} color="secondary">
+              <ShoppingCart />
+            </Badge>
+          </IconButton>
           {!token && (
         <>
           <Link to="/login">
