@@ -174,7 +174,8 @@ const seedMerch = () => {
     description:
       "Stay stylish and comfortable with this Assassin's Creed-themed hoodie.",
     manufacturer: "Ubisoft Merchandise",
-    productImage: "../../Assets/Merch/Assassin's_Creed_Hoodie/coverimage.jpg",
+    productImage:
+      "https://pertlybeast.com/302-large_default/hoodie-assassin-s-creed.jpg",
     featured: true,
   };
 
@@ -189,7 +190,8 @@ const seedMerch = () => {
     description:
       "Carry your gear with pride in this Legend of Zelda-themed backpack.",
     manufacturer: "Nintendo Gear",
-    productImage: "../../Assets/Merch/Legend_of_Zelda_Backpack/coverimage.jpg",
+    productImage:
+      "https://banzika.com.br/image/cache/catalog/data/produtos/NEW%20MOUSEPADS/OVER/21/6GVF5DV98-1100x1100.jpg",
     featured: false,
   };
 
@@ -204,7 +206,8 @@ const seedMerch = () => {
     description:
       "Enhance your gaming setup with this Overwatch-themed mousepad.",
     manufacturer: "Blizzard Gear",
-    productImage: "../../Assets/Merch/Overwatch_Mousepad/coverimage.jpg",
+    productImage:
+      "https://3.bp.blogspot.com/-k2D_vv3mX5c/XsE507i_rOI/AAAAAAAAlvU/qMUh9-JA66884xtwbLTlTuxRdvyJRIARQCLcBGAsYHQ/s800/Creeper-Mini-Crafter-4.5-Inch-Plush-Jinx-1.jpg",
     featured: false,
   };
 
@@ -218,7 +221,8 @@ const seedMerch = () => {
     condition: "New",
     description: "Cuddle up with this adorable Minecraft Creeper plushie.",
     manufacturer: "Mojang Merch",
-    productImage: "../../Assets/Merch/Minecraft_Creeper_Plushie/coverimage.jpg",
+    productImage:
+      "https://3.bp.blogspot.com/-k2D_vv3mX5c/XsE507i_rOI/AAAAAAAAlvU/qMUh9-JA66884xtwbLTlTuxRdvyJRIARQCLcBGAsYHQ/s800/Creeper-Mini-Crafter-4.5-Inch-Plush-Jinx-1.jpg",
     featured: true,
   };
 
@@ -233,7 +237,8 @@ const seedMerch = () => {
     description:
       "Stay hydrated on your gaming adventures with this Fortnite-themed water bottle.",
     manufacturer: "Epic Games Store",
-    productImage: "../../Assets/Merch/Fortnite_Water_Bottle/coverimage.jpg",
+    productImage:
+      "https://www.luluhypermarket.com/medias/1725020-01.jpg-515Wx515H?context=bWFzdGVyfGltYWdlc3wzMzc5M3xpbWFnZS9qcGVnfGgxNS9oZjgvMTAzMzYxOTU3MDY5MTAvMTcyNTAyMC0wMS5qcGdfNTE1V3g1MTVIfGNmNDdjNTI0YzBiODVmYzFlOGJkMmVlMWQ4ZWYxYjc3NWJlZWM1Yjk5ZjNjYWJiYzJmOGMxNTI1OGU0OGVhNzI",
     featured: false,
   };
   merchData.push(merchandise1);
@@ -261,7 +266,8 @@ const seedHardware = () => {
     stock: 150,
     condition: "New",
     description: "High-precision gaming mouse with customizable RGB lighting.",
-    productImage: "../../Assets/Hardware/Razer_mouse/coverimage.jpg",
+    productImage:
+      "https://assets.razerzone.com/press/deathadder/razer-deathadder-elite.png",
     featured: false,
   };
   const hardware2 = {
@@ -275,7 +281,8 @@ const seedHardware = () => {
     condition: "New",
     description:
       "Mechanical gaming keyboard with Cherry MX switches and RGB lighting.",
-    productImage: "../../Assets/Hardware/Corsair_keyboard/coverimage.jpg",
+    productImage:
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6394/6394003cv12d.jpg",
     featured: true,
   };
   const hardware3 = {
@@ -289,7 +296,8 @@ const seedHardware = () => {
     condition: "New",
     description:
       "Over-ear gaming headset with virtual 7.1 surround sound and detachable microphone.",
-    productImage: "../../Assets/Hardware/HyperX_headset/coverimage.jpg",
+    productImage:
+      "https://i.pcmag.com/imagery/reviews/06g43wkwvluqEmcw4BKLE8s-3.fit_scale.size_760x427.v1569471699.jpg",
     featured: false,
   };
   const hardware4 = {
@@ -303,7 +311,8 @@ const seedHardware = () => {
     condition: "New",
     description:
       "Powerful graphics card for high-end gaming and content creation.",
-    productImage: "../../Assets/Hardware/NVIDIA_graphics_card/coverimage.jpg",
+    productImage:
+      "https://www.nvidia.com/content/dam/en-zz/Solutions/geforce/ampere/rtx-3080/images/design/geforce-rtx-3080-1-960.jpg",
     featured: false,
   };
   const hardware5 = {
@@ -317,7 +326,8 @@ const seedHardware = () => {
     condition: "New",
     description:
       "34-inch curved gaming monitor with G-Sync and 120Hz refresh rate.",
-    productImage: "../../Assets/Hardware/Dell_Alienware_Monitor/coverimage.jpg",
+    productImage:
+      "https://c1.neweggimages.com/productimage/nb640/B8H9D22110801G9IEB8.jpg",
     featured: true,
   };
   hardwareData.push(hardware1);
@@ -352,7 +362,8 @@ const seedGames = () => {
     description:
       "Explore the vast world of Hyrule in this action-packed adventure.",
     publisher: "Nintendo",
-    productImage: "https://i5.walmartimages.com/seo/The-Legend-of-Zelda-Breath-of-the-Wild-Nintendo-Switch_88fdeff7-b5c7-4dc1-9d30-66217f20f86c.3d08635afa4636f1074ae99ebf602b92.jpeg",
+    productImage:
+      "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000000025/7137262b5a64d921e193653f8aa0b722925abc5680380ca0e18a5cfd91697f58",
     playerRange: "Single Player",
     esrb: "E10+",
     featured: false,
@@ -367,7 +378,8 @@ const seedGames = () => {
     condition: "New",
     description: "Join the battle royale and build to outlast your opponents.",
     publisher: "Epic Games",
-    productImage: "../../Assets/Games/Fortnite/coverimage.jpg",
+    productImage:
+      "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/ncom/software/switch/70010000010192/2e8af138c432e81ce6b1fceb510b39b0544081417c6fe403465a99603a7b7a4d",
     playerRange: "Multiplayer",
     esrb: "T",
     featured: false,
@@ -382,7 +394,7 @@ const seedGames = () => {
     condition: "New",
     description: "Play the latest edition of the popular FIFA soccer series.",
     publisher: "Electronic Arts",
-    productImage: "../../Assets/Games/FIFA_23/coverimage.jpg",
+    productImage: "https://m.media-amazon.com/images/I/71iJkhHSlQL.jpg",
     playerRange: "Multiplayer",
     esrb: "E",
     featured: false,
@@ -398,7 +410,8 @@ const seedGames = () => {
     description:
       "Experience realistic and intense modern warfare in this action-packed FPS game.",
     publisher: "Activision",
-    productImage: "../../Assets/Games/Call_of_Duty/Cover-img.jpg",
+    productImage:
+      "https://imgs.callofduty.com/content/dam/atvi/callofduty/cod-touchui/kronos/common/social-share/social-share-image.jpg",
     playerRange: "Singleplayer, Multiplayer",
     esrb: "M",
     featured: false,
@@ -414,7 +427,8 @@ const seedGames = () => {
     description:
       "Embark on an epic open-world adventure in this critically acclaimed RPG.",
     publisher: "Bethesda Softworks",
-    productImage: "../../Assets/Games/Skyrim,The_Elder_Scrolls/coverimage.jpg",
+    productImage:
+      "https://image.api.playstation.com/vulcan/ap/rnd/202110/2019/aDSOgerXg4V6sf5A7VzHiTun.jpg",
     playerRange: "Single Player",
     esrb: "M",
     featured: true,

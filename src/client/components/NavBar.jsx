@@ -19,7 +19,8 @@ import DevicesIcon from '@mui/icons-material/Devices';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-
+import { ShoppingCart } from "@mui/icons-material";
+import { Badge } from "@mui/material";
 
 
 //conditional render login/register if user is logged out
@@ -126,6 +127,7 @@ const NavBar = ({ token, setToken }) => {
             />
           </FormControl>
           
+
           <Button onClick={handleShow}>Cart ({productsCount} Items)</Button>
           {!token && (
         <>
