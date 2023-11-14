@@ -9,6 +9,15 @@ export async function fetchItems(category) {
   }
 }
 
+export const fetchSingleItem = async (id, category) => {
+  try {
+      const response = await fetch(`${API_URL}/${category}/${id}`);      
+      return response;
+  } catch (err) {
+      console.error(`Oh no, trouble fetching item #${id}!`, err);
+  }
+};
+
 export async function registerUser(email, password) {
   try {
     const response = await fetch(`${API_URL}/users/register`, {
