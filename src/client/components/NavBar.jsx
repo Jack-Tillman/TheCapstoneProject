@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import { Button, Modal, Navbar } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton, ListItemIcon } from "@mui/material";
