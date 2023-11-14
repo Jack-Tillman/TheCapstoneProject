@@ -47,7 +47,7 @@ export function ProductCard(props) {
             <Button sx={{marginTop: 1,}} variant="outlined" onClick={() => cart.deleteFromCart(product.stripe_id)}>Remove all from Cart</Button>
           </>    
           :
-          <Button variant="contained" onClick={() => cart.addOneToCart(product.stripe_id, product.price)}>Add To Cart</Button>
+          <Button variant="contained" onClick={() => cart.addOneToCart(product.stripe_id, product.price, product.productname)}>Add To Cart</Button>
         }
       </Card.Body>
     </Card>

@@ -25,15 +25,18 @@ export function CartProvider({children}) {
         return quantity;
     }
 
-    function addOneToCart(stripe_id, price) {
-        const quantity = getProductQuantity(stripe_id);
+    
+
+    function addOneToCart(stripe_id, price, productName) {
+        const quantity = getProductQuantity(stripe_id);        
 
         if (quantity === 0) { //product is not in cart
             setCartProducts(
                 [
                     ...cartProducts,
                     {
-                        stripe_id: stripe_id,
+                        stripe_id: stripe_id,   
+                        productname: productName,                  
                         price: price,
                         quantity: 1,
                     }
@@ -44,7 +47,7 @@ export function CartProvider({children}) {
                 cartProducts.map(
                     product =>
                     product.stripe_id === stripe_id                               // if condition
-                    ? { ...product, quantity: product.quantity + 1} // if statement is true
+                    ? { ...product, quantity: product.quantity + 1, productname: productName} // if statement is true
                     : product                                       // if statement is false
                 )
             )

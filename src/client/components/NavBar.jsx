@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import { Button, Modal, Navbar } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton, ListItemIcon } from "@mui/material";
@@ -178,7 +178,7 @@ const NavBar = ({ token, setToken }) => {
                         <>
                             <p>Items in your cart:</p> 
                             {cart.items.map((currentProduct, idx) => (
-                                <CartProduct key={idx} stripe_id={currentProduct.stripe_id} quantity={currentProduct.quantity} price={currentProduct.price} />
+                                <CartProduct key={idx} stripe_id={currentProduct.stripe_id} quantity={currentProduct.quantity} price={currentProduct.price} name={currentProduct.productName} />
                             ))}
 
                             <h1>Total: ${cart.getTotalCost().toFixed(2)}</h1>
