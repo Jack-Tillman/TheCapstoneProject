@@ -171,7 +171,7 @@ const NavBar = ({ token, setToken }) => {
                         <>
                             <p>Items in your cart:</p> 
                             {cart.items.map((currentProduct, idx) => (
-                                <CartProduct key={idx} stripe_id={currentProduct.stripe_id} quantity={currentProduct.quantity} price={currentProduct.price} />
+                                <CartProduct key={idx} stripe_id={currentProduct.stripe_id} quantity={currentProduct.quantity} price={currentProduct.price} name={currentProduct.productName} />
                             ))}
 
                             <h1>Total: ${cart.getTotalCost().toFixed(2)}</h1>
