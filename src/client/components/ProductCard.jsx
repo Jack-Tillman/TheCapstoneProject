@@ -1,4 +1,4 @@
-import { Card, Form, Row, Col } from 'react-bootstrap';
+import { Card, Form, Row, Col, Image } from 'react-bootstrap';
 import { Box } from '@mui/material';
 import { Button, ButtonGroup } from '@mui/material';
 import { CartContext } from "../CartContext";
@@ -29,18 +29,16 @@ export function ProductCard(props) {
         },
       }}
     >
-    <Card>
-      <Card.Body>
+    <Card>      
+      <Card.Body>          
+          <Card.Img src={`${product.productimage}`} />
           <Card.Title>{product.productname}</Card.Title>
           <Card.Text>${product.price}</Card.Text>
+          
           { productQuantity > 0 ?
           <>
             <Form as={Row}>
-            <Form.Label column="true" sm="6">In Cart: {productQuantity}</Form.Label><br />
-              {/* <Col sm="6">                            
-                <Button sm="6" onClick={() => cart.removeOneFromCart(product.id)}>-</Button>
-                <Button sm="6" onClick={() => cart.addOneToCart(product.id)}>+</Button>
-              </Col> */}
+            <Form.Label column="true" sm="6"><strong>In Cart: {productQuantity}</strong></Form.Label><br />
               <ButtonGroup size="small" variant="outlined" aria-label="add/remove item from cart">
                 <Button onClick={() => cart.removeOneFromCart(product.stripe_id)}>-</Button>
                 <Button onClick={() => cart.addOneToCart(product.stripe_id)}>+</Button>
