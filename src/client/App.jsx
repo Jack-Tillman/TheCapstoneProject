@@ -4,7 +4,7 @@ import MainSection from './components/MainSection';
 import NavBar from './components/NavBar';
 import createTheme from '@mui/material/styles/createTheme';
 import { useTheme } from '@mui/material/styles';
-import { red, purple } from '@mui/material/colors';
+import { red, blue } from '@mui/material/colors';
 import { CartProvider } from './CartContext';
 
 const theme = createTheme({
@@ -21,7 +21,7 @@ const theme = createTheme({
       main: red[500],
     },
     secondary: {
-      main: purple[500],
+      main: blue[500],
     },
   },
 });
