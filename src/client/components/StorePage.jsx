@@ -1,8 +1,9 @@
-import { fetchItems } from "../api";
+import { fetchItems, fetchSingleItem } from "../api";
 import { useState, useEffect } from "react";
 import { ProductCard } from "./ProductCard";
 import { FormControl } from "@mui/material";
 import { TextField } from "@mui/material";
+import { Button } from "react-bootstrap"
 
 export const StorePage = () => {
     const [games, setGames] = useState([]);
@@ -58,8 +59,8 @@ export const StorePage = () => {
     //         )
     //     : products;
 
-    
 
+    //working on fetchSingleItem for single item view
     return (
       <>
         <a id="games"><h1 style={{color: "black"}}>Games</h1></a>
@@ -70,6 +71,7 @@ export const StorePage = () => {
               <>
                 <div key={index}>
                   <ProductCard product={game} />
+                  {/* <Button onClick={() => fetchSingleItem(game.stripe_id, "games")}>More Info</Button> */}
                 </div>
               </>
           ))}
@@ -82,6 +84,7 @@ export const StorePage = () => {
               <>
                 <div key={index}>
                   <ProductCard product={hardware} />
+                  {/* <Button onClick={() => fetchSingleItem(hardware.stripe_id, "hardware")}>More Info</Button> */}
                 </div>
               </>
           ))}
@@ -94,6 +97,7 @@ export const StorePage = () => {
               <>
                 <div key={index}>
                   <ProductCard product={merch} />
+                  {/* <Button onClick={() => fetchSingleItem(merch.stripe_id, "merch")}>More Info</Button> */}
                 </div>
               </>
           ))}
