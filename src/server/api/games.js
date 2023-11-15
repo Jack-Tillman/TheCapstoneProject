@@ -1,5 +1,6 @@
 const express = require("express");
 const gamesRouter = express.Router();
+const { requireUser, requireAdmin } = require("./utils");
 
 const {
   createGame,
@@ -31,29 +32,42 @@ gamesRouter.get("/:id", async (req, res, next) => {
 });
 
 // POST - /api/games - create a new video game
-gamesRouter.post("/", async (req, res, next) => {
+gamesRouter.post("/", requireAdmin, async (req, res, next) => {
   try {
     const postedGame = await createGame(req.body);
-    res.send(postedGame);
+    if (postedGame) {
+      res.send(postedGame);
+    } else {
+      next({
+        name: "GameCreationError",
+        message: "There was an error creating your game. Please try again.",
+      });
+    }
   } catch (error) {
     next(error);
   }
 });
 
 // PUT - /api/games/:id - update a single video game by id
-gamesRouter.put("/:id", async (req, res, next) => {
+gamesRouter.put("/:id", requireAdmin, async (req, res, next) => {
   try {
     //take the videogame id from the URL, pass it along with the edited content in the request body as arguments to updateVideoGame
     const updatedGame = await updateGame(req.params.id, req.body);
-
-    res.send(updatedGame);
+    if (updatedGame) {
+      res.send(updatedGame);
+    } else {
+      next({
+        name: "GameUpdatingError",
+        message: "There was an error updating your game. Please try again.",
+      });
+    };
   } catch (error) {
     next(error);
   }
 });
 
 // DELETE - /api/games/:id - delete a single video game by id
-gamesRouter.delete("/:id", async (req, res, next) => {
+gamesRouter.delete("/:id", requireAdmin, async (req, res, next) => {
   try {
     //take the game id from the URL and pass it as argument to deleteGame
     const deletedGame = await deleteGame(req.params.id);

@@ -1,18 +1,19 @@
 const db = require("./client");
 
-const createHardware = async ({
-  stripe_id,
-  productName,
-  type,
-  manufacturer,
-  price,
-  stock,
-  condition,
-  description,
-  delivery,
-  productImage,
-  featured,
-}) => {
+const createHardware = async (fields = {}) => {
+  const newFields = Object.fromEntries(
+    Object.entries(fields).map(([key, values]) => [key.toLowerCase(), values])
+  );
+  // build the set string
+  const insertString = Object.keys(newFields)
+    .map((key, index) => `$${index + 1}`)
+    .join(", ");
+
+  // return early if this is called without fields
+  if (insertString.length === 0) {
+    return;
+  }
+
   try {
     const {
       rows: [hardware],
@@ -20,20 +21,8 @@ const createHardware = async ({
       `
         INSERT INTO hardware(stripe_id, productName, type, manufacturer, price, stock, condition, description, delivery, productImage, featured)
         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-        RETURNING *`,
-      [
-        stripe_id,
-        productName,
-        type,
-        manufacturer,
-        price,
-        stock,
-        condition,
-        description,
-        delivery,
-        productImage,
-        featured
-      ]
+        RETURNING *;`,
+      Object.values(fields)
     );
     return hardware;
   } catch (err) {
@@ -73,8 +62,15 @@ async function getHardwareById(id) {
 
 // PUT - /api/hardware/:id - update a single hardware by id
 async function updateHardware(id, fields = {}) {
+  /*
+   this helper function takes all the keys from the fields object (what the updated info is, basically) 
+   and converts them to lowercase to avoid any SQL field naming issues.
+   */
+  const newFields = Object.fromEntries(
+    Object.entries(fields).map(([key, values]) => [key.toLowerCase(), values])
+  );
   // build the set string
-  const setString = Object.keys(fields)
+  const setString = Object.keys(newFields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
 

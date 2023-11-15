@@ -32,21 +32,20 @@ async function getGameById(id) {
 }
 
 //post a new game
-const createGame = async ({
-  stripe_id,
-  productName,
-  genre,
-  delivery,
-  price,
-  stock,
-  condition,
-  description,
-  publisher,
-  productImage,
-  playerRange,
-  esrb,
-  featured
-}) => {
+const createGame = async (fields = {}) => {
+  const newFields = Object.fromEntries(
+    Object.entries(fields).map(([key, values]) => [key.toLowerCase(), values])
+  );
+  // build the set string
+  const insertString = Object.keys(newFields)
+    .map((key, index) => `$${index + 1}`)
+    .join(", ");
+
+  // return early if this is called without fields
+  if (insertString.length === 0) {
+    return;
+  }
+
   try {
     const {
       rows: [game],
@@ -54,22 +53,8 @@ const createGame = async ({
       `
         INSERT INTO games(stripe_id, productName, genre, delivery, price, stock, condition, description, publisher, productImage, playerRange, esrb, featured)
         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
-        RETURNING *`,
-      [
-        stripe_id,
-        productName,
-        genre,
-        delivery,
-        price,
-        stock,
-        condition,
-        description,
-        publisher,
-        productImage,
-        playerRange,
-        esrb,
-        featured
-      ]
+        RETURNING *;`,
+      Object.values(fields)
     );
 
     return game;
@@ -87,7 +72,15 @@ async function updateGame(id, fields = {}) {
     and $index represents a placeholder for a parameter, starting index from 1 and incrementing
     each key so that each following entry has an appropriate id
     */
-  const setString = Object.keys(fields)
+
+  /*
+   this helper function takes all the keys from the fields object (what the updated info is, basically) 
+   and converts them to lowercase to avoid any SQL field naming issues.
+   */
+  const newFields = Object.fromEntries(
+    Object.entries(fields).map(([key, values]) => [key.toLowerCase(), values])
+  );
+  const setString = Object.keys(newFields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
   // above ultimately results in: (name, description, price, inStock, isPopular, imgUrl)
@@ -98,6 +91,8 @@ async function updateGame(id, fields = {}) {
   }
 
   try {
+    console.log(setString);
+    console.log(id);
     const {
       rows: [game],
     } = await db.query(

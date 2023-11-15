@@ -79,13 +79,13 @@ const getUserById = async (id) => {
     const {
       rows: [user],
     } = await db.query(`
-        SELECT id, name, email
+        SELECT id, name, email, isAdmin
         FROM users
         WHERE id=${id};
         `);
     //quickly escape function if user does not exist
     if (!user) {
-      return null;
+      return;
     }
 
     return user;

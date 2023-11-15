@@ -238,7 +238,7 @@ const seedMerch = () => {
       "Stay hydrated on your gaming adventures with this Fortnite-themed water bottle.",
     manufacturer: "Epic Games Store",
     productImage:
-      "https://www.luluhypermarket.com/medias/1725020-01.jpg-515Wx515H?context=bWFzdGVyfGltYWdlc3wzMzc5M3xpbWFnZS9qcGVnfGgxNS9oZjgvMTAzMzYxOTU3MDY5MTAvMTcyNTAyMC0wMS5qcGdfNTE1V3g1MTVIfGNmNDdjNTI0YzBiODVmYzFlOGJkMmVlMWQ4ZWYxYjc3NWJlZWM1Yjk5ZjNjYWJiYzJmOGMxNTI1OGU0OGVhNzI",
+      "https://static.contrado.com/DesignTemplates/products/505317_fortnite-personalised-bottle_2.jpeg?cache=7",
     featured: false,
   };
   merchData.push(merchandise1);
