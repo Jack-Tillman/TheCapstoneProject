@@ -1,5 +1,6 @@
 const express = require("express");
 const usersRouter = express.Router();
+const { requireUser, requireAdmin } = require("./utils");
 
 const {
   createUser,
@@ -31,7 +32,7 @@ const { JWT_SECRET } = process.env;
 USER SPECIFIC 
 */
 
-usersRouter.get("/", async (req, res, next) => {
+usersRouter.get("/", requireAdmin, async (req, res, next) => {
   try {
     const users = await getAllUsers();
 
