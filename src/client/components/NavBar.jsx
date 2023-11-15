@@ -102,8 +102,6 @@ const NavBar = ({ token, setToken }) => {
   return (
     <>
     <div className="navbar">
-
-      
       
       <IconButton onClick={() => setOpen(true)} aria-label="Menu" color="primary">
         <MenuIcon />
@@ -120,18 +118,18 @@ const NavBar = ({ token, setToken }) => {
       </IconButton>
       </Link>
       <img src={gamenebulalogo} className="logoImage"/>
-          <FormControl sx={{ m: 1, width: "1", border: "1px solid red", borderRadius: "5px"}}>
-            <TextField
-              InputLabelProps={{
-                sx: {color: "red",}
-              }}
-              placeholder="Search Products"
-              onChange={(e) => setSearchParams(e.target.value.toLowerCase())}
-              sx={{input: { color: 'white', }}}
-              size="small"
-              variant="outlined"
-            />
-          </FormControl>
+      <FormControl sx={{ m: 1, width: "1", border: "1px solid red", borderRadius: "5px", boxShadow: "0px 0px 15px red"}}>
+        <TextField
+          InputLabelProps={{
+            sx: {color: "red",}
+          }}
+          placeholder="Search Products"
+          onChange={(e) => setSearchParams(e.target.value.toLowerCase())}
+          sx={{input: { color: 'white', }}}
+          size="small"
+          variant="outlined"
+        />
+      </FormControl>
           
 
           {/* <Button onClick={handleShow}>Cart ({productsCount} Items)</Button> */}
@@ -150,7 +148,7 @@ const NavBar = ({ token, setToken }) => {
         </>
       )}
             
-
+{/* Logged in links */}
       {token && (
         <>
           <Link to="/dashboard">
