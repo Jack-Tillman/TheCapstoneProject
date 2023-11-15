@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import React from "react";
 import { useState, useEffect, useContext } from "react";
-import { Button, Modal } from 'react-bootstrap';
+// import { Modal } from 'react-bootstrap';
+import Modal from '@mui/material/Modal';
+import { Box } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton, ListItemIcon } from "@mui/material";
@@ -8,7 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import { CartContext } from "../CartContext";
 import { CartProduct } from "./CartProduct";
-import { Drawer } from "@mui/material";
+import { Drawer, Button } from "@mui/material";
 import { ListItem } from "@mui/material";
 import { ListItemText } from "@mui/material";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -21,7 +24,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { ShoppingCart } from "@mui/icons-material";
 import { Badge } from "@mui/material";
-
+import gamenebulalogo from "../../Assets/Logo/gamenebulalogo.png";
 
 //conditional render login/register if user is logged out
 //don't render login/register is user is logged out
@@ -58,9 +61,9 @@ const NavBar = ({ token, setToken }) => {
 
   const cart = useContext(CartContext);
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const checkout = async () => {
     await fetch('http://localhost:3000/dashboard', {
@@ -80,7 +83,8 @@ const NavBar = ({ token, setToken }) => {
 
   const productsCount = cart.items.reduce((sum, product) => sum + product.quantity, 0);
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+
 
   const getList = (data) => (
     <div style={{ width: 250 }} onClick={() => setOpen(false)}>
@@ -98,6 +102,8 @@ const NavBar = ({ token, setToken }) => {
   return (
     <>
     <div className="navbar">
+
+      
       
       <IconButton onClick={() => setOpen(true)} aria-label="Menu" color="primary">
         <MenuIcon />
@@ -113,7 +119,7 @@ const NavBar = ({ token, setToken }) => {
         <HomeIcon />
       </IconButton>
       </Link>
-
+      <img src={gamenebulalogo} className="logoImage"/>
           <FormControl sx={{ m: 1, width: "1", border: "1px solid red", borderRadius: "5px"}}>
             <TextField
               InputLabelProps={{
@@ -129,7 +135,7 @@ const NavBar = ({ token, setToken }) => {
           
 
           {/* <Button onClick={handleShow}>Cart ({productsCount} Items)</Button> */}
-          <IconButton onClick={handleShow} color="primary">
+          <IconButton onClick={handleOpen} color="primary">
             <Badge badgeContent={productsCount} color="secondary">
               <ShoppingCart />
             </Badge>
@@ -169,11 +175,11 @@ const NavBar = ({ token, setToken }) => {
       )}
       
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Shopping Cart</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+            {/* <Modal open={open} onClose={handleClose}>
+                <Box>
+                    <h3>Cart</h3>
+                </Box>
+                <Box>
                     {productsCount > 0 ?
                         <>
                             <p>Items in your cart:</p> 
@@ -191,8 +197,8 @@ const NavBar = ({ token, setToken }) => {
                         <h1>No items in cart. 😔</h1>
                     }
                         
-                </Modal.Body>
-            </Modal>
+                </Box>
+            </Modal> */}
 
       {/* <Link to="/games">Games</Link>
       <Link to="/hardware">Hardware</Link>

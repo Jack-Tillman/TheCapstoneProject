@@ -56,3 +56,8 @@ a {color:white}
   width: 100%;
   max-height: auto;
 }
+
+.logoImage {
+  height: 25px;
+  margin-top: 13px;
+}
