@@ -22,6 +22,7 @@ import { Button } from "@mui/material";
 export const Register = ({ token, setToken }) => {
   const navigate = useNavigate();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
@@ -56,6 +57,7 @@ export const Register = ({ token, setToken }) => {
     if (response.status === 200) {
       setToken(authToken);
       // sessionStorage.setItem("token", response.data.token)
+      setName("")
       setEmail("");
       setPassword("");
       setPasswordAgain("");
@@ -68,14 +70,15 @@ export const Register = ({ token, setToken }) => {
   }
     async function handleSubmit(event) {
         event.preventDefault();  
-        const response = await registerUser(email, password)
+        const response = await registerUser(name, email, password)
         const result = await response.json();
         console.log(result);
         sessionStorage.setItem("token", result.token)
         const authToken = sessionStorage.getItem("token")
         
         if (response.status === 200) {
-            setToken(authToken)           
+            setToken(authToken)   
+            setName("")        
             setEmail("");
             setPassword("");
             setPasswordAgain("");
@@ -95,6 +98,17 @@ export const Register = ({ token, setToken }) => {
         {/* <label>
                     Username: <input value={username} onChange={(e) => setUsername(e.target.value)} minLength={8} required/>
                 </label> */}
+        <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
+          <TextField
+            required
+            id="outlined-required"
+            label="Username"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            minLength={8}
+          />
+        </FormControl>
+        <br />
         <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
           <TextField
             required

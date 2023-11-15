@@ -18,7 +18,7 @@ export const fetchSingleItem = async (id, category) => {
   }
 };
 
-export async function registerUser(email, password) {
+export async function registerUser(name, email, password) {
   try {
     const response = await fetch(`${API_URL}/users/register`, {
       method: "POST",
@@ -26,6 +26,7 @@ export async function registerUser(email, password) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        name,
         email,
         password,
       }),
