@@ -191,7 +191,7 @@ const seedMerch = () => {
       "Carry your gear with pride in this Legend of Zelda-themed backpack.",
     manufacturer: "Nintendo Gear",
     productImage:
-      "https://banzika.com.br/image/cache/catalog/data/produtos/NEW%20MOUSEPADS/OVER/21/6GVF5DV98-1100x1100.jpg",
+      "https://ae01.alicdn.com/kf/HTB12I5DSpXXXXbeapXXq6xXFXXXZ/Free-shipping-The-Legend-of-Zelda-Skyward-Sword-Triforce-School-Knapsack-Backpack-Bag-39CM-super-capacity.jpg",
     featured: false,
   };
 
@@ -207,7 +207,7 @@ const seedMerch = () => {
       "Enhance your gaming setup with this Overwatch-themed mousepad.",
     manufacturer: "Blizzard Gear",
     productImage:
-      "https://3.bp.blogspot.com/-k2D_vv3mX5c/XsE507i_rOI/AAAAAAAAlvU/qMUh9-JA66884xtwbLTlTuxRdvyJRIARQCLcBGAsYHQ/s800/Creeper-Mini-Crafter-4.5-Inch-Plush-Jinx-1.jpg",
+      "https://banzika.com.br/image/cache/catalog/data/produtos/NEW%20MOUSEPADS/OVER/21/6GVF5DV98-1100x1100.jpg",
     featured: false,
   };
 
