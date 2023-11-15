@@ -1,5 +1,6 @@
 const express = require("express");
 const merchRouter = express.Router();
+const { requireUser, requireAdmin } = require("./utils");
 
 const {
   getAllMerch,
@@ -30,30 +31,51 @@ merchRouter.get("/:id", async (req, res, next) => {
 });
 
 // POST - /api/merchandise - create a new piece of merch
-merchRouter.post("/", async (req, res, next) => {
+merchRouter.post("/", requireAdmin, async (req, res, next) => {
   try {
     const merch = await createMerch(req.body);
-    res.send(merch);
+    if (merch) {
+      res.send(merch);
+    } else {
+      next({
+        name: "MerchCreationError",
+        message: "There was an error creating your merch. Please try again.",
+      });
+    }
   } catch (error) {
     next(error);
   }
 });
 
 // PUT - /api/merch/:id - update a single piece of merch by id
-merchRouter.put("/:id", async (req, res, next) => {
+merchRouter.put("/:id", requireAdmin, async (req, res, next) => {
   try {
-    const merch = await updateMerch(req.params.id, req.body);
-    res.send(merch);
+    const updatedMerch = await updateMerch(req.params.id, req.body);
+    if (updateMerch) {
+      res.send(updatedMerch)
+    } else {
+      next({
+        name: "MerchUpdateError",
+        message: "There was an error updating your merch. Please try again.",
+      });
+    }
   } catch (error) {
     next(error);
   }
 });
 
 // DELETE - /api/merchandise/:id - delete a single video game by id
-merchRouter.delete("/:id", async (req, res, next) => {
+merchRouter.delete("/:id", requireAdmin, async (req, res, next) => {
   try {
     const merch = await deleteMerch(req.params.id);
-    res.send(merch);
+    if (merch) {
+      res.send("Successfully deleted your merch.");
+    } else {
+      next({
+        name: "MerchDeletionError",
+        message: "There was an error deleting your merch. Please try again.",
+      });
+    }
   } catch (error) {
     next(error);
   }

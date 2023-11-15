@@ -100,6 +100,7 @@ usersRouter.post("/login", async (req, res, next) => {
       res.send({
         message: "Login successful!",
         token,
+        user
       });
     } else {
       next({
@@ -259,12 +260,14 @@ usersRouter.post("/:userId/cart/contents", async (req, res, next) => {
     });
   }
   try {
+    //data passed in will have one of either games_, merch_, or hardware_item_id
     if (games_item_id) {
       const cart_item = await createCartGame({
         cart_id,
         games_item_id,
         quantity,
       });
+      //only send success response after item is added
       if (cart_item) {
         console.log(cart_item);
         res.send({

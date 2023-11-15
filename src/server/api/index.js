@@ -1,33 +1,18 @@
 const express = require("express");
 const apiRouter = express.Router();
 const jwt = require("jsonwebtoken");
-
+const { JWT_SECRET } = process.env;
 const volleyball = require("volleyball");
+const { getUserById } = require("../db");
 apiRouter.use(volleyball);
 
-//maybe useful for authorization stuff to set headers
-// function makeHeaders(authToken){
-//   if (authToken) {
-//     const loggedInHeader = {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${authToken}`
-//     }
-//     return loggedInHeader;
-//   } else {
-//     return {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer`
-//     };
-//   }
-// }
-// TO BE COMPLETED - set `req.user` if possible, using token sent in the request header
+// COMPLETE - set `req.user` if possible, using token sent in the request header
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
   const auth = req.header("Authorization");
 
-  // if not authorization is found, move on to 
+  // if no authorization is found, error will be thrown by the next()
   if (!auth) {
-
     next();
   } else if (auth.startsWith(prefix)) {
     // header set with Bearer
@@ -38,6 +23,11 @@ apiRouter.use(async (req, res, next) => {
       if (id) {
         req.user = await getUserById(id);
         next();
+      } else {
+        next({
+          name: "AuthorizationHeaderError",
+          message: "Authorization token malformed",
+        });
       }
     } catch ({ name, message }) {
       next({ name, message });
@@ -50,6 +40,14 @@ apiRouter.use(async (req, res, next) => {
   }
 });
 
+//indicate in console whether req.user is found
+apiRouter.use((req, res, next) => {
+  if (req.user) {
+    console.log("User is set:", req.user);
+  }
+
+  next();
+});
 
 const usersRouter = require("./users");
 apiRouter.use("/users", usersRouter);
@@ -60,12 +58,11 @@ apiRouter.use("/games", gamesRouter);
 const hardwareRouter = require("./hardware");
 apiRouter.use("/hardware", hardwareRouter);
 
-const merchRouter = require('./merch');
-apiRouter.use('/merch', merchRouter);
+const merchRouter = require("./merch");
+apiRouter.use("/merch", merchRouter);
 
 apiRouter.use((err, req, res, next) => {
-    res.status(500).send(err);
+  res.status(500).send(err);
 });
-
 
 module.exports = apiRouter;
