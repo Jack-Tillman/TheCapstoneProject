@@ -13,7 +13,6 @@ export function ProductCard(props) {
 
   return (    
     <Box 
-      height={250}
       width={250}
       gap={0}
       sx={{
@@ -31,7 +30,7 @@ export function ProductCard(props) {
     >
     <Card>      
       <Card.Body>          
-          <Card.Img src={`${product.productimage}`} />
+          <Card.Img src={`${product.productimage}`} className="smallImage"/>
           <Card.Title>{product.productname}</Card.Title>
           <Card.Text>${product.price}</Card.Text>
           

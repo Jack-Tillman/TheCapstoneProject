@@ -50,3 +50,9 @@ a {color:white}
   display: flex;
   flex-wrap: wrap;
 }
+
+.smallImage {
+  /* height: 100px; */
+  width: 100%;
+  max-height: auto;
+}
