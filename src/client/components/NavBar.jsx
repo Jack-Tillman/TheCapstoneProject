@@ -46,18 +46,27 @@ import gamenebulalogo from "../../Assets/Logo/gamenebulalogo.png";
     { name: "Dashboard", link: "/dashboard", icon: <PersonIcon />}
   ];
 
-const NavBar = ({ token, setToken }) => {
+const NavBar = ({ token, setToken, admin, setAdmin }) => {
   useEffect(() => {
     async function renderNavbar() {
       const storageToken = sessionStorage.getItem("token");
+      const storageAdmin = sessionStorage.getItem("admin");
       if (storageToken) {
         setToken(storageToken);
       } else {
         setToken(null);
       }
+
+      if (storageAdmin) {
+        setAdmin(storageAdmin);
+      } else {
+        setAdmin(false);
+      }
     }
     renderNavbar();
-  }, [token]);
+  }, [token, admin]);
+
+
 
   const cart = useContext(CartContext);
 
@@ -154,13 +163,17 @@ const NavBar = ({ token, setToken }) => {
       )}
             
 {/* Logged in links */}
-      {token && (
+      {token && admin && (
         <>
           <Link to="/dashboard">
             <IconButton aria-label="Dashboard" color="primary">
               <AccountBoxIcon />
             </IconButton>
           </Link>
+        </>
+        )}
+        {token && (
+          <>
           <Link
             to="/logout"
             onClick={() => {
