@@ -1,6 +1,8 @@
-import { Button, NavItem } from 'react-bootstrap'
+import { Button } from '@mui/material';
+import {IconButton} from '@mui/material';
 import { CartContext } from '../CartContext'
-import { useContext } from 'react'
+import { useContext } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 export function CartProduct(props) {
@@ -15,7 +17,10 @@ export function CartProduct(props) {
             <h3>{productData.productname}</h3>
             <p>{quantity} total</p>
             <p>${ quantity * price }</p>
-            <Button size="sm" onClick={() => cart.deleteFromCart(stripe_id)}>Remove</Button>
+            {/* <Button size="sm" >Remove</Button> */}
+            <IconButton aria-label="remove from cart" color="primary" onClick={() => cart.deleteFromCart(stripe_id)}>
+                <DeleteIcon />
+            </IconButton>
             <hr />
         </>    
     )
