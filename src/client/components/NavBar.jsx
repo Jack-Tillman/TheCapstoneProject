@@ -117,7 +117,10 @@ const NavBar = ({ token, setToken }) => {
         <HomeIcon />
       </IconButton>
       </Link>
-      <img src={gamenebulalogo} className="logoImage"/>
+      <Link to="/">
+        <img src={gamenebulalogo} className="logoImage"/>
+      </Link>
+
       <FormControl sx={{ m: 1, width: "1", border: "1px solid red", borderRadius: "5px", boxShadow: "0px 0px 15px red"}}>
         <TextField
           InputLabelProps={{
