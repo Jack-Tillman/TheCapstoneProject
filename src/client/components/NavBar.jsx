@@ -198,7 +198,11 @@ const NavBar = ({ token, setToken }) => {
                             </Button>
                          </>
                     :
+                    <>
                         <h1>No items in cart. 😔</h1>
+
+                        <Button onClick={handleCloseCart}>Close Cart</Button>
+                   </>
                     }                        
                 </Box>
               </>

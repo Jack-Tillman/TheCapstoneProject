@@ -60,7 +60,7 @@ gamesRouter.put("/:id", requireAdmin, async (req, res, next) => {
         name: "GameUpdatingError",
         message: "There was an error updating your game. Please try again.",
       });
-    };
+    }
   } catch (error) {
     next(error);
   }
