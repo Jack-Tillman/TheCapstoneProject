@@ -9,12 +9,12 @@ export async function fetchItems(category) {
   }
 }
 
-export const fetchSingleItem = async (id, category) => {
+export async function fetchSingleItem(stripe_id, category) {
   try {
-      const response = await fetch(`${API_URL}/${category}/${id}`);      
+      const response = await fetch(`${API_URL}/${category}/${stripe_id}`);      
       return response;
   } catch (err) {
-      console.error(`Oh no, trouble fetching item #${id}!`, err);
+      console.error(`Oh no, trouble fetching item #${stripe_id}!`, err);
   }
 };
 

@@ -8,6 +8,7 @@ import { HomePage } from "./HomePage";
 // import { HardwarePage } from "./HardwarePage";
 import { Dashboard } from "./Dashboard";
 import { StorePage } from "./StorePage";
+import { SingleProduct } from "./SingleProduct";
 
 const MainSection = ({ token, setToken }) => {
   return (
