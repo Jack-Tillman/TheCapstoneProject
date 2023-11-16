@@ -29,6 +29,7 @@
     "react-password-checklist": "^1.5.0",
     "react-router": "^6.17.0",
     "react-router-dom": "^6.17.0",
+    "stripe": "^14.4.0",
     "vite-express": "*",
     "volleyball": "^1.5.1"
   },

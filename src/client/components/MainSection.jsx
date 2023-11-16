@@ -3,6 +3,8 @@ import { Login } from "./Login";
 import { Logout } from "./Logout";
 import { Register } from "./Register";
 import { HomePage } from "./HomePage";
+import { Success } from "./Success";
+import { Cancel } from "./Cancel";
 // import { GamesPage } from "./GamesPage";
 // import { MerchPage } from "./MerchPage";
 // import { HardwarePage } from "./HardwarePage";
@@ -27,9 +29,13 @@ const MainSection = ({ token, setToken }) => {
           path="/store"
           element={<StorePage />}
         />
+        <Route path="/success" element={<Success />} />
+        <Route path="/cancel" element={<Cancel />} />
+
         {/* <Route path="/games" element={<GamesPage />} />
         <Route path="/hardware" element={<HardwarePage />} />
         <Route path="/merch" element={<MerchPage />} /> */}
+
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/logout" element={<Logout />} />
       </Routes>
