@@ -16,7 +16,7 @@ import { Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
 
-export const Login = ({ token, setToken }) => {
+export const Login = ({ token, setToken, admin, setAdmin }) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -46,10 +46,18 @@ export const Login = ({ token, setToken }) => {
     const result = await response.json();
     console.log(result);
 
+    sessionStorage.setItem("admin", result.user.isadmin)
     sessionStorage.setItem("token", result.token);    
     const authToken = sessionStorage.getItem("token");
+    const authAdmin = sessionStorage.getItem("admin");
 
     if (response.status === 200) {
+      if (result.user.isadmin === true) {
+        console.log(`Truthy admin: ${authAdmin}`);
+      } else {
+        sessionStorage.removeItem("admin");
+        console.log(`Falsey admin: ${authAdmin}`);
+      }
       setToken(authToken);
       navigate("/");
     } else {

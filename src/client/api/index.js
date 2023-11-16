@@ -56,3 +56,12 @@ export async function userLogin(email, password) {
     console.error(err);
   }
 }
+
+export async function fetchAllUsers() {
+  try {
+    const response = await fetch(`${API_URL}/users`);
+    return response;
+  } catch (err) {
+    console.error(err);
+  }
+}
