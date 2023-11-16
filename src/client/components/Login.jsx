@@ -46,7 +46,7 @@ export const Login = ({ token, setToken }) => {
     const result = await response.json();
     console.log(result);
 
-    sessionStorage.setItem("token", result.token);
+    sessionStorage.setItem("token", result.token);    
     const authToken = sessionStorage.getItem("token");
 
     if (response.status === 200) {

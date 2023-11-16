@@ -9,7 +9,6 @@ export function CartProduct(props) {
     const price = props.price;
     const quantity = props.quantity;
     const productData = cart.getProductData(stripe_id);
-    console.log(name);
 
     return (     
         <>

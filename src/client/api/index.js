@@ -9,16 +9,16 @@ export async function fetchItems(category) {
   }
 }
 
-export const fetchSingleItem = async (id, category) => {
+export async function fetchSingleItem(stripe_id, category) {
   try {
-      const response = await fetch(`${API_URL}/${category}/${id}`);      
+      const response = await fetch(`${API_URL}/${category}/${stripe_id}`);      
       return response;
   } catch (err) {
-      console.error(`Oh no, trouble fetching item #${id}!`, err);
+      console.error(`Oh no, trouble fetching item #${stripe_id}!`, err);
   }
 };
 
-export async function registerUser(email, password) {
+export async function registerUser(name, email, password) {
   try {
     const response = await fetch(`${API_URL}/users/register`, {
       method: "POST",
@@ -26,6 +26,7 @@ export async function registerUser(email, password) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        name,
         email,
         password,
       }),
