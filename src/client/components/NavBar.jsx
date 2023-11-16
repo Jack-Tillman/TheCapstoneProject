@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 // import { Modal } from 'react-bootstrap';
-import Modal from '@mui/material/Modal';
+import { Modal } from '@mui/material';
 import { Box } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -66,7 +66,7 @@ const NavBar = ({ token, setToken }) => {
   const handleClose = () => setOpen(false);
 
   const checkout = async () => {
-    await fetch('http://localhost:3000/dashboard', {
+    await fetch('http://localhost:3000/checkout', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -83,7 +83,9 @@ const NavBar = ({ token, setToken }) => {
 
   const productsCount = cart.items.reduce((sum, product) => sum + product.quantity, 0);
 
-  // const [open, setOpen] = useState(false);
+  const [cartModal, setCartModal] = useState(false);
+  const handleShowCart = () => setCartModal(true);
+  const handleCloseCart = () => setCartModal(false);
 
 
   const getList = (data) => (
@@ -135,8 +137,8 @@ const NavBar = ({ token, setToken }) => {
       </FormControl>
           
 
-          {/* <Button onClick={handleShow}>Cart ({productsCount} Items)</Button> */}
-          <IconButton onClick={handleOpen} color="primary">
+          
+          <IconButton onClick={handleShowCart} color="primary">
             <Badge badgeContent={productsCount} color="secondary">
               <ShoppingCart />
             </Badge>
@@ -164,8 +166,7 @@ const NavBar = ({ token, setToken }) => {
             onClick={() => {
               setToken(null);
             }}
-          >
-            
+          >           
 
 
             <IconButton aria-label="Log out" color="primary">
@@ -174,9 +175,10 @@ const NavBar = ({ token, setToken }) => {
           </Link>
         </>
       )}
-      
+       
 
-            {/* <Modal open={open} onClose={handleClose}>
+            <Modal sx={{overflow:"scroll"}} open={cartModal} onClose={handleCloseCart}>
+              <>
                 <Box>
                     <h3>Cart</h3>
                 </Box>
@@ -189,17 +191,18 @@ const NavBar = ({ token, setToken }) => {
                             ))}
 
                             <h1>Total: ${cart.getTotalCost().toFixed(2)}</h1>
-
+                            
+                            <Button onClick={handleCloseCart}>Close Cart</Button>
                             <Button variant="success" onClick={checkout}>
                                 Purchase Items!
                             </Button>
-                        </>
+                         </>
                     :
                         <h1>No items in cart. 😔</h1>
-                    }
-                        
+                    }                        
                 </Box>
-            </Modal> */}
+              </>
+            </Modal> 
 
       {/* <Link to="/games">Games</Link>
       <Link to="/hardware">Hardware</Link>
