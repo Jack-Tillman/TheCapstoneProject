@@ -497,7 +497,7 @@ const createTables = async () => {
           type VARCHAR(255) NOT NULL,
           manufacturer VARCHAR(255) NOT NULL,
           delivery VARCHAR(255) NOT NULL,
-          price NUMERIC (4,2) NOT NULL,
+          price NUMERIC (6,2) NOT NULL,
           stock NUMERIC (15,2) NOT NULL,
           condition VARCHAR(255) NOT NULL,
           description TEXT NOT NULL,
