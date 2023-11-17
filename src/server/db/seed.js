@@ -481,7 +481,7 @@ const createTables = async () => {
           productName VARCHAR(255) NOT NULL,
           type VARCHAR(255) NOT NULL,
           delivery VARCHAR(255) NOT NULL,
-          price NUMERIC (15,2) NOT NULL,
+          price NUMERIC (4,2) NOT NULL,
           stock NUMERIC (15,2) NOT NULL,
           condition VARCHAR(255) NOT NULL,
           description TEXT NOT NULL,
@@ -497,7 +497,7 @@ const createTables = async () => {
           type VARCHAR(255) NOT NULL,
           manufacturer VARCHAR(255) NOT NULL,
           delivery VARCHAR(255) NOT NULL,
-          price NUMERIC (15,2) NOT NULL,
+          price NUMERIC (4,2) NOT NULL,
           stock NUMERIC (15,2) NOT NULL,
           condition VARCHAR(255) NOT NULL,
           description TEXT NOT NULL,
@@ -511,7 +511,7 @@ const createTables = async () => {
           productName VARCHAR(255) NOT NULL,
           genre VARCHAR(255) NOT NULL, 
           delivery VARCHAR(255) NOT NULL,
-          price NUMERIC(15,2),
+          price NUMERIC(4,2),
           stock NUMERIC(15,2),
           condition VARCHAR(255) NOT NULL,
           description TEXT NOT NULL,
@@ -525,7 +525,7 @@ const createTables = async () => {
       CREATE TABLE shopping_cart(
         id SERIAL PRIMARY KEY,
         user_id INT,
-        total NUMERIC(15,2),
+        total NUMERIC(5,2),
         CONSTRAINT fk_shopcart_user FOREIGN KEY (user_id) REFERENCES users (id)
       );
 
