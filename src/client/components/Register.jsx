@@ -59,12 +59,15 @@ export const Register = ({ token, setToken }) => {
         
         if (response.status === 200) {
             setSuccess(true);            
-            setToken(authToken)   
+            setToken(authToken);   
+            setAuthenticated(result.token);            
             setName("")        
             setEmail("");
             setPassword("");
             setPasswordAgain("");
-            setAuthenticated(result.token);            
+            setTimeout(() => {
+              navigate("/");
+            }, 1250);
         } else {
             setError(response.error);
         }
@@ -72,7 +75,7 @@ export const Register = ({ token, setToken }) => {
 
   return (
     <Box className="loginRegisterField">
-      {/* {token && <LoginSnackbar />} */}
+      {success && <LoginSnackbar />}
       <h2 className="sign-up">Sign Up</h2>
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>

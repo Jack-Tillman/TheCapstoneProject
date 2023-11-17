@@ -79,7 +79,7 @@ export const Login = ({ token, setToken, admin, setAdmin }) => {
 
   return (
     <Box className="loginRegisterField">
-     {token && <LoginSnackbar /> } 
+     {success && <LoginSnackbar /> } 
       <>
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
