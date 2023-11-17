@@ -4,16 +4,24 @@ import { Box } from "@mui/material";
 import { Button, ButtonGroup } from "@mui/material";
 import { CartContext } from "../CartContext";
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { fetchSingleItem } from "../api";
+import { SingleProduct } from "./SingleProduct";
 
 export function ProductCard(props) {
   const product = props.product;
   const cart = useContext(CartContext);
   const productQuantity = cart.getProductQuantity(product.stripe_id);
+  const productStripe = props.productStripe;
+  console.log('stripe at line 16 is: ');
+  console.log(productStripe);
+
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -50,7 +58,19 @@ export function ProductCard(props) {
             <Card.Img src={`${product.productimage}`} className="smallImage" />
             <Card.Title>{product.productname}</Card.Title>
             <Card.Text>${product.price}</Card.Text>
-            {/* <Button onClick={handleShow}>More Info</Button> */}
+            <Button
+              onClick={() => {
+                // navigate("/store/productview");
+                console.log(product.stripe_id);
+                setProductStripe(product.stripe_id);
+                console.log(productStripe);
+                setTimeout(()=> {
+                  navigate("/store/details");
+                }, 1000)
+              }}
+            >
+              More Info
+            </Button>
             {productQuantity > 0 ? (
               <>
                 <Form as={Row}>
@@ -75,27 +95,49 @@ export function ProductCard(props) {
                     </Button>
                   </ButtonGroup>
                 </Form>
-                <Button
-                  sx={{ marginTop: 1 }}
-                  variant="outlined"
-                  onClick={() => cart.deleteFromCart(product.stripe_id)}
-                >
-                  Remove all from Cart
-                </Button>
+                <ButtonGroup>
+                  <Button
+                    sx={{ marginTop: 1 }}
+                    variant="outlined"
+                    onClick={() => cart.deleteFromCart(product.stripe_id)}
+                  >
+                    Remove all from Cart
+                  </Button>
+                  {/* <Button
+                    variant="contained"
+                    onClick={() => {
+                      // navigate("/store/productview");
+                      setProductStripe(product.stripe_id);
+                    }}
+                  >
+                    More Info
+                  </Button> */}
+                </ButtonGroup>
               </>
             ) : (
-              <Button
-                variant="contained"
-                onClick={() =>
-                  cart.addOneToCart(
-                    product.stripe_id,
-                    product.price,
-                    product.productname
-                  )
-                }
-              >
-                Add To Cart
-              </Button>
+              <ButtonGroup>
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    cart.addOneToCart(
+                      product.stripe_id,
+                      product.price,
+                      product.productname
+                    )
+                  }
+                >
+                  Add To Cart
+                </Button>
+                {/* <Button
+                  variant="contained"
+                  onClick={() => {
+                    // navigate("/store/productview");
+                    setProductStripe(product.stripe_id);
+                  }}
+                >
+                  More Info
+                </Button> */}
+              </ButtonGroup>
             )}
           </Card.Body>
         </Card>

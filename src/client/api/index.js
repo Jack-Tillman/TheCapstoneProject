@@ -12,7 +12,10 @@ export async function fetchItems(category) {
 export async function fetchSingleItem(stripe_id, category) {
   try {
       const response = await fetch(`${API_URL}/${category}/${stripe_id}`);      
-      return response;
+
+      const result = response.json();
+      console.log(result);
+      return result;
   } catch (err) {
       console.error(`Oh no, trouble fetching item #${stripe_id}!`, err);
   }

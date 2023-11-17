@@ -14,6 +14,7 @@ const getAllGames = async () => {
 
 //get videogame based on its id -  functional
 async function getGameById(id) {
+
   try {
     console.log(id);
     const {
@@ -25,6 +26,26 @@ async function getGameById(id) {
       `,
       [id]
     );
+    return games;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getGameByStripeId(id) {
+
+  try {
+    console.log(id);
+    const {
+      rows: [games],
+    } = await db.query(
+      `
+      SELECT * FROM games
+      WHERE stripe_id = $1;
+      `,
+      [id]
+    );
+    console.log(games);
     return games;
   } catch (error) {
     throw error;
@@ -132,6 +153,7 @@ async function deleteGame(id) {
 module.exports = {
   createGame,
   getAllGames,
+  getGameByStripeId,
   getGameById,
   updateGame,
   deleteGame,

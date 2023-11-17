@@ -11,8 +11,10 @@ import { Cancel } from "./Cancel";
 import { Dashboard } from "./Dashboard";
 import { StorePage } from "./StorePage";
 import { SingleProduct } from "./SingleProduct";
+import { useState } from "react";
 
 const MainSection = ({ token, setToken }) => {
+  const [productStripe, setProductStripe] = useState(null);
   return (
     <div className="">
       <Routes>
@@ -27,7 +29,11 @@ const MainSection = ({ token, setToken }) => {
         />
         <Route 
           path="/store"
-          element={<StorePage />}
+          element={<StorePage productStripe={productStripe} setProductStripe={setProductStripe}/>}
+        />
+        <Route 
+          path="/store/details"
+          element={<SingleProduct productStripe={productStripe} setProductStripe={setProductStripe}/>}
         />
         <Route path="/success" element={<Success />} />
         <Route path="/cancel" element={<Cancel />} />
