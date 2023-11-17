@@ -12,10 +12,6 @@ export function ProductCard(props) {
   const product = props.product;
   const cart = useContext(CartContext);
   const productQuantity = cart.getProductQuantity(product.stripe_id);
-  const productStripe = props.productStripe;
-  console.log('stripe at line 16 is: ');
-  console.log(productStripe);
-
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -58,19 +54,6 @@ export function ProductCard(props) {
             <Card.Img src={`${product.productimage}`} className="smallImage" />
             <Card.Title>{product.productname}</Card.Title>
             <Card.Text>${product.price}</Card.Text>
-            <Button
-              onClick={() => {
-                // navigate("/store/productview");
-                console.log(product.stripe_id);
-                setProductStripe(product.stripe_id);
-                console.log(productStripe);
-                setTimeout(()=> {
-                  navigate("/store/details");
-                }, 1000)
-              }}
-            >
-              More Info
-            </Button>
             {productQuantity > 0 ? (
               <>
                 <Form as={Row}>
@@ -103,15 +86,6 @@ export function ProductCard(props) {
                   >
                     Remove all from Cart
                   </Button>
-                  {/* <Button
-                    variant="contained"
-                    onClick={() => {
-                      // navigate("/store/productview");
-                      setProductStripe(product.stripe_id);
-                    }}
-                  >
-                    More Info
-                  </Button> */}
                 </ButtonGroup>
               </>
             ) : (
@@ -128,17 +102,18 @@ export function ProductCard(props) {
                 >
                   Add To Cart
                 </Button>
-                {/* <Button
-                  variant="contained"
-                  onClick={() => {
-                    // navigate("/store/productview");
-                    setProductStripe(product.stripe_id);
-                  }}
-                >
-                  More Info
-                </Button> */}
               </ButtonGroup>
             )}
+            <ButtonGroup>
+              <Button
+                onClick={() => {
+                  cart.addOneToDetails(product.stripe_id);
+                  navigate("/store/details");
+                }}
+              >
+                More Info
+              </Button>
+            </ButtonGroup>
           </Card.Body>
         </Card>
       </Box>

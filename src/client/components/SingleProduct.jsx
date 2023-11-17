@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from "react";
+import { CartContext } from "../CartContext";
 import { fetchSingleItem } from "../api";
 import { useParams } from "react-router";
 
-export const SingleProduct = ({ productStripe } ) => {
+export const SingleProduct = () => {
   const cart = useContext(CartContext);
-  const productStripe = cart.
+  const productStripe = cart.getDetailsData(stripe_id)
   console.log("ps is:");
-  console.log(productStripe);
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
   const category = "games";

@@ -12,7 +12,6 @@ export const StorePage = () => {
   const [hardwares, setHardware] = useState([]);
   const [searchParams, setSearchParams] = useState("");
   const [error, setError] = useState(null);
-  const [productStripe, setProductStripe] = useState(null);
 
   useEffect(() => {
     async function getGames() {
@@ -74,8 +73,6 @@ export const StorePage = () => {
             <div key={index}>
               <ProductCard
                 product={game}
-                productStripe={productStripe}
-                setProductStripe={setProductStripe}
               />
               {/* <Button onClick={() => fetchSingleItem(game.stripe_id, "games")}>More Info</Button> */}
             </div>
@@ -93,8 +90,6 @@ export const StorePage = () => {
             <div key={index}>
               <ProductCard
                 product={hardware}
-                productStripe={productStripe}
-                setProductStripe={setProductStripe}
               />
               {/* <Button onClick={() => fetchSingleItem(hardware.stripe_id, "hardware")}>More Info</Button> */}
             </div>
@@ -112,8 +107,6 @@ export const StorePage = () => {
             <div key={index}>
               <ProductCard
                 product={merch}
-                productStripe={productStripe}
-                setProductStripe={setProductStripe}
               />
             </div>
           </>
