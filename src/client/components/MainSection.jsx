@@ -15,25 +15,74 @@ import { useState } from "react";
 
 const MainSection = ({ token, setToken }) => {
   const [productStripe, setProductStripe] = useState(null);
+  //snackbar states - I kept the non-descriptive state names only because changing them broke everything even when all calls to it were adjusted as well
+  //Need to add a clickaway listener so that clicking out of the snackbar also closes it (  https://mui.com/base-ui/react-click-away-listener/   )
+  const [state, setState] = useState({
+    open: true,
+    vertical: "top",
+    horizontal: "left",
+  });
+
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (state) => () => {
+    setState({ ...state, open: true });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
   return (
     <div className="">
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={
+            <HomePage
+              state={state}
+              setState={setState}
+              open={open}
+              handleClose={handleClose}
+              handleClick={handleClick}
+            />
+          }
+        />
         <Route
           path="/login"
-          element={<Login token={token} setToken={setToken} />}
+          element={
+            <Login
+              token={token}
+              setToken={setToken}
+              state={state}
+              setState={setState}
+              open={open}
+              handleClose={handleClose}
+              handleClick={handleClick}
+            />
+          }
         />
         <Route
           path="/register"
           element={<Register token={token} setToken={setToken} />}
         />
-        <Route 
+        <Route
           path="/store"
-          element={<StorePage productStripe={productStripe} setProductStripe={setProductStripe}/>}
+          element={
+            <StorePage
+              productStripe={productStripe}
+              setProductStripe={setProductStripe}
+            />
+          }
         />
-        <Route 
+        <Route
           path="/store/details"
-          element={<SingleProduct productStripe={productStripe} setProductStripe={setProductStripe}/>}
+          element={
+            <SingleProduct
+              productStripe={productStripe}
+              setProductStripe={setProductStripe}
+            />
+          }
         />
         <Route path="/success" element={<Success />} />
         <Route path="/cancel" element={<Cancel />} />

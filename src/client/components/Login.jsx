@@ -19,12 +19,21 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { LoginSnackbar } from "./Snackbar";
 
-export const Login = ({ token, setToken, admin, setAdmin }) => {
+export const Login = ({
+  token,
+  setToken,
+  admin,
+  setAdmin,
+  state,
+  setState,
+  open,
+  handleClose,
+  handleClick,
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
-  const [open, setOpen] = useState(false);
   //success tracks if login attempt succeeded or not in order to conditionally render the Snackbar
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
@@ -65,10 +74,9 @@ export const Login = ({ token, setToken, admin, setAdmin }) => {
       }
       setToken(authToken);
       setSuccess(true);
-      setTimeout(() => {
-        navigate("/");
-      }, 1250);
-      // navigate("/");
+      //state below sets snackbar to show
+      setState({ ...state, open: true });
+      navigate("/");
     } else {
       setError(response.error);
     }
@@ -79,7 +87,7 @@ export const Login = ({ token, setToken, admin, setAdmin }) => {
 
   return (
     <Box className="loginRegisterField">
-     {success && <LoginSnackbar /> } 
+      {success && <LoginSnackbar />}
       <>
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
