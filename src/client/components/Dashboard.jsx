@@ -23,6 +23,8 @@ export const Dashboard = () => {
 
     return (
         <>
+            {/* <h1>Welcome, {users.username}!</h1>  */}
+            {/* i think we need a single user fetch */}
             <h1>This is the user dashboard.</h1>
             <h2>Congratulations on being a user</h2>
         </>

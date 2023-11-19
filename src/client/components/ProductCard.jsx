@@ -32,7 +32,8 @@ export function ProductCard(props) {
         borderRadius: 3,
         boxShadow: "0px",
         '&:hover': {
-          boxShadow: "0px 0px 10px black",
+          boxShadow: "0px 0px 50px black",
+          transition: "0.2s",
         },
       }}
     >

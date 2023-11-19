@@ -63,9 +63,9 @@ export const StorePage = () => {
     //working on fetchSingleItem for single item view
     return (
       <>
-        <a id="games"><h1 style={{color: "black"}}>Games</h1></a>
-       
-        
+        <h1 className={"links"}><a href="#games">Games</a> | <a href="#hardware">Hardware</a> | <a href="#merch">Merch</a></h1>
+        <a id="games"><hr className={"hr-text gradient"} data-content={"Games"} /></a>
+
         <div className="productCard">
             {games.map((game, index) => (
               <>
@@ -77,7 +77,7 @@ export const StorePage = () => {
           ))}
         </div>
       
-      <a id="hardware"><h1 style={{color: "black"}}>Hardware</h1></a>
+      <a id="hardware"><hr className={"hr-text gradient"} data-content={"Hardware"} /></a>
                 
         <div className="productCard">
             {hardwares.map((hardware, index) => (
@@ -90,7 +90,7 @@ export const StorePage = () => {
           ))}
         </div>
 
-        <a id="merch"><h1 style={{color: "black"}}>Merch</h1></a>
+        <a id="merch"><hr className={"hr-text gradient"} data-content={"Merch"} /></a>
                  
         <div className="productCard">
             {merches.map((merch, index) => (
