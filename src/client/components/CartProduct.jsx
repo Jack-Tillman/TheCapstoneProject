@@ -14,6 +14,8 @@ export function CartProduct(props) {
 
     return (     
         <>
+            {/* <img src={`${productData.productimage}`} /> */}
+            {/* I would like for there to be a way to view an image of the item in the cart */}
             <h3>{productData.productname}</h3>
             <p>{quantity} total</p>
             <p>${ quantity * price }</p>
