@@ -16,8 +16,8 @@ export function CartProduct(props) {
         <>
             {/* <img src={`${productData.productimage}`} /> */}
             {/* I would like for there to be a way to view an image of the item in the cart */}
-            <h3>{productData.productname}</h3>
-            <p>{quantity} total</p>
+            <h3>{productData.productname} ({quantity})</h3>
+            {/* <p>{quantity} total</p> */}
             <IconButton aria-label="remove from cart" color="primary" onClick={() => cart.deleteFromCart(stripe_id)}sx={{
                 float: "right",
                 }}
