@@ -1,7 +1,7 @@
 .App {
   display: flex;
   flex-direction: column;
-  height: 100vh; 
+  height: 100vh;
   padding-top: 40px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   /* temporary theme because my eyes are burning */
@@ -14,25 +14,27 @@
   font-size: 24px;
 }
 
-#comp-img{
+#comp-img {
   width: 250px;
 }
 
 div.navbar {
-  background-color:rgb(11, 11, 11);
+  background-color: rgb(11, 11, 11);
   color: white;
   font-size: 30px;
   display: flex;
-  width:100%;
+  width: 100%;
   position: fixed;
-  justify-content: space-between; 
-  right:0;
-  left:0;
-  top:0;
+  justify-content: space-between;
+  right: 0;
+  left: 0;
+  top: 0;
   z-index: 1;
 }
 
-a {color:white}
+a {
+  color: white;
+}
 
 .loginRegisterField {
   text-align: center;
@@ -62,3 +64,45 @@ a {color:white}
   margin-top: 13px;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.carousel {
+  width: 60%;
+  border: 5px red solid;
+  padding-top: 0%;
+}
+
+.carouselcontainer {
+  display: flex;
+  justify-content: center;
+  height: 400px;
+  background-color: black;
+}
+
+.card {
+  text-shadow: rgb(144, 57, 57) 1px 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: red;
+  background-color: black;
+  padding-bottom: 0px;
+}
+
+.carouselimg {
+  height: 500px;
+  width: 1000px;
+  border: 10px, red;
+}
+
+.Home {
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-color: black;
+}

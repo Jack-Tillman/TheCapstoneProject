@@ -29,6 +29,8 @@
     "react-password-checklist": "^1.5.0",
     "react-router": "^6.17.0",
     "react-router-dom": "^6.17.0",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "stripe": "^14.4.0",
     "vite-express": "*",
     "volleyball": "^1.5.1"
