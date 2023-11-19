@@ -32,7 +32,11 @@ div.navbar {
   z-index: 1;
 }
 
-a {color:white}
+a {color:rgb(0, 0, 0)}
+
+.links {
+  text-align: center
+}
 
 .loginRegisterField {
   text-align: center;
@@ -62,3 +66,32 @@ a {color:white}
   margin-top: 13px;
 }
 
+
+.hr-text {
+  border: 0;
+  line-height: 1em;
+  position: relative;
+  text-align: center;
+  height: 1.5em;
+  font-size: 25px;
+  margin: 30px 15px;
+}
+
+.hr-text::before {
+    content: "";
+    background: linear-gradient(to right, transparent, rgb(0, 0, 0), transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+}
+
+.hr-text::after {
+    content: attr(data-content);
+    position: relative;
+    padding: 0 7px;
+    line-height: 1.5em;
+    color: rgb(0, 0, 0);
+    background-color: white;
+}
