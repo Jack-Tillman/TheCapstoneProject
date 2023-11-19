@@ -47,8 +47,8 @@ return (
     return (
         <>
         <div className = "Home">
-            <div className="card">
-                <h1>Homepage: Welcome to GAME NEBULA</h1>
+            <div className="homeCard">
+                <h1>Welcome to GAME NEBULA</h1>
                 <h2>Your # 1 stop for all GAMES, HARDWARE, and MORE!!</h2>
             </div>
 

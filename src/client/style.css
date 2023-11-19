@@ -93,6 +93,7 @@ a {color:rgb(0, 0, 0)}
     line-height: 1.5em;
     color: rgb(0, 0, 0);
     background-color: white;
+}
 
 .container {
   display: flex;
@@ -110,16 +111,14 @@ a {color:rgb(0, 0, 0)}
   display: flex;
   justify-content: center;
   height: 400px;
-  background-color: black;
 }
 
-.card {
+.homeCard {
   text-shadow: rgb(144, 57, 57) 1px 0 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   color: red;
-  background-color: black;
   padding-bottom: 0px;
 }
 
@@ -134,5 +133,4 @@ a {color:rgb(0, 0, 0)}
   right: 0px;
   bottom: 0px;
   left: 0px;
-  background-color: black;
 }
