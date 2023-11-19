@@ -15,14 +15,19 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import { LoginSnackbar } from "./Snackbar";
 
-export const Login = ({ token, setToken }) => {
-  const navigate = useNavigate();
-
+export const Login = ({ token, setToken, admin, setAdmin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
+  const [open, setOpen] = useState(false);
+  //success tracks if login attempt succeeded or not in order to conditionally render the Snackbar
+  const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -46,12 +51,24 @@ export const Login = ({ token, setToken }) => {
     const result = await response.json();
     console.log(result);
 
-    sessionStorage.setItem("token", result.token);    
+    sessionStorage.setItem("admin", result.user.isadmin);
+    sessionStorage.setItem("token", result.token);
     const authToken = sessionStorage.getItem("token");
+    const authAdmin = sessionStorage.getItem("admin");
 
     if (response.status === 200) {
+      if (result.user.isadmin === true) {
+        console.log(`Truthy admin: ${authAdmin}`);
+      } else {
+        sessionStorage.removeItem("admin");
+        console.log(`Falsey admin: ${authAdmin}`);
+      }
       setToken(authToken);
-      navigate("/");
+      setSuccess(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 1250);
+      // navigate("/");
     } else {
       setError(response.error);
     }
@@ -62,78 +79,102 @@ export const Login = ({ token, setToken }) => {
 
   return (
     <Box className="loginRegisterField">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          {/*<label htmlFor='email'>Email:</label>
+     {success && <LoginSnackbar /> } 
+      <>
+        <h2>Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            {/*<label htmlFor='email'>Email:</label>
            <input
-            type='email'
-            id='email'
-            value={email}
+           type='email'
+           id='email'
+           value={email}
             onChange={handleEmailChange}
             required
           /> */}
-          <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
-            <TextField
-              required
-              id="outlined-required"
-              label="Email"
-              value={email}
-              onChange={handleEmailChange}
-            />
-          </FormControl>
-        </div>
-        <div>
-          {/* <label htmlFor='password'>Password:</label>
+            <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
+              <TextField
+                required
+                id="outlined-required"
+                label="Email"
+                value={email}
+                onChange={handleEmailChange}
+              />
+            </FormControl>
+          </div>
+          <div>
+            {/* <label htmlFor='password'>Password:</label>
           <input
-            type='password'
-            id='password'
-            value={password}
-            onChange={handlePasswordChange}
-            required
-          /> */}
-          <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
-              Password
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={showPassword ? "text" : "password"}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-              // type='password'
-              // id='password'
-              value={password}
-              onChange={handlePasswordChange}
-              required
-            />
-          </FormControl>
-        </div>
-        {/* <button type='submit'>Login</button> */}
-        <Button
-          disabled={false}
-          color="primary"
-          variant="contained"
-          type="submit"
-          sx={{ width: "1" }}
-        >
-          Login
-        </Button>
-      </form>
-      <p>Don't have an account?</p>
-      <Link to="/register" style={{color:'black'}}><Button variant="outlined" sx={{width:"1"}}>Register</Button></Link>
-      <p>{message}</p>
+          type='password'
+          id='password'
+          value={password}
+          onChange={handlePasswordChange}
+          required
+        /> */}
+            <FormControl sx={{ m: 1, width: "1" }} variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+                // type='password'
+                // id='password'
+                value={password}
+                onChange={handlePasswordChange}
+                required
+              />
+            </FormControl>
+          </div>
+          {/* <button type='submit'>Login</button> */}
+          <Button
+            disabled={false}
+            color="primary"
+            variant="contained"
+            type="submit"
+            sx={{ width: "1" }}
+          >
+            Login
+          </Button>
+        </form>
+        <p>Don't have an account?</p>
+        <Link to="/register" style={{ color: "black" }}>
+          <Button variant="outlined" sx={{ width: "1" }}>
+            Register
+          </Button>
+        </Link>
+        <p>{message}</p>
+      </>
     </Box>
   );
 };
+
+/*
+
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+           <Alert
+             onClose={handleClose}
+             severity="success"
+             sx={{ width: "100%" }}
+           >
+             This is a success message!
+           </Alert>
+         </Snackbar>
+
+
+
+*/

@@ -30,7 +30,9 @@ const theme = createTheme({
 function App() {
   
   const [token, setToken] = useState(null);
-  const storageToken = sessionStorage.getItem("token")
+  const [admin, setAdmin] = useState(false);
+  const adminStorage = sessionStorage.getItem("admin");
+  const storageToken = sessionStorage.getItem("token");
 
   useEffect(() => {
     async function getToken(storageToken) {
@@ -42,6 +44,17 @@ function App() {
     }
     getToken(storageToken);
   },[token, storageToken]);
+
+  useEffect(() => {
+    async function getAdmin(adminStorage) {
+      if (adminStorage) {
+        setAdmin(adminStorage);
+      } else {
+        return;
+      }      
+    }
+    getAdmin(adminStorage);
+  },[admin, adminStorage]);
 
   // const [mode, setMode] = React.useState<PaletteMode>('light');
   // const colorMode = React.useMemo(
@@ -65,8 +78,8 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className='App'>
-          <NavBar token={token} setToken={setToken} />
-          <MainSection token={token} setToken={setToken}/>
+          <NavBar token={token} setToken={setToken} admin={admin} setAdmin={setAdmin} />
+          <MainSection token={token} setToken={setToken} admin={admin} setAdmin={setAdmin}/>
         </div>
       </ThemeProvider>
     </CartProvider>

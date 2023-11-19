@@ -25,6 +25,8 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { ShoppingCart } from "@mui/icons-material";
 import { Badge } from "@mui/material";
 import gamenebulalogo from "../../Assets/Logo/gamenebulalogo.png";
+import {Typography} from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
 //conditional render login/register if user is logged out
 //don't render login/register is user is logged out
@@ -46,18 +48,27 @@ import gamenebulalogo from "../../Assets/Logo/gamenebulalogo.png";
     { name: "Dashboard", link: "/dashboard", icon: <PersonIcon />}
   ];
 
-const NavBar = ({ token, setToken }) => {
+const NavBar = ({ token, setToken, admin, setAdmin }) => {
   useEffect(() => {
     async function renderNavbar() {
       const storageToken = sessionStorage.getItem("token");
+      const storageAdmin = sessionStorage.getItem("admin");
       if (storageToken) {
         setToken(storageToken);
       } else {
         setToken(null);
       }
+
+      if (storageAdmin) {
+        setAdmin(storageAdmin);
+      } else {
+        setAdmin(false);
+      }
     }
     renderNavbar();
-  }, [token]);
+  }, [token, admin]);
+
+
 
   const cart = useContext(CartContext);
 
@@ -154,13 +165,17 @@ const NavBar = ({ token, setToken }) => {
       )}
             
 {/* Logged in links */}
-      {token && (
+      {token && admin && (
         <>
           <Link to="/dashboard">
             <IconButton aria-label="Dashboard" color="primary">
               <AccountBoxIcon />
             </IconButton>
           </Link>
+        </>
+        )}
+        {token && (
+          <>
           <Link
             to="/logout"
             onClick={() => {
@@ -177,33 +192,51 @@ const NavBar = ({ token, setToken }) => {
       )}
        
 
-            <Modal sx={{overflow:"scroll"}} open={cartModal} onClose={handleCloseCart}>
+            <Modal sx={{
+                overflow:"scroll",
+                position: 'absolute',
+                top: '6.3%',
+                left: '35%',
+                // transform: 'translate(-50%, -90%)',
+                width: 400,
+                height: 500,
+                bgcolor: 'background.paper',
+                border: '2px solid #000',
+                boxShadow: `24`,
+                }} 
+              open={cartModal} 
+              onClose={handleCloseCart}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description">
               <>
-                <Box>
-                    <h3>Cart</h3>
-                </Box>
-                <Box>
+                <Box sx={{bgcolor: "white", p: 2, minHeight: 500}}>
+
+                <Typography id="modal-modal-title" variant="h6" component="h2" >
+                  <IconButton aria-label="close cart" color="primary" onClick={handleCloseCart}>
+                    <CloseIcon />
+                  </IconButton>
+                  Cart 
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                     {productsCount > 0 ?
                         <>
-                            <p>Items in your cart:</p> 
                             {cart.items.map((currentProduct, idx) => (
                                 <CartProduct key={idx} stripe_id={currentProduct.stripe_id} quantity={currentProduct.quantity} price={currentProduct.price} name={currentProduct.productName} />
                             ))}
 
                             <h1>Total: ${cart.getTotalCost().toFixed(2)}</h1>
-                            
-                            <Button onClick={handleCloseCart}>Close Cart</Button>
-                            <Button variant="success" onClick={checkout}>
+                            <Button variant="contained" onClick={checkout} color="success">
                                 Purchase Items!
                             </Button>
                          </>
                     :
-                    <>
-                        <h1>No items in cart. 😔</h1>
 
-                        <Button onClick={handleCloseCart}>Close Cart</Button>
-                   </>
+                        <>
+                        
+                        <h1>No items in cart. 😔</h1>
+                        </>
                     }                        
+                    </Typography>
                 </Box>
               </>
             </Modal> 
