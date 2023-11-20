@@ -217,6 +217,7 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
                   </IconButton>
                   Cart 
                 </Typography>
+                <hr />
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                     {productsCount > 0 ?
                         <>
