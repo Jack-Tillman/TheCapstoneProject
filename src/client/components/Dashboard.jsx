@@ -1,28 +1,33 @@
 import { useState, useEffect } from "react";
 import { fetchAllUsers } from "../api";
 
-export const Dashboard = () => {
+export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
   const [users, setUsers] = useState([]);
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function getUsers() {
+    async function getUsers(admin) {
       try {
-        const response = await fetchAllUsers();
-        const result = await response.json();
-        if (response.status === 200) {
-          setUsers(result.users);
+        //if user is admin, actually fire the fetch request; else, setUsers as false for conditional rendering purposes
+        if (admin) {
+          const response = await fetchAllUsers();
+          const result = await response.json();
+          if (response.status === 200) {
+            setUsers(result.users);
+          } else {
+            setError(response.error);
+            console.error(error);
+          }
         } else {
-          setError(response.error);
-          console.error(error);
+          setUsers(false);
         }
       } catch (error) {
         console.error(error);
         setError(error);
       }
     }
-    getUsers();
+    getUsers(admin);
   }, []);
 
   console.log(users);

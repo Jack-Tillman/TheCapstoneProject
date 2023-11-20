@@ -23,12 +23,7 @@ export const Login = ({
   token,
   setToken,
   admin,
-  setAdmin,
-  state,
-  setState,
-  open,
-  handleClose,
-  handleClick,
+  setAdmin
 }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -74,10 +69,9 @@ export const Login = ({
       }
       setToken(authToken);
       setSuccess(true);
-      //state below sets snackbar to show
-      setState({ ...state, open: true });
-      navigate("/");
-    } else {
+      setTimeout(() => {
+        navigate("/");
+      }, 1250);
       setError(response.error);
     }
     setEmail("");
