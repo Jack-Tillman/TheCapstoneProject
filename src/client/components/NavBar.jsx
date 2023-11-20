@@ -194,7 +194,7 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
 
             <Modal sx={{
                 overflow:"scroll",
-                position: 'absolute',
+                position: 'fixed',
                 top: '6.3%',
                 left: '35%',
                 // transform: 'translate(-50%, -90%)',
