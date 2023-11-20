@@ -8,25 +8,43 @@ export const CartContext = createContext({
   removeOneFromCart: () => {},
   deleteFromCart: () => {},
   getTotalCost: () => {},
+  getInitialCart: () => {},
 });
-//f
+
 export function CartProvider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
   const [productId, setProductId] = useState(null);
+  //grab any cart items stored in local storage
   const localCart = localStorage.getItem("cart");
+  //convert to object so that it can be passed to setCartProducts 
+  const localObject = JSON.parse(localCart);
+  //useEffect fires upon page load to check if there is any data in localStorage for the cart. 
+  useEffect(() => {
+    async function getCart(localCart) {
+      if (localCart) {
+        console.log(localCart);
+        console.log(localObject);
+        //if cart data is stored in local Storage, set it as cartProducts 
+        setCartProducts(localObject);
+        return;
+      } else {
+        return;
+      }
+    }
+    getCart(localCart);
+  }, []);
 
-  // useEffect(() => {
-  //   async function getCart(localCart) {
-  //     if (localCart) {
-  //       setCartProducts(localCart);
-  //     } else {
-  //       return;
-  //     }
-  //   }
-  //   getCart(localCart);
-  // }, [localCart]);
-
-  // [ { id: 1, quantity: 2 }, { id: 2, quantity: 1} ]
+//this function takes the data found in local storage and sets it as cartProducts 
+  function getInitialCart(localCart) {
+    if (localCart) {
+      setCartProducts(localObject);
+      console.log(localObject);
+      console.log(cartProducts);
+      return;
+    } else {
+      return;
+    }
+  }
 
   function getProductQuantity(stripe_id) {
     const quantity = cartProducts.find(
@@ -36,13 +54,14 @@ export function CartProvider({ children }) {
     if (quantity === undefined) {
       return 0;
     }
-
+    console.log(quantity);
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
     return quantity;
   }
 
   function addOneToCart(stripe_id, price, productName) {
     const quantity = getProductQuantity(stripe_id);
-    const stringProducts = JSON.stringify(cartProducts);
+
     if (quantity === 0) {
       //product is not in cart
       setCartProducts([
@@ -54,8 +73,6 @@ export function CartProvider({ children }) {
           quantity: 1,
         },
       ]);
-      //localSTORAGE
-      localStorage.setItem("cart", stringProducts);
     } else {
       //product is in cart
       setCartProducts(
@@ -66,9 +83,9 @@ export function CartProvider({ children }) {
               : product // if statement is false
         )
       );
-      //localSTORAGE
-      localStorage.setItem("cart", stringProducts);
     }
+    //LOCAL STORAGE - add the string version of the cartProduct to localStorage
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
   }
 
   function removeOneFromCart(stripe_id) {
@@ -94,6 +111,8 @@ export function CartProvider({ children }) {
         return currentProduct.stripe_id !== stripe_id;
       })
     );
+    //line below will delete the cart after the final item is removed from the cart
+    localStorage.removeItem("cart");
   }
 
   function getProductData(stripe_id) {
@@ -138,6 +157,7 @@ export function CartProvider({ children }) {
     deleteFromCart,
     getProductData,
     getTotalCost,
+    getInitialCart,
   };
 
   return (
@@ -145,4 +165,3 @@ export function CartProvider({ children }) {
   );
 }
 // Context (cart, addToCart, removeCart))
-// Provider => Gives React app access to all the things in context
