@@ -11,6 +11,7 @@ export function CartProduct(props) {
     const price = props.price;
     const quantity = props.quantity;
     const productData = cart.getProductData(stripe_id);
+    const itemTotal = (quantity * price).toFixed(2);
 
     return (     
         <>
@@ -26,7 +27,7 @@ export function CartProduct(props) {
             </IconButton>
             
 
-            <p>${ quantity * price }</p>
+            <p>${ itemTotal }</p>
             {/* <Button size="sm" >Remove</Button> */}
 
             <hr />
