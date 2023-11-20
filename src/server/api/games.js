@@ -5,6 +5,7 @@ const { requireUser, requireAdmin } = require("./utils");
 const {
   createGame,
   getAllGames,
+  getGameByStripeId,
   getGameById,
   updateGame,
   deleteGame,
@@ -24,8 +25,19 @@ gamesRouter.get("/", async (req, res, next) => {
 // pass the id from the url as an argument to getVideoGameById using req.params
 gamesRouter.get("/:id", async (req, res, next) => {
   try {
-    const game = await getGameById(req.params.id);
-    res.send(game);
+    const id = req.params.id;
+    const idCheck = id.search(/[^0-9]/);
+    console.log(id);
+    console.log(idCheck);
+    if (idCheck > -1){
+      const game = await getGameByStripeId(id);
+      console.log(game);
+      res.send(game);
+    } else {
+      const game = await getGameById(id);
+      console.log(game);
+      res.send(game);
+    }
   } catch (error) {
     next(error);
   }

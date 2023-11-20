@@ -1,11 +1,12 @@
-import { Card, Form, Row, Col, Image } from 'react-bootstrap';
-import { Box } from '@mui/material';
+import { Card, Form, Row, Col, Image } from "react-bootstrap";
+import { Box } from "@mui/material";
 // import { Modal } from '@mui/material';
-import { Button, ButtonGroup } from '@mui/material';
+import { Button, ButtonGroup } from "@mui/material";
 import { CartContext } from "../CartContext";
 import { useContext, useState } from "react";
-import { useNavigate } from 'react-router-dom';
-
+import { Navigate, useNavigate } from "react-router-dom";
+import { fetchSingleItem } from "../api";
+import { SingleProduct } from "./SingleProduct";
 
 export function ProductCard(props) {
   const product = props.product;
@@ -16,7 +17,9 @@ export function ProductCard(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  return (  
+  const navigate = useNavigate();
+
+  return (
     <>
       
 
@@ -49,32 +52,74 @@ export function ProductCard(props) {
                     <p><strong>Description:</strong> {product.description}</p>                        
                 </Modal.Body>
             </Modal> */}
-    <Card>      
-      <Card.Body>          
-          <Card.Img src={`${product.productimage}`} className="smallImage"/>
-          <Card.Title>{product.productname}</Card.Title>
-          <Card.Text>${product.price}</Card.Text>
-          {/* <Button onClick={handleShow}>More Info</Button> */}
-          { productQuantity > 0 ?
-          <>
-            <Form as={Row}>
-            <Form.Label column="true" sm="6"><strong>In Cart: {productQuantity}</strong></Form.Label><br />
-              <ButtonGroup size="small" variant="outlined" aria-label="add/remove item from cart">
-                <Button onClick={() => cart.removeOneFromCart(product.stripe_id)}>-</Button>
-                <Button onClick={() => cart.addOneToCart(product.stripe_id)}>+</Button>
-              </ButtonGroup>  
-            </Form>
-            <Button sx={{marginTop: 1,}} variant="outlined" onClick={() => cart.deleteFromCart(product.stripe_id)}>Remove all from Cart</Button>
-          </>    
-          :
-          <Button variant="contained" onClick={() => cart.addOneToCart(product.stripe_id, product.price, product.productname)}>Add To Cart</Button>
-        }
-      </Card.Body>
-    </Card>    
-    </Box>
-
-    
-
-  </> 
+        <Card>
+          <Card.Body>
+            <Card.Img src={`${product.productimage}`} className="smallImage" />
+            <Card.Title>{product.productname}</Card.Title>
+            <Card.Text>${product.price}</Card.Text>
+            {productQuantity > 0 ? (
+              <>
+                <Form as={Row}>
+                  <Form.Label column="true" sm="6">
+                    <strong>In Cart: {productQuantity}</strong>
+                  </Form.Label>
+                  <br />
+                  <ButtonGroup
+                    size="small"
+                    variant="outlined"
+                    aria-label="add/remove item from cart"
+                  >
+                    <Button
+                      onClick={() => cart.removeOneFromCart(product.stripe_id)}
+                    >
+                      -
+                    </Button>
+                    <Button
+                      onClick={() => cart.addOneToCart(product.stripe_id)}
+                    >
+                      +
+                    </Button>
+                  </ButtonGroup>
+                </Form>
+                <ButtonGroup>
+                  <Button
+                    sx={{ marginTop: 1 }}
+                    variant="outlined"
+                    onClick={() => cart.deleteFromCart(product.stripe_id)}
+                  >
+                    Remove all from Cart
+                  </Button>
+                </ButtonGroup>
+              </>
+            ) : (
+              <ButtonGroup>
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    cart.addOneToCart(
+                      product.stripe_id,
+                      product.price,
+                      product.productname
+                    )
+                  }
+                >
+                  Add To Cart
+                </Button>
+              </ButtonGroup>
+            )}
+            <ButtonGroup>
+              <Button
+                onClick={() => {
+                  cart.addOneToDetails(product.stripe_id);
+                  navigate("/store/details");
+                }}
+              >
+                More Info
+              </Button>
+            </ButtonGroup>
+          </Card.Body>
+        </Card>
+      </Box>
+    </>
   );
-};
+}
