@@ -4,6 +4,8 @@ import { ProductCard } from "./ProductCard";
 import { FormControl } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Button } from "react-bootstrap"
+import { Fab } from "@mui/material";
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 export const StorePage = () => {
     const [games, setGames] = useState([]);
@@ -63,6 +65,16 @@ export const StorePage = () => {
     //working on fetchSingleItem for single item view
     return (
       <>
+        {/* <a href="">
+        <Fab color="primary" aria-label="back to top"
+          sx={{
+            position: "fixed",
+            bottom: "10px",
+            right: "10px",
+          }}>
+          <ArrowUpwardIcon />
+        </Fab>
+        </a> */}
         <h1 className={"links"}><a href="#games">Games</a> | <a href="#hardware">Hardware</a> | <a href="#merch">Merch</a></h1>
         <a id="games"><hr className={"hr-text gradient"} data-content={"Games"} /></a>
 

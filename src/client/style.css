@@ -93,46 +93,52 @@ a {color:rgb(0, 0, 0)}
     line-height: 1.5em;
     color: rgb(0, 0, 0);
     background-color: white;
+}
 
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 .carousel {
-  width: 60%;
-  border: 5px red solid;
-  padding-top: 0%;
+  width: 100%;
+  /* border: 5px red solid; */
+  box-shadow: 0px 0px 15px black;
 }
+
+/* .slideDiv {
+  padding: 0px;
+} */
 
 .carouselcontainer {
   display: flex;
   justify-content: center;
-  height: 400px;
-  background-color: black;
 }
 
-.card {
-  text-shadow: rgb(144, 57, 57) 1px 0 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: red;
-  background-color: black;
-  padding-bottom: 0px;
+.carouselText {
+  position:absolute;
+  z-index: 3;
+  color: white;
+  text-shadow: black 0px 0px 20px;
+  bottom: 0;
+  margin-left: 5px;
+  font-size: 50px;
+  -webkit-text-stroke: 1px black;
 }
 
 .carouselimg {
-  height: 500px;
-  width: 1000px;
+  object-fit: cover;
+  position: relative;
+  object-position: 0 0;
+  height: 100%;
+  width: 100%;
   border: 10px, red;
 }
 
-.Home {
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  background-color: black;
+.homeCard {
+  text-shadow: rgb(255, 0, 0) 1px 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(0, 0, 0);
 }

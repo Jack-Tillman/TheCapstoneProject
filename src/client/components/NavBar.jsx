@@ -25,7 +25,7 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { ShoppingCart } from "@mui/icons-material";
 import { Badge } from "@mui/material";
 import gamenebulalogo from "../../Assets/Logo/gamenebulalogo.png";
-import {Typography} from "@mui/material";
+import { Typography } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 
 //conditional render login/register if user is logged out
@@ -194,7 +194,7 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
 
             <Modal sx={{
                 overflow:"scroll",
-                position: 'absolute',
+                position: 'fixed',
                 top: '6.3%',
                 left: '35%',
                 // transform: 'translate(-50%, -90%)',
@@ -217,6 +217,7 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
                   </IconButton>
                   Cart 
                 </Typography>
+                <hr />
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                     {productsCount > 0 ?
                         <>
