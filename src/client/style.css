@@ -99,38 +99,30 @@ a {color:rgb(0, 0, 0)}
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 .carousel {
-  width: 60%;
-  border: 5px red solid;
-  padding-top: 0%;
+  width: 100%;
+  /* border: 5px red solid; */
+  box-shadow: 0px 0px 15px black;
 }
 
 .carouselcontainer {
   display: flex;
   justify-content: center;
-  height: 400px;
 }
 
 .homeCard {
-  text-shadow: rgb(144, 57, 57) 1px 0 10px;
+  text-shadow: rgb(255, 0, 0) 1px 0 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: red;
-  padding-bottom: 0px;
+  color: rgb(0, 0, 0);
 }
 
 .carouselimg {
-  height: 500px;
-  width: 1000px;
+  object-fit: cover;
+  object-position: 0 0;
+  height: 100%;
+  width: 100%;
   border: 10px, red;
-}
-
-.Home {
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
 }

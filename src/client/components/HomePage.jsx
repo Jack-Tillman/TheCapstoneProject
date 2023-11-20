@@ -46,10 +46,10 @@ return (
 }
     return (
         <>
-        <div className = "Home">
+        <div>
             <div className="homeCard">
                 <h1>Welcome to GAME NEBULA</h1>
-                <h2>Your # 1 stop for all GAMES, HARDWARE, and MORE!!</h2>
+                <h2>Your #1 stop for all GAMES, HARDWARE, and MORE!!</h2>
             </div>
 
             <div classname= "carouselcontainer">
