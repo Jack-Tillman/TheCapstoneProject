@@ -9,7 +9,7 @@ export const CartContext = createContext({
   deleteFromCart: () => {},
   getTotalCost: () => {},
 });
-
+//f
 export function CartProvider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
   const [productId, setProductId] = useState(null);
