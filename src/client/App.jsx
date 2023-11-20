@@ -33,6 +33,8 @@ function App() {
   const [admin, setAdmin] = useState(false);
   const adminStorage = sessionStorage.getItem("admin");
   const storageToken = sessionStorage.getItem("token");
+  const localCart = localStorage.getItem("cart");
+  
 
   useEffect(() => {
     async function getToken(storageToken) {

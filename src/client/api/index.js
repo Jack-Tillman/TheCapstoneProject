@@ -11,15 +11,15 @@ export async function fetchItems(category) {
 
 export async function fetchSingleItem(stripe_id, category) {
   try {
-      const response = await fetch(`${API_URL}/${category}/${stripe_id}`);      
+    const response = await fetch(`${API_URL}/${category}/${stripe_id}`);
 
-      const result = response.json();
-      console.log(result);
-      return result;
+    const result = response.json();
+    console.log(result);
+    return result;
   } catch (err) {
-      console.error(`Oh no, trouble fetching item #${stripe_id}!`, err);
+    console.error(`Oh no, trouble fetching item #${stripe_id}!`, err);
   }
-};
+}
 
 export async function registerUser(name, email, password) {
   try {
@@ -61,9 +61,20 @@ export async function userLogin(email, password) {
 }
 
 export async function fetchAllUsers() {
+  const token = sessionStorage.getItem("token");
   try {
-    const response = await fetch(`${API_URL}/users`);
+    const response = await fetch(`${API_URL}/users`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+    console.log(response);
     return response;
+    // const result = response.json();
+    // console.log(result);
+    // return result;
   } catch (err) {
     console.error(err);
   }

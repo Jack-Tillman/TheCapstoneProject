@@ -91,7 +91,7 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
         }
     })
 }
-
+  //line that handles the number in navbar for cart items
   const productsCount = cart.items.reduce((sum, product) => sum + product.quantity, 0);
 
   const [cartModal, setCartModal] = useState(false);

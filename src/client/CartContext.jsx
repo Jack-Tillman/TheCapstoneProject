@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 // import { getProductData } from "../server/db/cart.js";
 
 export const CartContext = createContext({
@@ -13,6 +13,18 @@ export const CartContext = createContext({
 export function CartProvider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
   const [productId, setProductId] = useState(null);
+  const localCart = localStorage.getItem("cart");
+
+  // useEffect(() => {
+  //   async function getCart(localCart) {
+  //     if (localCart) {
+  //       setCartProducts(localCart);
+  //     } else {
+  //       return;
+  //     }
+  //   }
+  //   getCart(localCart);
+  // }, [localCart]);
 
   // [ { id: 1, quantity: 2 }, { id: 2, quantity: 1} ]
 
@@ -30,7 +42,7 @@ export function CartProvider({ children }) {
 
   function addOneToCart(stripe_id, price, productName) {
     const quantity = getProductQuantity(stripe_id);
-
+    const stringProducts = JSON.stringify(cartProducts);
     if (quantity === 0) {
       //product is not in cart
       setCartProducts([
@@ -42,6 +54,8 @@ export function CartProvider({ children }) {
           quantity: 1,
         },
       ]);
+      //localSTORAGE
+      localStorage.setItem("cart", stringProducts);
     } else {
       //product is in cart
       setCartProducts(
@@ -51,7 +65,9 @@ export function CartProvider({ children }) {
               ? { ...product, quantity: product.quantity + 1 } // if statement is true
               : product // if statement is false
         )
-      )
+      );
+      //localSTORAGE
+      localStorage.setItem("cart", stringProducts);
     }
   }
 
@@ -91,6 +107,17 @@ export function CartProvider({ children }) {
     } else {
       console.log(productData);
       return productData;
+    }
+  }
+
+  function getDetailsData() {
+    let detailsData = productId[0];
+    if (detailsData == undefined) {
+      console.log(`Details data does not exist for ID: ${stripe_id}`);
+      return undefined;
+    } else {
+      console.log(detailsData);
+      return detailsData;
     }
   }
 
