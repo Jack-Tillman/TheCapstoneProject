@@ -47,7 +47,7 @@ export function CartProvider({children}) {
                 cartProducts.map(
                     product =>
                     product.stripe_id === stripe_id                               // if condition
-                    ? { ...product, quantity: product.quantity + 1, productname: productName} // if statement is true
+                    ? { ...product, quantity: product.quantity + 1} // if statement is true
                     : product                                       // if statement is false
                 )
             )
