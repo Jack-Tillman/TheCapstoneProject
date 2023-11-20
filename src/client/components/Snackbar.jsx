@@ -10,10 +10,25 @@ const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export const LoginSnackbar = ({state, setState, open, handleClose, handleClick}) => {
-/* 
-Much of this logic was copy-pasted into MainSection in order to control whether to show or not show the Snackbar
-*/
+export const LoginSnackbar = () => {
+  //changing vertical and horizontal attributes affects where snackbar shows up
+  // (vertical: top, center, bottom; horizontal: left, right)
+  const [state, setState] = useState({
+    open: true,
+    vertical: "top",
+    horizontal: "left",
+  });
+
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (newState) => () => {
+    setState({ ...newState, open: true });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
   return (
     <>
       <Box>
