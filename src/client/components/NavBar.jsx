@@ -197,7 +197,6 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
                 position: 'fixed',
                 top: '6.3%',
                 left: '35%',
-                // transform: 'translate(-50%, -90%)',
                 width: 400,
                 height: 500,
                 bgcolor: 'background.paper',
@@ -235,6 +234,11 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
                         <>
                         
                         <h1>No items in cart. 😔</h1>
+                        <hr />
+                        <h1>Total: $0</h1>
+                        <Button variant="contained" onClick={checkout} color="success" disabled="true">
+                            Purchase Items!
+                        </Button>
                         </>
                     }                        
                     </Typography>
