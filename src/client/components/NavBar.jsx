@@ -195,9 +195,9 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
             <Modal sx={{
                 overflow:"scroll",
                 position: 'fixed',
-                top: '6.3%',
-                left: '35%',
-                // transform: 'translate(-50%, -90%)',
+                // top: '6.3%',
+                // left: '90%',
+                // marginLeft: 400,
                 width: 400,
                 height: 500,
                 bgcolor: 'background.paper',
@@ -207,15 +207,19 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
               open={cartModal} 
               onClose={handleCloseCart}
               aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description">
+              aria-describedby="modal-modal-description"
+              className="cartModal">
               <>
                 <Box sx={{bgcolor: "white", p: 2, minHeight: 500}}>
 
                 <Typography id="modal-modal-title" variant="h6" component="h2" >
-                  <IconButton aria-label="close cart" color="primary" onClick={handleCloseCart}>
+                  Cart 
+                  <IconButton aria-label="close cart" color="primary" onClick={handleCloseCart}
+                  sx={{
+                    float: "right"
+                  }}>
                     <CloseIcon />
                   </IconButton>
-                  Cart 
                 </Typography>
                 <hr />
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -227,7 +231,7 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
 
                             <h1>Total: ${cart.getTotalCost().toFixed(2)}</h1>
                             <Button variant="contained" onClick={checkout} color="success">
-                                Purchase Items!
+                                Check out
                             </Button>
                          </>
                     :
@@ -235,6 +239,11 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
                         <>
                         
                         <h1>No items in cart. 😔</h1>
+                        <hr />
+                        <h1>Total: $0.00</h1>
+                        <Button variant="contained" onClick={checkout} color="success" disabled="true">
+                            Check out
+                        </Button>
                         </>
                     }                        
                     </Typography>
