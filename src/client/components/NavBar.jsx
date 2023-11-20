@@ -230,7 +230,7 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
 
                             <h1>Total: ${cart.getTotalCost().toFixed(2)}</h1>
                             <Button variant="contained" onClick={checkout} color="success">
-                                Purchase Items!
+                                Check out
                             </Button>
                          </>
                     :
@@ -241,7 +241,7 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
                         <hr />
                         <h1>Total: $0</h1>
                         <Button variant="contained" onClick={checkout} color="success" disabled="true">
-                            Purchase Items!
+                            Check out
                         </Button>
                         </>
                     }                        
