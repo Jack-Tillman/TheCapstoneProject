@@ -106,9 +106,33 @@ a {color:rgb(0, 0, 0)}
   box-shadow: 0px 0px 15px black;
 }
 
+/* .slideDiv {
+  padding: 0px;
+} */
+
 .carouselcontainer {
   display: flex;
   justify-content: center;
+}
+
+.carouselText {
+  position:absolute;
+  z-index: 3;
+  color: white;
+  text-shadow: black 0px 0px 15px;
+  bottom: 0;
+  margin-left: 5px;
+  font-size: 50px;
+  -webkit-text-stroke: 1px black;
+}
+
+.carouselimg {
+  object-fit: cover;
+  position: relative;
+  object-position: 0 0;
+  height: 100%;
+  width: 100%;
+  border: 10px, red;
 }
 
 .homeCard {
@@ -117,12 +141,4 @@ a {color:rgb(0, 0, 0)}
   flex-direction: column;
   align-items: center;
   color: rgb(0, 0, 0);
-}
-
-.carouselimg {
-  object-fit: cover;
-  object-position: 0 0;
-  height: 100%;
-  width: 100%;
-  border: 10px, red;
 }
