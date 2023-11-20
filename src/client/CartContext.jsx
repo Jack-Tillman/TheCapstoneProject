@@ -31,29 +31,29 @@ export function CartProvider({ children }) {
   function addOneToCart(stripe_id, price, productName) {
     const quantity = getProductQuantity(stripe_id);
 
-        if (quantity === 0) { //product is not in cart
-            setCartProducts(
-                [
-                    ...cartProducts,
-                    {
-                        stripe_id: stripe_id,   
-                        productname: productName,                  
-                        price: price,
-                        quantity: 1,
-                    }
-                ]
-            )
-        } else { //product is in cart
-            setCartProducts(
-                cartProducts.map(
-                    product =>
-                    product.stripe_id === stripe_id                               // if condition
-                    ? { ...product, quantity: product.quantity + 1} // if statement is true
-                    : product                                       // if statement is false
-                )
-            )
-        }
+    if (quantity === 0) {
+      //product is not in cart
+      setCartProducts([
+        ...cartProducts,
+        {
+          stripe_id: stripe_id,
+          productname: productName,
+          price: price,
+          quantity: 1,
+        },
+      ]);
+    } else {
+      //product is in cart
+      setCartProducts(
+        cartProducts.map(
+          (product) =>
+            product.stripe_id === stripe_id // if condition
+              ? { ...product, quantity: product.quantity + 1 } // if statement is true
+              : product // if statement is false
+        )
+      )
     }
+  }
 
   function removeOneFromCart(stripe_id) {
     const quantity = getProductQuantity(stripe_id);
@@ -93,18 +93,6 @@ export function CartProvider({ children }) {
       return productData;
     }
   }
-
-  function getDetailsData() {
-    let detailsData = productId[0];
-    if (detailsData == undefined) {
-      console.log(`Details data does not exist for ID: ${stripe_id}`);
-      return undefined;
-    } else {
-      console.log(detailsData);
-      return detailsData;
-    }
-  }
-  
 
   function getTotalCost() {
     let totalCost = 0;
