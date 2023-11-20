@@ -3,13 +3,10 @@ import { createContext, useState } from "react";
 
 export const CartContext = createContext({
   items: [],
-  details: [],
   getProductQuantity: () => {},
-  addOneToDetails: () => {},
   addOneToCart: () => {},
   removeOneFromCart: () => {},
   deleteFromCart: () => {},
-  getDetailsData: () => {},
   getTotalCost: () => {},
 });
 
@@ -120,14 +117,11 @@ export function CartProvider({ children }) {
 
   const contextValue = {
     items: cartProducts,
-    details: productId,
     getProductQuantity,
     addOneToCart,
-    addOneToDetails,
     removeOneFromCart,
     deleteFromCart,
     getProductData,
-    getDetailsData,
     getTotalCost,
   };
 
