@@ -211,10 +211,14 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
                 <Box sx={{bgcolor: "white", p: 2, minHeight: 500}}>
 
                 <Typography id="modal-modal-title" variant="h6" component="h2" >
-                  <IconButton aria-label="close cart" color="primary" onClick={handleCloseCart}>
+                  
+                  Cart 
+                  <IconButton aria-label="close cart" color="primary" onClick={handleCloseCart}
+                  sx={{
+                    float: "right"
+                  }}>
                     <CloseIcon />
                   </IconButton>
-                  Cart 
                 </Typography>
                 <hr />
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
