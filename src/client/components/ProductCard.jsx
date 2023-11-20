@@ -21,23 +21,26 @@ export function ProductCard(props) {
 
   return (
     <>
-      <Box
-        width={250}
-        gap={0}
-        sx={{
-          margin: 2,
-          padding: 1,
-          borderColor: "primary",
-          borderWidth: 1,
-          borderStyle: "solid",
-          borderRadius: 3,
-          boxShadow: "0px",
-          "&:hover": {
-            boxShadow: "0px 0px 10px black",
-          },
-        }}
-      >
-        {/* <Modal show={show} onHide={handleClose}>
+      
+
+    <Box 
+      width={250}
+      gap={0}
+      sx={{
+        margin: 2,
+        padding: 1,
+        borderColor: "primary",
+        borderWidth: 1,        
+        borderStyle: "solid",
+        borderRadius: 3,
+        boxShadow: "0px",
+        '&:hover': {
+          boxShadow: "0px 0px 50px black",
+          transition: "0.2s",
+        },
+      }}
+    >
+      {/* <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>{product.productname}</Modal.Title>
                 </Modal.Header>
