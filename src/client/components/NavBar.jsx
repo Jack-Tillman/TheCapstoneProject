@@ -25,7 +25,7 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { ShoppingCart } from "@mui/icons-material";
 import { Badge } from "@mui/material";
 import gamenebulalogo from "../../Assets/Logo/gamenebulalogo.png";
-import {Typography} from "@mui/material";
+import { Typography } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 
 //conditional render login/register if user is logged out
