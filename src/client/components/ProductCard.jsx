@@ -1,12 +1,13 @@
 import { Card, Form, Row, Col, Image } from "react-bootstrap";
-import { Box } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 // import { Modal } from '@mui/material';
-import { Button, ButtonGroup } from "@mui/material";
+import { Button, ButtonGroup, IconButton } from "@mui/material";
 import { CartContext } from "../CartContext";
 import { useContext, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { fetchSingleItem } from "../api";
 import { SingleProduct } from "./SingleProduct";
+import InfoIcon from '@mui/icons-material/Info';
 
 export function ProductCard(props) {
   const product = props.product;
@@ -107,16 +108,18 @@ export function ProductCard(props) {
                 </Button>
               </ButtonGroup>
             )}
-            <ButtonGroup>
-              <Button
+            <Tooltip title="More info" placement="right">
+              <IconButton
                 onClick={() => {
                   cart.addOneToDetails(product.stripe_id);
                   navigate("/store/details");
                 }}
+                color="info"
+                aria-label="more info"
               >
-                More Info
-              </Button>
-            </ButtonGroup>
+                <InfoIcon />
+              </IconButton>
+            </Tooltip>
           </Card.Body>
         </Card>
       </Box>
