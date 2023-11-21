@@ -1,18 +1,18 @@
 import { Card, Form, Row, Col, Image } from "react-bootstrap";
 import { Box, Tooltip } from "@mui/material";
-// import { Modal } from '@mui/material';
 import { Button, ButtonGroup, IconButton } from "@mui/material";
 import { CartContext } from "../CartContext";
 import { useContext, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { fetchSingleItem } from "../api";
 import { SingleProduct } from "./SingleProduct";
-import InfoIcon from '@mui/icons-material/Info';
-
+import InfoIcon from "@mui/icons-material/Info";
+import { BasicModal } from "./Modal.jsx";
 export function ProductCard(props) {
   const product = props.product;
   const cart = useContext(CartContext);
   const productQuantity = cart.getProductQuantity(product.stripe_id);
+  const productData = cart.getProductData(product.stripe_id);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -22,26 +22,24 @@ export function ProductCard(props) {
 
   return (
     <>
-      
-
-    <Box 
-      width={250}
-      gap={0}
-      sx={{
-        margin: 2,
-        padding: 1,
-        borderColor: "primary",
-        borderWidth: 1,        
-        borderStyle: "solid",
-        borderRadius: 3,
-        boxShadow: "0px",
-        '&:hover': {
-          boxShadow: "0px 0px 50px black",
-          transition: "0.2s",
-        },
-      }}
-    >
-      {/* <Modal show={show} onHide={handleClose}>
+      <Box
+        width={250}
+        gap={0}
+        sx={{
+          margin: 2,
+          padding: 1,
+          borderColor: "primary",
+          borderWidth: 1,
+          borderStyle: "solid",
+          borderRadius: 3,
+          boxShadow: "0px",
+          "&:hover": {
+            boxShadow: "0px 0px 50px black",
+            transition: "0.2s",
+          },
+        }}
+      >
+        {/* <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>{product.productname}</Modal.Title>
                 </Modal.Header>
@@ -108,18 +106,22 @@ export function ProductCard(props) {
                 </Button>
               </ButtonGroup>
             )}
-            <Tooltip title="More info" placement="right">
+            <BasicModal product={product} />
+            {/* <Tooltip title="More info" placement="right">
               <IconButton
                 onClick={() => {
-                  cart.addOneToDetails(product.stripe_id);
-                  navigate("/store/details");
+                  console.log(product);
+                  setShow(true);
+                  // cart.addOneToDetails(product.stripe_id);
+                  // navigate("/store/details");
                 }}
                 color="info"
                 aria-label="more info"
               >
+                <BasicModal product={product} />
                 <InfoIcon />
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
           </Card.Body>
         </Card>
       </Box>

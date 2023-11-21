@@ -202,64 +202,82 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
           </>
         )}
 
-<Modal sx={{
-                overflow:"scroll",
-                position: 'fixed',
-                // top: '6.3%',
-                // left: '90%',
-                // marginLeft: 400,
-                width: 400,
-                height: 500,
-                bgcolor: 'background.paper',
-                border: '2px solid #000',
-                boxShadow: `24`,
-                }} 
-              open={cartModal} 
-              onClose={handleCloseCart}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-              className="cartModal">
-              <>
-                <Box sx={{bgcolor: "white", p: 2, minHeight: 500}}>
-
-                <Typography id="modal-modal-title" variant="h6" component="h2" >
-                  Cart 
-                  <IconButton aria-label="close cart" color="primary" onClick={handleCloseCart}
+        <Modal
+          sx={{
+            overflow: "scroll",
+            position: "fixed",
+            // top: '6.3%',
+            // left: '90%',
+            // marginLeft: 400,
+            width: 400,
+            height: 500,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: `24`,
+          }}
+          open={cartModal}
+          onClose={handleCloseCart}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          className="cartModal"
+        >
+          <>
+            <Box sx={{ bgcolor: "white", p: 2, minHeight: 500 }}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Cart
+                <IconButton
+                  aria-label="close cart"
+                  color="primary"
+                  onClick={handleCloseCart}
                   sx={{
-                    float: "right"
-                  }}>
-                    <CloseIcon />
-                  </IconButton>
-                </Typography>
-                <hr />
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    {productsCount > 0 ?
-                        <>
-                            {cart.items.map((currentProduct, idx) => (
-                                <CartProduct key={idx} stripe_id={currentProduct.stripe_id} quantity={currentProduct.quantity} price={currentProduct.price} name={currentProduct.productName} />
-                            ))}
+                    float: "right",
+                  }}
+                >
+                  <CloseIcon />
+                </IconButton>
+              </Typography>
+              <hr />
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                {productsCount > 0 ? (
+                  <>
+                    {cart.items.map((currentProduct, idx) => (
+                      <CartProduct
+                        key={idx}
+                        stripe_id={currentProduct.stripe_id}
+                        quantity={currentProduct.quantity}
+                        price={currentProduct.price}
+                        name={currentProduct.productName}
+                      />
+                    ))}
 
-                            <h1>Total: ${cart.getTotalCost().toFixed(2)}</h1>
-                            <Button variant="contained" onClick={checkout} color="success">
-                                Check out
-                            </Button>
-                         </>
-                    :
-
-                        <>
-                        
-                        <h1>No items in cart. 😔</h1>
-                        <hr />
-                        <h1>Total: $0.00</h1>
-                        <Button variant="contained" onClick={checkout} color="success" disabled="true">
-                            Check out
-                        </Button>
-                        </>
-                    }                        
-                    </Typography>
-                </Box>
-              </>
-            </Modal> 
+                    <h1>Total: ${cart.getTotalCost().toFixed(2)}</h1>
+                    <Button
+                      variant="contained"
+                      onClick={checkout}
+                      color="success"
+                    >
+                      Check out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <h1>No items in cart. 😔</h1>
+                    <hr />
+                    <h1>Total: $0.00</h1>
+                    <Button
+                      variant="contained"
+                      onClick={checkout}
+                      color="success"
+                      disabled="true"
+                    >
+                      Check out
+                    </Button>
+                  </>
+                )}
+              </Typography>
+            </Box>
+          </>
+        </Modal>
 
         {/* <Link to="/games">Games</Link>
       <Link to="/hardware">Hardware</Link>
