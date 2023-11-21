@@ -36,6 +36,7 @@ export function CartProvider({ children }) {
   }, []);
 
 //this function takes the data found in local storage and sets it as cartProducts 
+// NOTE : MAY BE REDUNDANT 
   function getInitialCart(localCart) {
     if (localCart) {
       setCartProducts(localObject);
