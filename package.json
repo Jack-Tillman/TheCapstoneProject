@@ -15,6 +15,7 @@
     "@material/web": "^1.0.1",
     "@mui/icons-material": "^5.14.18",
     "@mui/material": "^5.14.18",
+    "@mui/x-data-grid": "^6.18.1",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
