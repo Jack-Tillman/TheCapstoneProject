@@ -36,6 +36,14 @@ const seedUsers = () => {
   };
   usersData.push(testUser);
 
+  const testicleUser = {
+    name: "testicles",
+    email: "test@test3",
+    password: "ABC123!!",
+    isAdmin: false,
+  };
+  usersData.push(testicleUser);
+
   for (let i = 0; i < 5; i++) {
     const fakeUsers = {
       name: faker.person.fullName(),
