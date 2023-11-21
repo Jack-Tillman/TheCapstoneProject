@@ -34,7 +34,7 @@ export async function registerUser(name, email, password) {
         password,
       }),
     });
-
+    console.log(response);
     return response;
   } catch (err) {
     console.error(err);

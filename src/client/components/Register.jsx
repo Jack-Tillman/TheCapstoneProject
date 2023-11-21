@@ -16,6 +16,7 @@ import PasswordChecklist from "react-password-checklist";
 import { Link, useNavigate } from "react-router-dom";
 import { sizing } from "@mui/system";
 import { LoginSnackbar } from "./Snackbar";
+import { ErrorSnackbar } from "./ErrorSnackbar";
 
 import { Button } from "@mui/material";
 // import { Button }  from '@mui/material-next/Button';
@@ -35,8 +36,6 @@ export const Register = ({ token, setToken }) => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -49,35 +48,40 @@ export const Register = ({ token, setToken }) => {
     }
   }, [authenticated]);
 
-    async function handleSubmit(event) {
-        event.preventDefault();  
-        const response = await registerUser(name, email, password)
-        const result = await response.json();
-        console.log(result);
-        sessionStorage.setItem("token", result.token)
-        const authToken = sessionStorage.getItem("token")
-        
-        if (response.status === 200) {
-            setSuccess(true);            
-            setToken(authToken);   
-            setAuthenticated(result.token);            
-            setName("")        
-            setEmail("");
-            setPassword("");
-            setPasswordAgain("");
-            setTimeout(() => {
-              navigate("/");
-            }, 1250);
-        } else {
-            setError(response.error);
-        }
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    try {
+      const response = await registerUser(name, email, password);
+      const result = await response.json();
+      console.log(result);
+      sessionStorage.setItem("token", result.token);
+      const authToken = sessionStorage.getItem("token");
+
+      if (response.status === 200) {
+        setSuccess(true);
+        setToken(authToken);
+        setAuthenticated(result.token);
+        setName("");
+        setEmail("");
+        setPassword("");
+        setPasswordAgain("");
+        setTimeout(() => {
+          navigate("/");
+        }, 1250);
+      } else {
+        setError(result);
+      }
+    } catch (error) {
+      setError(error);
     }
+  }
 
   return (
     <Box className="loginRegisterField">
+      {error && <ErrorSnackbar error={error} />}
       {success && <LoginSnackbar />}
       <h2 className="sign-up">Sign Up</h2>
-      {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
         {/* <label>
                     Username: <input value={username} onChange={(e) => setUsername(e.target.value)} minLength={8} required/>
@@ -192,13 +196,12 @@ export const Register = ({ token, setToken }) => {
           Submit
         </Button>
       </form>
-      <p>
-        Already have an account?{" "}
-       </p> 
-            <Link to="/login" style={{ color: "black" }}>
-          <Button variant="outlined" sx={{width:"1"}}>Login
-        </Button></Link>
-      
+      <p>Already have an account? </p>
+      <Link to="/login" style={{ color: "black" }}>
+        <Button variant="outlined" sx={{ width: "1" }}>
+          Login
+        </Button>
+      </Link>
     </Box>
   );
 };
