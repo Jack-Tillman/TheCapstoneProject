@@ -31,7 +31,7 @@ const { JWT_SECRET } = process.env;
 /*
 USER SPECIFIC 
 */
-//GET ALL USERS - ADMIN ONLY 
+
 usersRouter.get("/", requireAdmin, async (req, res, next) => {
   try {
     const users = await getAllUsers();
