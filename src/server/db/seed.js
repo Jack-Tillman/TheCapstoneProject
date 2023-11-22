@@ -36,6 +36,14 @@ const seedUsers = () => {
   };
   usersData.push(testUser);
 
+  const testicleUser = {
+    name: "testicles",
+    email: "test@test3",
+    password: "ABC123!!",
+    isAdmin: false,
+  };
+  usersData.push(testicleUser);
+
   for (let i = 0; i < 5; i++) {
     const fakeUsers = {
       name: faker.person.fullName(),
@@ -427,17 +435,103 @@ const seedGames = () => {
     description:
       "Embark on an epic open-world adventure in this critically acclaimed RPG.",
     publisher: "Bethesda Softworks",
-    productImage:
-      "https://image.api.playstation.com/vulcan/ap/rnd/202110/2019/aDSOgerXg4V6sf5A7VzHiTun.jpg",
+    productImage:"https://image.api.playstation.com/vulcan/ap/rnd/202110/2019/aDSOgerXg4V6sf5A7VzHiTun.jpg",
     playerRange: "Single Player",
     esrb: "M",
     featured: true,
   };
+
+  const videoGame6 = {
+    stripe_id: 1,
+    productName: 'The Witcher 3, Wild Hunt',
+    genre: 'Action RPG', 
+    delivery:'Digital Download',
+    price:  39.99, 
+    stock: 100, 
+    condition: 'New', 
+    description: 'Explore the open world of The Witcher and make meaningful choices that affect the storyline.', 
+    productImage: 'https://image.api.playstation.com/vulcan/ap/rnd/202211/0711/kh4MUIuMmHlktOHar3lVl6rY.png',
+    publisher: 'CD Projekt', 
+    playerRange:'Single Player',
+    esrb: 'M',
+    featured: false,
+  };
+
+  const videoGame7 = {
+    stripe_id: 12,
+    productName: 'Animal Crossing, New Horizons',
+    genre: 'Life Simulation', 
+    delivery:'Digital Download',
+    price:  49.99,
+    stock: 55, 
+    condition: 'New', 
+    description: 'Create your own paradise on a deserted island, customize your home, and interact with anthropomorphic animal villagers.', 
+    productImage: 'https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000027619/9989957eae3a6b545194c42fec2071675c34aadacd65e6b33fdfe7b3b6a86c3a',
+    publisher: 'Nintendo', 
+    playerRange:'Single Player',
+    esrb: 'E',
+    featured: false,
+  };
+  
+  const videoGame8 = {
+    stripe_id: 123,
+    productName: 'DOOM Eternal',
+    genre: 'First-Person Shooter', 
+    delivery:'Physical Disc',
+    price:  59.99,
+    stock: 100, 
+    condition: 'New', 
+    description: 'Fight against hordes of demons from Hell in an intense and fast-paced first-person shooter experience.', 
+    productImage: 'https://cdn.cloudflare.steamstatic.com/steam/apps/782330/capsule_616x353.jpg?t=1699979431',
+    publisher: 'Bethesda Softworks', 
+    playerRange:'Single Player',
+    esrb: 'M',
+    featured: false,
+  };
+
+  const videoGame9 = {
+    stripe_id: 1234,
+    productName: 'Star Wars Jedi: Fallen Order',
+    genre: 'Action-Adventure', 
+    delivery:'Physical Disc',
+    price:  39.99, 
+    stock: 70, 
+    condition: 'New', 
+    description: 'Embark on a Star Wars journey as Cal Kestis, a young Jedi on a quest for survival.', 
+    productImage: 'https://cdn.akamai.steamstatic.com/steam/apps/1172380/capsule_616x353.jpg?t=1700042981',
+    publisher: 'Electronic Arts', 
+    playerRange:'Single Player',
+    esrb: 'T',
+    featured: true,
+  };
+
+  const videoGame10 = {
+    stripe_id: 12345,
+    productName: 'Overwatch',
+    genre: 'Action RPG', 
+    delivery:'Physical Download',
+    price:  29.99, 
+    stock: 30, 
+    condition: 'New', 
+    description: 'Join a team of heroes and engage in fast-paced, team-based combat to save the world.', 
+    productImage: 'https://us.aorus.com/upload/Product/F_20160628164958P__iJd.PNG',
+    publisher: 'Blizzard Entertainment', 
+    playerRange:'Multiplayer',
+    esrb: 'T',
+    featured: false,
+  };
+
+
   gamesData.push(videoGame1);
   gamesData.push(videoGame2);
   gamesData.push(videoGame3);
   gamesData.push(videoGame4);
   gamesData.push(videoGame5);
+  gamesData.push(videoGame6);
+  gamesData.push(videoGame7);
+  gamesData.push(videoGame8);
+  gamesData.push(videoGame9);
+  gamesData.push(videoGame10);
 };
 //Using the CASCADE keyword after a table to be dropped indicates that the table itself
 // will be dropped as well as the tables that depend on it (e.g., tables that utilize that tables' keys as foreign keys)

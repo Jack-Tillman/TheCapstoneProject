@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Box, Tooltip } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-//
 import { Button, ButtonGroup, IconButton } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
+import CloseIcon from "@mui/icons-material/Close";
 
 const style = {
   position: "absolute",
@@ -45,6 +45,7 @@ export const BasicModal = ({ product }) => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
+          <IconButton onClick={handleClose} color="primary" sx={{float: "right"}}><CloseIcon /></IconButton>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               <p>{product.productname}</p>
             </Typography>
@@ -67,7 +68,6 @@ export const BasicModal = ({ product }) => {
               <p>Price: ${product.price}</p>
               <p>Delivery option: {product.delivery}</p>
             </Typography>
-            <IconButton onClick={handleClose}>Close</IconButton>
             {/* <button onClick={handleClose}>Close</button> */}
           </Box>
         </Modal>
