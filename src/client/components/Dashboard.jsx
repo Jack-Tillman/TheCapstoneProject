@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { DataGrid } from "@mui/x-data-grid";
+import { FullFeaturedCrudGrid } from "./FullCrudDataGrid";
 
 export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
   const [users, setUsers] = useState([]);
@@ -175,7 +176,12 @@ export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
       {/* i think we need a single user fetch */}
       <h1>This is the user dashboard.</h1>
       <h2>Congratulations on being a user</h2>
-      {/* {users ? <div>{users.id}</div> : null} */}
+
+      {/*FullFeaturedCrudGrid is not functional yet, so i left commented out}
+
+      {users && <FullFeaturedCrudGrid userRows={userRows}/>} 
+
+      */}
       {users && (
         <div className="users-container" style={{ height: 400, width: "100%" }}>
           <DataGrid
@@ -241,7 +247,7 @@ export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
             checkboxSelection
           />
         </div>
-      )}
+      )} 
     </>
   );
 };
