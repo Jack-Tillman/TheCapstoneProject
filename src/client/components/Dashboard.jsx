@@ -130,9 +130,43 @@ export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
     { field: "playerrange", headerName: "Player Range", width: 130 },
     { field: "esrb", headerName: "ESRB Rating", width: 130 },
     { field: "featured", headerName: "Featured", width: 130 },
-  ]
+  ];
 
   const gamesRows = games;
+
+  const merchColumns = [
+    { field: "id", headerName: "ID", width: 70 },
+    { field: "stripe_id", headerName: "stripeId", width: 130 },
+    { field: "productname", headerName: "Product Name", width: 130 },
+    { field: "type", headerName: "Type", width: 130 },
+    { field: "delivery", headerName: "Delivery Name", width: 130 },
+    { field: "price", headerName: "price ($)", width: 130 },
+    { field: "stock", headerName: "stock", width: 130 },
+    { field: "condition", headerName: "Condition", width: 130 },
+    { field: "description", headerName: "Description", width: 130 },
+    { field: "manufacturer", headerName: "Manufacturer", width: 130 },
+    { field: "productimage", headerName: "Product Image", width: 130 },
+    { field: "featured", headerName: "Featured", width: 130 },
+  ];
+
+  const merchRows = merches;
+
+  const hardwareColumns = [
+    { field: "id", headerName: "ID", width: 70 },
+    { field: "stripe_id", headerName: "stripeId", width: 130 },
+    { field: "productname", headerName: "Product Name", width: 130 },
+    { field: "type", headerName: "Type", width: 130 },
+    { field: "delivery", headerName: "Delivery Name", width: 130 },
+    { field: "price", headerName: "price ($)", width: 130 },
+    { field: "stock", headerName: "stock", width: 130 },
+    { field: "condition", headerName: "Condition", width: 130 },
+    { field: "description", headerName: "Description", width: 130 },
+    { field: "manufacturer", headerName: "Manufacturer", width: 130 },
+    { field: "productimage", headerName: "Product Image", width: 130 },
+    { field: "featured", headerName: "Featured", width: 130 },
+  ];
+
+  const hardwareRows = hardwares;
 
   console.log(users);
   return (
@@ -143,7 +177,7 @@ export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
       <h2>Congratulations on being a user</h2>
       {/* {users ? <div>{users.id}</div> : null} */}
       {users && (
-        <div style={{ height: 400, width: "100%" }}>
+        <div className="users-container" style={{ height: 400, width: "100%" }}>
           <DataGrid
             rows={userRows}
             columns={userColumns}
@@ -158,7 +192,7 @@ export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
         </div>
       )}
       {games && (
-        <div style={{ height: 400, width: "100%" }}>
+        <div className="games-container" style={{ height: 400, width: "100%" }}>
           <DataGrid
             rows={gamesRows}
             columns={gamesColumns}
@@ -172,179 +206,41 @@ export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
           />
         </div>
       )}
-      {/* {users && (
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Users</TableCell>
-                <TableCell align="right">userId</TableCell>
-                <TableCell align="right">userName</TableCell>
-                <TableCell align="right">userEmail</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.map((row) => (
-                <TableRow
-                  key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.id}</TableCell>
-                  <TableCell align="right">{row.name}</TableCell>
-                  <TableCell align="right">{row.email}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )} */}
-      {/* {games && (
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Games</TableCell>
-                <TableCell align="right">gamesId</TableCell>
-                <TableCell align="right">stripeId</TableCell>
-                <TableCell align="right">productName</TableCell>
-                <TableCell align="right">genre</TableCell>
-                <TableCell align="right">delivery</TableCell>
-                <TableCell align="right">price</TableCell>
-                <TableCell align="right">stock</TableCell>
-                <TableCell align="right">condition</TableCell>
-                <TableCell align="right">description</TableCell>
-                <TableCell align="right">publisher</TableCell>
-                <TableCell align="right">productImage</TableCell>
-                <TableCell align="right">playerRange</TableCell>
-                <TableCell align="right">esrb</TableCell>
-                <TableCell align="right">featured</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {games.map((row) => (
-                <TableRow
-                  key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.id}</TableCell>
-                  <TableCell align="right">{row.stripe_id}</TableCell>
-                  <TableCell align="right">{row.productname}</TableCell>
-                  <TableCell align="right">{row.genre}</TableCell>
-                  <TableCell align="right">{row.delivery}</TableCell>
-                  <TableCell align="right">{row.price}</TableCell>
-                  <TableCell align="right">{row.stock}</TableCell>
-                  <TableCell align="right">{row.condition}</TableCell>
-                  <TableCell align="right">{row.description}</TableCell>
-                  <TableCell align="right">{row.publisher}</TableCell>
-                  <TableCell align="right">{row.productimage}</TableCell>
-                  <TableCell align="right">{row.playerrange}</TableCell>
-                  <TableCell align="right">{row.esrb}</TableCell>
-                  <TableCell align="right">{row.featured}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )} */}
       {merches && (
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Merch</TableCell>
-                <TableCell align="right">merchId</TableCell>
-                <TableCell align="right">stripeId</TableCell>
-                <TableCell align="right">productName</TableCell>
-                <TableCell align="right">type</TableCell>
-                <TableCell align="right">delivery</TableCell>
-                <TableCell align="right">price</TableCell>
-                <TableCell align="right">stock</TableCell>
-                <TableCell align="right">condition</TableCell>
-                <TableCell align="right">description</TableCell>
-                <TableCell align="right">manufacturer</TableCell>
-                <TableCell align="right">productImage</TableCell>
-                <TableCell align="right">featured</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {merches.map((row) => (
-                <TableRow
-                  key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.id}</TableCell>
-                  <TableCell align="right">{row.stripe_id}</TableCell>
-                  <TableCell align="right">{row.productname}</TableCell>
-                  <TableCell align="right">{row.type}</TableCell>
-                  <TableCell align="right">{row.delivery}</TableCell>
-                  <TableCell align="right">{row.price}</TableCell>
-                  <TableCell align="right">{row.stock}</TableCell>
-                  <TableCell align="right">{row.condition}</TableCell>
-                  <TableCell align="right">{row.description}</TableCell>
-                  <TableCell align="right">{row.manufacturer}</TableCell>
-                  <TableCell align="right">{row.productimage}</TableCell>
-                  <TableCell align="right">{row.featured}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <div
+          className="merches-container"
+          style={{ height: 400, width: "100%" }}
+        >
+          <DataGrid
+            rows={merchRows}
+            columns={merchColumns}
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 5 },
+              },
+            }}
+            pageSizeOptions={[5, 10]}
+            checkboxSelection
+          />
+        </div>
       )}
       {hardwares && (
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Hardware</TableCell>
-                <TableCell align="right">hardwareId</TableCell>
-                <TableCell align="right">stripeId</TableCell>
-                <TableCell align="right">productName</TableCell>
-                <TableCell align="right">type</TableCell>
-                <TableCell align="right">delivery</TableCell>
-                <TableCell align="right">price</TableCell>
-                <TableCell align="right">stock</TableCell>
-                <TableCell align="right">condition</TableCell>
-                <TableCell align="right">description</TableCell>
-                <TableCell align="right">manufacturer</TableCell>
-                <TableCell align="right">productImage</TableCell>
-                <TableCell align="right">featured</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {hardwares.map((row) => (
-                <TableRow
-                  key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.id}</TableCell>
-                  <TableCell align="right">{row.stripe_id}</TableCell>
-                  <TableCell align="right">{row.productname}</TableCell>
-                  <TableCell align="right">{row.type}</TableCell>
-                  <TableCell align="right">{row.delivery}</TableCell>
-                  <TableCell align="right">{row.price}</TableCell>
-                  <TableCell align="right">{row.stock}</TableCell>
-                  <TableCell align="right">{row.condition}</TableCell>
-                  <TableCell align="right">{row.description}</TableCell>
-                  <TableCell align="right">{row.manufacturer}</TableCell>
-                  <TableCell align="right">{row.productimage}</TableCell>
-                  <TableCell align="right">{row.featured}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <div
+          className="hardwares-container"
+          style={{ height: 400, width: "100%" }}
+        >
+          <DataGrid
+            rows={hardwareRows}
+            columns={hardwareColumns}
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 5 },
+              },
+            }}
+            pageSizeOptions={[5, 10]}
+            checkboxSelection
+          />
+        </div>
       )}
     </>
   );
