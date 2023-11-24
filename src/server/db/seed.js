@@ -250,7 +250,7 @@ const seedMerch = () => {
     featured: false,
   };
   const merchandise6 = {
-    stripe_id: "6",
+    stripe_id: "price_1OG1s0Hfk6TyDeCloC3KApSk",
     productName: "VR Gaming Headset Stand",
     type: "Gaming Accessories",
     delivery: deliveryArray[randomDelivery],
@@ -264,7 +264,7 @@ const seedMerch = () => {
     featured: true,
   };
   const merchandise7 = {
-    stripe_id: "67",
+    stripe_id: "price_1OG1suHfk6TyDeClmDEVUMgy",
     productName: "Stealth Gaming Backpack",
     type: "Accessories",
     delivery: deliveryArray[randomDelivery],
@@ -279,7 +279,7 @@ const seedMerch = () => {
     featured: false,
   };
   const merchandise8 = {
-    stripe_id: "678",
+    stripe_id: "price_1OG1tXHfk6TyDeCla6g0lZZ3",
     productName: "Pixel Power Hoodie",
     type: "Apparel",
     delivery: deliveryArray[randomDelivery],
@@ -294,7 +294,7 @@ const seedMerch = () => {
     featured: false,
   };
   const merchandise9 = {
-    stripe_id: "6789",
+    stripe_id: "price_1OG1uqHfk6TyDeClFAcSNZxJ",
     productName: "Retro Game Cartridge Coasters",
     type: "Home Decor",
     delivery: deliveryArray[randomDelivery],
@@ -309,7 +309,7 @@ const seedMerch = () => {
     featured: true,
   };
   const merchandise10 = {
-    stripe_id: "678910",
+    stripe_id: "price_1OG1vwHfk6TyDeClQy0SpzZn",
     productName: "Controller Coffee Mug",
     type: "Kitchenware",
     delivery: deliveryArray[randomDelivery],
@@ -418,7 +418,7 @@ const seedHardware = () => {
     featured: true,
   };
   const hardware6 = {
-    stripe_id: "11",
+    stripe_id: "price_1OG1waHfk6TyDeCl1UxvsfRf",
     productName: "Gaming Router Dual-Band",
     type: "Networking",
     manufacturer: "SpeedStream Networks",
@@ -432,7 +432,7 @@ const seedHardware = () => {
     featured: false,
   };
   const hardware7 = {
-    stripe_id: "12",
+    stripe_id: "price_1OG1xEHfk6TyDeClGy3IAxb8",
     productName: "External SSD 1TB",
     type: "Storage",
     manufacturer: "Seagate",
@@ -447,7 +447,7 @@ const seedHardware = () => {
     featured: false,
   };
   const hardware8 = {
-    stripe_id: "13",
+    stripe_id: "price_1OG1yAHfk6TyDeClIeO8BsXw",
     productName: "Gaming Microphone USB",
     type: "VR Accessories",
     manufacturer: "SoundForge Audio",
@@ -462,7 +462,7 @@ const seedHardware = () => {
     featured: false,
   };
   const hardware9 = {
-    stripe_id: "14",
+    stripe_id: "price_1OG1yfHfk6TyDeClyL6Tq3RL",
     productName: "Logitech HD Webcam",
     type: "Streaming Accessories",
     manufacturer: "Logitech",
@@ -476,8 +476,8 @@ const seedHardware = () => {
     featured: true,
   };
   const hardware10 = {
-    stripe_id: "15",
-    productName: " Alienware FHD Gaming Laptop",
+    stripe_id: "price_1OG1zIHfk6TyDeClebhkhN8g",
+    productName: "Alienware FHD Gaming Laptop",
     type: "Laptop",
     manufacturer: "Alienware",
     delivery: "International Delivery",
@@ -600,8 +600,8 @@ const seedGames = () => {
   };
 
   const videoGame6 = {
-    stripe_id: 1,
-    productName: "The Witcher 3, Wild Hunt",
+    stripe_id: "price_1OG20AHfk6TyDeClpabPLOZJ",
+    productName: "The Witcher 3: Wild Hunt",
     genre: "Action RPG",
     delivery: "Digital Download",
     price: 39.99,
@@ -618,8 +618,8 @@ const seedGames = () => {
   };
 
   const videoGame7 = {
-    stripe_id: 12,
-    productName: "Animal Crossing, New Horizons",
+    stripe_id: "price_1OG20rHfk6TyDeClDI2a0qTx",
+    productName: "Animal Crossing: New Horizons",
     genre: "Life Simulation",
     delivery: "Digital Download",
     price: 49.99,
@@ -636,7 +636,7 @@ const seedGames = () => {
   };
 
   const videoGame8 = {
-    stripe_id: 123,
+    stripe_id: "price_1OG21QHfk6TyDeClRFGY1EAR",
     productName: "DOOM Eternal",
     genre: "First-Person Shooter",
     delivery: "Physical Disc",
@@ -654,7 +654,7 @@ const seedGames = () => {
   };
 
   const videoGame9 = {
-    stripe_id: 1234,
+    stripe_id: "price_1OG231Hfk6TyDeClI0gaVU5i",
     productName: "Star Wars Jedi: Fallen Order",
     genre: "Action-Adventure",
     delivery: "Physical Disc",
@@ -672,7 +672,7 @@ const seedGames = () => {
   };
 
   const videoGame10 = {
-    stripe_id: 12345,
+    stripe_id: "price_1OG23hHfk6TyDeCl8GV4VWSB",
     productName: "Overwatch",
     genre: "Action RPG",
     delivery: "Physical Download",
