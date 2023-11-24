@@ -249,11 +249,90 @@ const seedMerch = () => {
       "https://static.contrado.com/DesignTemplates/products/505317_fortnite-personalised-bottle_2.jpeg?cache=7",
     featured: false,
   };
+  const merchandise6 = {
+    stripe_id: "6",
+    productName: "VR Gaming Headset Stand",
+    type: "Gaming Accessories",
+    delivery: deliveryArray[randomDelivery],
+    price: 29.99,
+    stock: 45,
+    condition: "New",
+    description:
+      "Organize and display your VR headset with this stylish stand.",
+    manufacturer: "Epic Games Store",
+    productImage: "https://m.media-amazon.com/images/I/51LucoEO4dL.jpg",
+    featured: true,
+  };
+  const merchandise7 = {
+    stripe_id: "67",
+    productName: "Stealth Gaming Backpack",
+    type: "Accessories",
+    delivery: deliveryArray[randomDelivery],
+    price: 49.99,
+    stock: 30,
+    condition: "New",
+    description:
+      "Carry your gear in style with this sleek and spacious Stealth Gaming Backpack.",
+    manufacturer: "AdventureTech Outfitters",
+    productImage:
+      "https://webobjects2.cdw.com/is/image/CDW/6227804?$product-detail$",
+    featured: false,
+  };
+  const merchandise8 = {
+    stripe_id: "678",
+    productName: "Pixel Power Hoodie",
+    type: "Apparel",
+    delivery: deliveryArray[randomDelivery],
+    price: 39.99,
+    stock: 60,
+    condition: "New",
+    description:
+      "Show off your pixelated power with this cool and comfortable hoodie.",
+    manufacturer: "GeekGear Co.",
+    productImage:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-1AANv3SxHUuejF1t_vlVY_IKPVBnYW29OdWNN1K4wNaAS36G14de6ba5W7uOzY2UPbc&usqp=CAU",
+    featured: false,
+  };
+  const merchandise9 = {
+    stripe_id: "6789",
+    productName: "Retro Game Cartridge Coasters",
+    type: "Home Decor",
+    delivery: deliveryArray[randomDelivery],
+    price: 19.99,
+    stock: 50,
+    condition: "New",
+    description:
+      "Protect your surfaces in style with these retro game cartridge coasters.",
+    manufacturer: "PixelPerfect Crafts",
+    productImage:
+      "https://m.media-amazon.com/images/I/71rITlyHhxL._AC_UF350,350_QL80_.jpg",
+    featured: true,
+  };
+  const merchandise10 = {
+    stripe_id: "678910",
+    productName: "Controller Coffee Mug",
+    type: "Kitchenware",
+    delivery: deliveryArray[randomDelivery],
+    price: 14.99,
+    stock: 90,
+    condition: "New",
+    description:
+      "Start your day with a gaming twist using this controller-shaped coffee mug.",
+    manufacturer: "GameGear Essentials",
+    productImage:
+      "https://m.media-amazon.com/images/I/71wVRz-t3sS.__AC_SY300_SX300_QL70_FMwebp_.jpg",
+    featured: false,
+  };
   merchData.push(merchandise1);
   merchData.push(merchandise2);
   merchData.push(merchandise3);
   merchData.push(merchandise4);
   merchData.push(merchandise5);
+  merchData.push(merchandise6);
+  merchData.push(merchandise7);
+  merchData.push(merchandise8);
+  merchData.push(merchandise9);
+  merchData.push(merchandise10);
 };
 
 const seedHardware = () => {
@@ -338,11 +417,89 @@ const seedHardware = () => {
       "https://c1.neweggimages.com/productimage/nb640/B8H9D22110801G9IEB8.jpg",
     featured: true,
   };
+  const hardware6 = {
+    stripe_id: "11",
+    productName: "Gaming Router Dual-Band",
+    type: "Networking",
+    manufacturer: "SpeedStream Networks",
+    delivery: "Next Day Delivery",
+    price: 129.99,
+    stock: 100,
+    condition: "New",
+    description:
+      "Optimize your online gaming with our Gaming Router Dual-Band. Prioritize gaming traffic for lag-free performance.",
+    productImage: "https://m.media-amazon.com/images/I/71MLybZ5IAL.jpg",
+    featured: false,
+  };
+  const hardware7 = {
+    stripe_id: "12",
+    productName: "External SSD 1TB",
+    type: "Storage",
+    manufacturer: "Seagate",
+    delivery: "Two Day Delivery",
+    price: 179.99,
+    stock: 80,
+    condition: "New",
+    description:
+      "Expand your storage and decrease load times with our External SSD 1TB.",
+    productImage:
+      "https://www.pcworld.com/wp-content/uploads/2023/08/seagate-firecuda-gaming-ssd-100848359-orig-3.jpg?quality=50&strip=all&w=1024",
+    featured: false,
+  };
+  const hardware8 = {
+    stripe_id: "13",
+    productName: "Gaming Microphone USB",
+    type: "VR Accessories",
+    manufacturer: "SoundForge Audio",
+    delivery: "Domestic Delivery",
+    price: 89.99,
+    stock: 120,
+    condition: "New",
+    description:
+      "Upgrade your streaming setup with our Gaming Microphone USB. Crystal-clear audio for professional-quality broadcasts.",
+    productImage:
+      "https://doddcamera.com/pub/media/catalog/product/cache/cd57d4be7ccd09a6fc34f59389a01264/r/o/rode_nt_sf1_soundfield_ambisonic_microphone_1523966810_1403003.jpg",
+    featured: false,
+  };
+  const hardware9 = {
+    stripe_id: "14",
+    productName: "Logitech HD Webcam",
+    type: "Streaming Accessories",
+    manufacturer: "Logitech",
+    delivery: "International Delivery",
+    price: 79.99,
+    stock: 145,
+    condition: "New",
+    description: "Enhance your video quality with our Gaming Webcam 1080p.",
+    productImage:
+      "https://resource.logitech.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/webcams/c920/gallery/c920-gallery-1.png?v=1",
+    featured: true,
+  };
+  const hardware10 = {
+    stripe_id: "15",
+    productName: " Alienware FHD Gaming Laptop",
+    type: "Laptop",
+    manufacturer: "Alienware",
+    delivery: "International Delivery",
+    price: 1799.99,
+    stock: 10,
+    condition: "New",
+    description:
+      "Take your gaming on the go with our Pro Gaming Laptop. Featuring top-of-the-line specs and a sleek design.",
+    productImage:
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6512/6512742_sd.jpg",
+    featured: true,
+  };
   hardwareData.push(hardware1);
   hardwareData.push(hardware2);
   hardwareData.push(hardware3);
   hardwareData.push(hardware4);
   hardwareData.push(hardware5);
+  hardwareData.push(hardware6);
+  hardwareData.push(hardware7);
+  hardwareData.push(hardware8);
+  hardwareData.push(hardware9);
+  hardwareData.push(hardware10);
 };
 
 // Add more user objects as needed
@@ -435,7 +592,8 @@ const seedGames = () => {
     description:
       "Embark on an epic open-world adventure in this critically acclaimed RPG.",
     publisher: "Bethesda Softworks",
-    productImage:"https://image.api.playstation.com/vulcan/ap/rnd/202110/2019/aDSOgerXg4V6sf5A7VzHiTun.jpg",
+    productImage:
+      "https://image.api.playstation.com/vulcan/ap/rnd/202110/2019/aDSOgerXg4V6sf5A7VzHiTun.jpg",
     playerRange: "Single Player",
     esrb: "M",
     featured: true,
@@ -443,84 +601,93 @@ const seedGames = () => {
 
   const videoGame6 = {
     stripe_id: 1,
-    productName: 'The Witcher 3, Wild Hunt',
-    genre: 'Action RPG', 
-    delivery:'Digital Download',
-    price:  39.99, 
-    stock: 100, 
-    condition: 'New', 
-    description: 'Explore the open world of The Witcher and make meaningful choices that affect the storyline.', 
-    productImage: 'https://image.api.playstation.com/vulcan/ap/rnd/202211/0711/kh4MUIuMmHlktOHar3lVl6rY.png',
-    publisher: 'CD Projekt', 
-    playerRange:'Single Player',
-    esrb: 'M',
+    productName: "The Witcher 3, Wild Hunt",
+    genre: "Action RPG",
+    delivery: "Digital Download",
+    price: 39.99,
+    stock: 100,
+    condition: "New",
+    description:
+      "Explore the open world of The Witcher and make meaningful choices that affect the storyline.",
+    productImage:
+      "https://image.api.playstation.com/vulcan/ap/rnd/202211/0711/kh4MUIuMmHlktOHar3lVl6rY.png",
+    publisher: "CD Projekt",
+    playerRange: "Single Player",
+    esrb: "M",
     featured: false,
   };
 
   const videoGame7 = {
     stripe_id: 12,
-    productName: 'Animal Crossing, New Horizons',
-    genre: 'Life Simulation', 
-    delivery:'Digital Download',
-    price:  49.99,
-    stock: 55, 
-    condition: 'New', 
-    description: 'Create your own paradise on a deserted island, customize your home, and interact with anthropomorphic animal villagers.', 
-    productImage: 'https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000027619/9989957eae3a6b545194c42fec2071675c34aadacd65e6b33fdfe7b3b6a86c3a',
-    publisher: 'Nintendo', 
-    playerRange:'Single Player',
-    esrb: 'E',
+    productName: "Animal Crossing, New Horizons",
+    genre: "Life Simulation",
+    delivery: "Digital Download",
+    price: 49.99,
+    stock: 55,
+    condition: "New",
+    description:
+      "Create your own paradise on a deserted island, customize your home, and interact with anthropomorphic animal villagers.",
+    productImage:
+      "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000027619/9989957eae3a6b545194c42fec2071675c34aadacd65e6b33fdfe7b3b6a86c3a",
+    publisher: "Nintendo",
+    playerRange: "Single Player",
+    esrb: "E",
     featured: false,
   };
-  
+
   const videoGame8 = {
     stripe_id: 123,
-    productName: 'DOOM Eternal',
-    genre: 'First-Person Shooter', 
-    delivery:'Physical Disc',
-    price:  59.99,
-    stock: 100, 
-    condition: 'New', 
-    description: 'Fight against hordes of demons from Hell in an intense and fast-paced first-person shooter experience.', 
-    productImage: 'https://cdn.cloudflare.steamstatic.com/steam/apps/782330/capsule_616x353.jpg?t=1699979431',
-    publisher: 'Bethesda Softworks', 
-    playerRange:'Single Player',
-    esrb: 'M',
+    productName: "DOOM Eternal",
+    genre: "First-Person Shooter",
+    delivery: "Physical Disc",
+    price: 59.99,
+    stock: 100,
+    condition: "New",
+    description:
+      "Fight against hordes of demons from Hell in an intense and fast-paced first-person shooter experience.",
+    productImage:
+      "https://cdn.cloudflare.steamstatic.com/steam/apps/782330/capsule_616x353.jpg?t=1699979431",
+    publisher: "Bethesda Softworks",
+    playerRange: "Single Player",
+    esrb: "M",
     featured: false,
   };
 
   const videoGame9 = {
     stripe_id: 1234,
-    productName: 'Star Wars Jedi: Fallen Order',
-    genre: 'Action-Adventure', 
-    delivery:'Physical Disc',
-    price:  39.99, 
-    stock: 70, 
-    condition: 'New', 
-    description: 'Embark on a Star Wars journey as Cal Kestis, a young Jedi on a quest for survival.', 
-    productImage: 'https://cdn.akamai.steamstatic.com/steam/apps/1172380/capsule_616x353.jpg?t=1700042981',
-    publisher: 'Electronic Arts', 
-    playerRange:'Single Player',
-    esrb: 'T',
+    productName: "Star Wars Jedi: Fallen Order",
+    genre: "Action-Adventure",
+    delivery: "Physical Disc",
+    price: 39.99,
+    stock: 70,
+    condition: "New",
+    description:
+      "Embark on a Star Wars journey as Cal Kestis, a young Jedi on a quest for survival.",
+    productImage:
+      "https://cdn.akamai.steamstatic.com/steam/apps/1172380/capsule_616x353.jpg?t=1700042981",
+    publisher: "Electronic Arts",
+    playerRange: "Single Player",
+    esrb: "T",
     featured: true,
   };
 
   const videoGame10 = {
     stripe_id: 12345,
-    productName: 'Overwatch',
-    genre: 'Action RPG', 
-    delivery:'Physical Download',
-    price:  29.99, 
-    stock: 30, 
-    condition: 'New', 
-    description: 'Join a team of heroes and engage in fast-paced, team-based combat to save the world.', 
-    productImage: 'https://us.aorus.com/upload/Product/F_20160628164958P__iJd.PNG',
-    publisher: 'Blizzard Entertainment', 
-    playerRange:'Multiplayer',
-    esrb: 'T',
+    productName: "Overwatch",
+    genre: "Action RPG",
+    delivery: "Physical Download",
+    price: 29.99,
+    stock: 30,
+    condition: "New",
+    description:
+      "Join a team of heroes and engage in fast-paced, team-based combat to save the world.",
+    productImage:
+      "https://us.aorus.com/upload/Product/F_20160628164958P__iJd.PNG",
+    publisher: "Blizzard Entertainment",
+    playerRange: "Multiplayer",
+    esrb: "T",
     featured: false,
   };
-
 
   gamesData.push(videoGame1);
   gamesData.push(videoGame2);
