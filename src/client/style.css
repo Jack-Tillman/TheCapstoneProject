@@ -152,3 +152,24 @@ a {color:rgb(0, 0, 0)}
   margin-top: 60px;
   margin-left: 35%;
 }
+
+
+
+
+/* Below targets Dashboard.jsx div that wraps around the data grid itself, but doesn't include the add user/games/etc. button 
+To edit the width of each datagrid column, go to the relevant datagrid component and change the width on each column that you want to change within the columns variable 
+
+div.css-204u17-MuiDataGrid-main {
+  margin: 0 auto;
+} 
+
+*/
+
+/* Below targets Dashboard.jsx div that wraps around the full data grid, grid and add record button included
+
+div.css-1d9w42x-MuiDataGrid-root {
+  justify-content: center;
+  align-items: center;
+} 
+
+*/

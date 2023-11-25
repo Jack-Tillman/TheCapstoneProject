@@ -28,7 +28,23 @@ function EditToolbar(props) {
     const id = idCounter + 1;
     setRows((oldRows) => [
       ...oldRows,
-      { id: id, stripe_id: "", productname: "", genre: "", delivery: "", price: "", stock: "", condition: "", description: "", productimage: "", publisher: "", playerrange: "", esrb: "", featured: "", isNew: true },
+      {
+        id: id,
+        stripe_id: "",
+        productname: "",
+        genre: "",
+        delivery: "",
+        price: "",
+        stock: "",
+        condition: "",
+        description: "",
+        productimage: "",
+        publisher: "",
+        playerrange: "",
+        esrb: "",
+        featured: "",
+        isNew: true,
+      },
     ]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
@@ -40,7 +56,7 @@ function EditToolbar(props) {
   return (
     <GridToolbarContainer>
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
+        Add Game
       </Button>
     </GridToolbarContainer>
   );
@@ -111,7 +127,7 @@ export const CrudGridGames = () => {
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
   };
-
+  //column width is set below for each column, numbers are in px
   const columns = [
     { field: "id", headerName: "ID", width: 70, editable: true },
     { field: "stripe_id", headerName: "stripeId", width: 130, editable: true },

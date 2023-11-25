@@ -13,7 +13,7 @@ import {
   GridActionsCellItem,
   GridRowEditStopReasons,
 } from "@mui/x-data-grid";
-import { fetchAllUsers } from "../api";
+import { fetchItems } from "../api";
 /* END OF IMPORTS */
 
 //LINK TO DOCS: https://mui.com/x/react-data-grid/editing/
@@ -28,11 +28,25 @@ function EditToolbar(props) {
     const id = idCounter + 1;
     setRows((oldRows) => [
       ...oldRows,
-      { id: id, name: "", email: "", isadmin: "", isNew: true },
+      {
+        id: id,
+        stripe_id: "",
+        productname: "",
+        type: "",
+        delivery: "",
+        price: "",
+        stock: "",
+        condition: "",
+        description: "",
+        productimage: "",
+        manufacturer: "",
+        featured: "",
+        isNew: true,
+      },
     ]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: "stripe_id" },
     }));
     setIdCounter(idCounter + 1);
   };
@@ -40,7 +54,7 @@ function EditToolbar(props) {
   return (
     <GridToolbarContainer>
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add User
+        Add Hardware
       </Button>
     </GridToolbarContainer>
   );
@@ -48,20 +62,20 @@ function EditToolbar(props) {
 
 /* GRID COMPONENT */
 
-export const CrudGridUsers = () => {
+export const CrudGridHardware = () => {
   const [rows, setRows] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
-  //idCounter is used for creating new rows, starts at 8 because there are currently 8 users in seed data
+  //idCounter is used for creating new rows, starts at 10 because there are currently 10 hardware in seed data
   const [idCounter, setIdCounter] = useState(
-    Math.max(...rows.map((row) => row.id), 8)
+    Math.max(...rows.map((row) => row.id), 10)
   );
   useEffect(() => {
-    async function getUsers() {
+    async function getHardware() {
       try {
-        const response = await fetchAllUsers();
+        const response = await fetchItems("hardware");
         const result = await response.json();
         if (response.status === 200) {
-          setRows(result.users);
+          setRows(result);
         } else {
           console.error(error);
         }
@@ -69,7 +83,7 @@ export const CrudGridUsers = () => {
         console.error(error);
       }
     }
-    getUsers();
+    getHardware();
   }, []);
 
   const handleRowEditStop = (params, event) => {
@@ -111,39 +125,45 @@ export const CrudGridUsers = () => {
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
   };
-
   //column width is set below for each column, numbers are in px
   const columns = [
+    { field: "id", headerName: "ID", width: 70, editable: true },
+    { field: "stripe_id", headerName: "stripeId", width: 130, editable: true },
     {
-      field: "id",
-      headerName: "ID",
-      type: "string",
-      width: 90,
+      field: "productname",
+      headerName: "Product Name",
+      width: 130,
+      editable: true,
+    },
+    { field: "type", headerName: "Type", width: 130, editable: true },
+    {
+      field: "delivery",
+      headerName: "Delivery Type",
+      width: 130,
+      editable: true,
+    },
+    { field: "price", headerName: "price ($)", width: 80, editable: true },
+    { field: "stock", headerName: "stock", width: 80, editable: true },
+    { field: "condition", headerName: "Condition", width: 70, editable: true },
+    {
+      field: "description",
+      headerName: "Description",
+      width: 130,
       editable: true,
     },
     {
-      field: "name",
-      headerName: "Name",
-      type: "string",
-      width: 220,
-      align: "left",
-      headerAlign: "left",
+      field: "manufacturer",
+      headerName: "Manufacturer",
+      width: 130,
       editable: true,
     },
     {
-      field: "email",
-      headerName: "Email",
-      type: "string",
-      width: 220,
+      field: "productimage",
+      headerName: "Product Image",
+      width: 130,
       editable: true,
     },
-    {
-      field: "isadmin",
-      headerName: "Admin",
-      type: "string",
-      width: 220,
-      editable: true,
-    },
+    { field: "featured", headerName: "Featured", width: 60, editable: true },
     {
       field: "actions",
       type: "actions",

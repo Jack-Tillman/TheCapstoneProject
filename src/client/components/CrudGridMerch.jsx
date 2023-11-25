@@ -54,7 +54,7 @@ function EditToolbar(props) {
   return (
     <GridToolbarContainer>
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
+        Add Merch
       </Button>
     </GridToolbarContainer>
   );
@@ -125,7 +125,7 @@ export const CrudGridMerch = () => {
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
   };
-
+  //column width is set below for each column, numbers are in px
   const columns = [
     { field: "id", headerName: "ID", width: 70, editable: true },
     { field: "stripe_id", headerName: "stripeId", width: 130, editable: true },
