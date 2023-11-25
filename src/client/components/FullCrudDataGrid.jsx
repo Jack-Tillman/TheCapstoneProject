@@ -13,13 +13,7 @@ import {
   GridActionsCellItem,
   GridRowEditStopReasons,
 } from "@mui/x-data-grid";
-import {
-  randomCreatedDate,
-  randomTraderName,
-  randomId,
-  randomArrayItem,
-} from "@mui/x-data-grid-generator";
-import { fakerPL } from "@faker-js/faker";
+import { fetchAllUsers, fetchItems, fetchSingleItem } from "../api";
 /* END OF IMPORTS */
 
 /* helper functions for the starter code, not used currently */
@@ -28,9 +22,7 @@ const randomRole = () => {
   return randomArrayItem(roles);
 };
 
-
 //LINK TO DOCS: https://mui.com/x/react-data-grid/editing/
-
 
 /*
 CURRENT ISSUE: 
@@ -42,67 +34,77 @@ compared to setting up our own version of this
 
 */
 
-//Below was from starter code
-// const initialRows = [
-//   {
-//     id: randomId(),
-//     name: randomTraderName(),
-//     age: 25,
-//     joinDate: randomCreatedDate(),
-//     role: randomRole(),
-//   },
-//   {
-//     id: randomId(),
-//     name: randomTraderName(),
-//     age: 36,
-//     joinDate: randomCreatedDate(),
-//     role: randomRole(),
-//   },
-//   {
-//     id: randomId(),
-//     name: randomTraderName(),
-//     age: 19,
-//     joinDate: randomCreatedDate(),
-//     role: randomRole(),
-//   },
-//   {
-//     id: randomId(),
-//     name: randomTraderName(),
-//     age: 28,
-//     joinDate: randomCreatedDate(),
-//     role: randomRole(),
-//   },
-//   {
-//     id: randomId(),
-//     name: randomTraderName(),
-//     age: 23,
-//     joinDate: randomCreatedDate(),
-//     role: randomRole(),
-//   },
-// ];
-
 const userColumns = [
-  { field: "id", headerName: "ID", width: 70 },
+  { field: "id", headerName: "id", width: 70 },
   { field: "name", headerName: "name", width: 130 },
   { field: "email", headerName: "email", width: 130 },
+  {
+    field: "actions",
+    type: "actions",
+    headerName: "Actions",
+    width: 100,
+    cellClassName: "actions",
+    getActions: ({ id }) => {
+      const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+      if (isInEditMode) {
+        return [
+          <GridActionsCellItem
+            icon={<SaveIcon />}
+            label="Save"
+            sx={{
+              color: "primary.main",
+            }}
+            onClick={handleSaveClick(id)}
+          />,
+          <GridActionsCellItem
+            icon={<CancelIcon />}
+            label="Cancel"
+            className="textPrimary"
+            onClick={handleCancelClick(id)}
+            color="inherit"
+          />,
+        ];
+      }
+
+      return [
+        <GridActionsCellItem
+          icon={<EditIcon />}
+          label="Edit"
+          className="textPrimary"
+          onClick={handleEditClick(id)}
+          color="inherit"
+        />,
+        <GridActionsCellItem
+          icon={<DeleteIcon />}
+          label="Delete"
+          onClick={handleDeleteClick(id)}
+          color="inherit"
+        />,
+      ];
+    },
+  },
 ];
 
 /* editToolbar COMPONENT */
 
-function EditToolbar() {
-  const { setRows, setRowModesModel } = props;
+function EditToolbar(props) {
+  const { setRows, setRowModesModel, idCounter, setIdCounter } = props;
 
   const handleClick = () => {
-    const id = randomId()
+    console.log("idCounter is");
+    console.log(idCounter);
+    const id = idCounter + 1;
     console.log(id);
     setRows((oldRows) => [
       ...oldRows,
-      { id, name: "", email: "", isNew: true },
+      { id: id, name: "", email: "", isNew: true },
     ]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
     }));
+    setIdCounter(idCounter + 1)
   };
 
   return (
@@ -116,9 +118,29 @@ function EditToolbar() {
 
 /* GRID COMPONENT */
 
-export const FullFeaturedCrudGrid = ({ userRows }) => {
-  const [rows, setRows] = useState(userRows);
+export const FullFeaturedCrudGrid = ({ userRows, admin }) => {
+  const [rows, setRows] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
+  const [idCounter, setIdCounter] = useState(
+    Math.max(...rows.map((row) => row.id), 8)
+  );
+  useEffect(() => {
+    async function getUsers() {
+      try {
+        //if user is admin, actually fire the fetch request; else, setUsers as false for conditional rendering purposes
+        const response = await fetchAllUsers();
+        const result = await response.json();
+        if (response.status === 200) {
+          setRows(result.users);
+        } else {
+          console.error(error);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getUsers();
+  }, []);
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -135,6 +157,8 @@ export const FullFeaturedCrudGrid = ({ userRows }) => {
   };
 
   const handleDeleteClick = (id) => () => {
+    console.log(id);
+    console.log(rows);
     setRows(rows.filter((row) => row.id !== id));
   };
 
@@ -183,7 +207,53 @@ export const FullFeaturedCrudGrid = ({ userRows }) => {
       type: "string",
       width: 180,
       editable: true,
-    }, 
+    },
+    {
+      field: "actions",
+      type: "actions",
+      headerName: "Actions",
+      width: 100,
+      cellClassName: "actions",
+      getActions: ({ id }) => {
+        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+        if (isInEditMode) {
+          return [
+            <GridActionsCellItem
+              icon={<SaveIcon />}
+              label="Save"
+              sx={{
+                color: "primary.main",
+              }}
+              onClick={handleSaveClick(id)}
+            />,
+            <GridActionsCellItem
+              icon={<CancelIcon />}
+              label="Cancel"
+              className="textPrimary"
+              onClick={handleCancelClick(id)}
+              color="inherit"
+            />,
+          ];
+        }
+
+        return [
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            label="Edit"
+            className="textPrimary"
+            onClick={handleEditClick(id)}
+            color="inherit"
+          />,
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={handleDeleteClick(id)}
+            color="inherit"
+          />,
+        ];
+      },
+    },
   ];
 
   return (
@@ -200,18 +270,20 @@ export const FullFeaturedCrudGrid = ({ userRows }) => {
       }}
     >
       <DataGrid
-        rows={userRows}
-        columns={userColumns}
+        rows={rows}
+        columns={columns}
         editMode="row"
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
         slots={{
-          toolbar: EditToolbar,
+          toolbar: (props) => (
+            <EditToolbar {...props} idCounter={idCounter} />
+          ),
         }}
         slotProps={{
-          toolbar: { setRows, setRowModesModel },
+          toolbar: { setRows, setRowModesModel, idCounter, setIdCounter },
         }}
       />
     </Box>

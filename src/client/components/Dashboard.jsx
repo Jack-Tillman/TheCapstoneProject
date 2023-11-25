@@ -177,12 +177,11 @@ export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
       <h1>This is the user dashboard.</h1>
       <h2>Congratulations on being a user</h2>
 
-      {/*FullFeaturedCrudGrid is not functional yet, so i left commented out}
 
-      {users && <FullFeaturedCrudGrid userRows={userRows}/>} 
+      {users && <FullFeaturedCrudGrid userRows={userRows} admin={admin}/>} 
 
-      */}
-      {users && (
+ 
+      {/* {users && (
         <div className="users-container" style={{ height: 400, width: "100%" }}>
           <DataGrid
             rows={userRows}
@@ -247,7 +246,7 @@ export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
             checkboxSelection
           />
         </div>
-      )} 
+      )}  */}
     </>
   );
 };
