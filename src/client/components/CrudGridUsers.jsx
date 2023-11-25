@@ -112,7 +112,7 @@ export const CrudGridUsers = () => {
     setRowModesModel(newRowModesModel);
   };
 
-  //column width is set below for each column, numbers are in px
+  //column width is set below for each column, numbers are in px 
   const columns = [
     {
       field: "id",
