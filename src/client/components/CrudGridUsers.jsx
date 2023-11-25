@@ -112,7 +112,7 @@ export const CrudGridUsers = () => {
     setRowModesModel(newRowModesModel);
   };
 
-  //column width is set below for each column, numbers are in px 
+  //column width is set below for each column, numbers are in px
   const columns = [
     {
       field: "id",
@@ -208,6 +208,12 @@ export const CrudGridUsers = () => {
       <DataGrid
         rows={rows}
         columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: { page: 0, pageSize: 5 },
+          },
+        }}
+        pageSizeOptions={[5, 10]}
         editMode="row"
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}
