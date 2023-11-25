@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 import { DataGrid } from "@mui/x-data-grid";
 import { CrudGridUsers } from "./CrudGridUsers";
 import { CrudGridGames } from "./CrudGridGames";
+import { CrudGridMerch } from "./CrudGridMerch";
 
 export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
   const [users, setUsers] = useState([]);
@@ -110,6 +111,7 @@ export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
 
       {admin && <CrudGridUsers admin={admin}/>} 
       {admin && <CrudGridGames admin={admin} />}
+      {admin && <CrudGridMerch admin={admin} />}
  
       {/* {users && (
         <div className="users-container" style={{ height: 400, width: "100%" }}>
