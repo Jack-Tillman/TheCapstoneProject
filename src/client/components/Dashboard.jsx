@@ -8,7 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { DataGrid } from "@mui/x-data-grid";
-import { FullFeaturedCrudGrid } from "./FullCrudDataGrid";
+import { CrudGridUsers } from "./CrudGridUsers";
+import { CrudGridGames } from "./CrudGridGames";
 
 export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
   const [users, setUsers] = useState([]);
@@ -18,26 +19,6 @@ export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function getGames(admin) {
-      try {
-        //if user is admin, actually fire the fetch request; else, setUsers as false for conditional rendering purposes
-        if (admin) {
-          const response = await fetchItems("games");
-          const result = await response.json();
-          if (response.status === 200) {
-            setGames(result);
-          } else {
-            setError(response.error);
-            console.error(error);
-          }
-        } else {
-          setGames(false);
-        }
-      } catch (error) {
-        console.error(error);
-        setError(error);
-      }
-    }
 
     async function getHardware(admin) {
       try {
@@ -80,60 +61,10 @@ export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
         setError(error);
       }
     }
-
-    async function getUsers(admin) {
-      try {
-        //if user is admin, actually fire the fetch request; else, setUsers as false for conditional rendering purposes
-        if (admin) {
-          const response = await fetchAllUsers();
-          const result = await response.json();
-          if (response.status === 200) {
-            setUsers(result.users);
-          } else {
-            setError(response.error);
-            console.error(error);
-          }
-        } else {
-          setUsers(false);
-        }
-      } catch (error) {
-        console.error(error);
-        setError(error);
-      }
-    }
-
-    getUsers(admin);
-    getGames(admin);
     getHardware(admin);
     getMerch(admin);
     console.log(games);
   }, []);
-
-  const userColumns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "name", headerName: "name", width: 130 },
-    { field: "email", headerName: "email", width: 130 },
-  ];
-  const userRows = users;
-
-  const gamesColumns = [
-    { field: "id", headerName: "ID", width: 70, editable: true, },
-    { field: "stripe_id", headerName: "stripeId", width: 130, editable: true, },
-    { field: "productname", headerName: "Product Name", width: 130, editable: true, },
-    { field: "genre", headerName: "Genre", width: 130, editable: true, },
-    { field: "delivery", headerName: "Delivery Name", width: 130, editable: true, },
-    { field: "price", headerName: "price ($)", width: 130, editable: true, },
-    { field: "stock", headerName: "stock", width: 130, editable: true, },
-    { field: "condition", headerName: "Condition", width: 130, editable: true, },
-    { field: "description", headerName: "Description", width: 130, editable: true, },
-    { field: "publisher", headerName: "Publisher", width: 130, editable: true, },
-    { field: "productimage", headerName: "Product Image", width: 130, editable: true, },
-    { field: "playerrange", headerName: "Player Range", width: 130, editable: true, },
-    { field: "esrb", headerName: "ESRB Rating", width: 130, editable: true, },
-    { field: "featured", headerName: "Featured", width: 130, editable: true, },
-  ];
-
-  const gamesRows = games;
 
   const merchColumns = [
     { field: "id", headerName: "ID", width: 70, editable: true, },
@@ -177,9 +108,8 @@ export const Dashboard = ({ token, setToken, admin, setAdmin }) => {
       <h1>This is the user dashboard.</h1>
       <h2>Congratulations on being a user</h2>
 
-
-      {users && <FullFeaturedCrudGrid userRows={userRows} admin={admin}/>} 
-
+      {admin && <CrudGridUsers admin={admin}/>} 
+      {admin && <CrudGridGames admin={admin} />}
  
       {/* {users && (
         <div className="users-container" style={{ height: 400, width: "100%" }}>

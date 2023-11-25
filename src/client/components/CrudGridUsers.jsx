@@ -13,98 +13,28 @@ import {
   GridActionsCellItem,
   GridRowEditStopReasons,
 } from "@mui/x-data-grid";
-import { fetchAllUsers, fetchItems, fetchSingleItem } from "../api";
+import { fetchAllUsers } from "../api";
 /* END OF IMPORTS */
-
-/* helper functions for the starter code, not used currently */
-const roles = ["Market", "Finance", "Development"];
-const randomRole = () => {
-  return randomArrayItem(roles);
-};
 
 //LINK TO DOCS: https://mui.com/x/react-data-grid/editing/
 
-/*
-CURRENT ISSUE: 
-So far, the main issue is that when you try to add a row, the app breaks due to how the handleClick is set up
-Right now, handleClick will generate randomId, which is in string form, but it needs to be changed so 
-that it creates an id that is one higher than the current highest id, so that id is serialized. 
-I'm not sure if it will take more time to get this functional for not just users, but games, merch and hardware 
-compared to setting up our own version of this 
-
-*/
-
-const userColumns = [
-  { field: "id", headerName: "id", width: 70 },
-  { field: "name", headerName: "name", width: 130 },
-  { field: "email", headerName: "email", width: 130 },
-  {
-    field: "actions",
-    type: "actions",
-    headerName: "Actions",
-    width: 100,
-    cellClassName: "actions",
-    getActions: ({ id }) => {
-      const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-
-      if (isInEditMode) {
-        return [
-          <GridActionsCellItem
-            icon={<SaveIcon />}
-            label="Save"
-            sx={{
-              color: "primary.main",
-            }}
-            onClick={handleSaveClick(id)}
-          />,
-          <GridActionsCellItem
-            icon={<CancelIcon />}
-            label="Cancel"
-            className="textPrimary"
-            onClick={handleCancelClick(id)}
-            color="inherit"
-          />,
-        ];
-      }
-
-      return [
-        <GridActionsCellItem
-          icon={<EditIcon />}
-          label="Edit"
-          className="textPrimary"
-          onClick={handleEditClick(id)}
-          color="inherit"
-        />,
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
-          onClick={handleDeleteClick(id)}
-          color="inherit"
-        />,
-      ];
-    },
-  },
-];
-
-/* editToolbar COMPONENT */
+/* editToolbar COMPONENT - This component is responsible for the toolbar icons and functionality */
 
 function EditToolbar(props) {
+  //idCounter and setIdCounter are used to increment the id of each added user by 1
   const { setRows, setRowModesModel, idCounter, setIdCounter } = props;
 
   const handleClick = () => {
-    console.log("idCounter is");
-    console.log(idCounter);
     const id = idCounter + 1;
-    console.log(id);
     setRows((oldRows) => [
       ...oldRows,
-      { id: id, name: "", email: "", isNew: true },
+      { id: id, name: "", email: "", isadmin: "", isNew: true },
     ]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
     }));
-    setIdCounter(idCounter + 1)
+    setIdCounter(idCounter + 1);
   };
 
   return (
@@ -118,16 +48,16 @@ function EditToolbar(props) {
 
 /* GRID COMPONENT */
 
-export const FullFeaturedCrudGrid = ({ userRows, admin }) => {
+export const CrudGridUsers = () => {
   const [rows, setRows] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
+  //idCounter is used for creating new rows, starts at 8 because there are currently 8 users in seed data
   const [idCounter, setIdCounter] = useState(
     Math.max(...rows.map((row) => row.id), 8)
   );
   useEffect(() => {
     async function getUsers() {
       try {
-        //if user is admin, actually fire the fetch request; else, setUsers as false for conditional rendering purposes
         const response = await fetchAllUsers();
         const result = await response.json();
         if (response.status === 200) {
@@ -157,8 +87,6 @@ export const FullFeaturedCrudGrid = ({ userRows, admin }) => {
   };
 
   const handleDeleteClick = (id) => () => {
-    console.log(id);
-    console.log(rows);
     setRows(rows.filter((row) => row.id !== id));
   };
 
@@ -189,14 +117,14 @@ export const FullFeaturedCrudGrid = ({ userRows, admin }) => {
       field: "id",
       headerName: "ID",
       type: "string",
-      width: 180,
+      width: 90,
       editable: true,
     },
     {
       field: "name",
       headerName: "Name",
       type: "string",
-      width: 80,
+      width: 220,
       align: "left",
       headerAlign: "left",
       editable: true,
@@ -205,7 +133,14 @@ export const FullFeaturedCrudGrid = ({ userRows, admin }) => {
       field: "email",
       headerName: "Email",
       type: "string",
-      width: 180,
+      width: 220,
+      editable: true,
+    },
+    {
+      field: "isadmin",
+      headerName: "Admin",
+      type: "string",
+      width: 220,
       editable: true,
     },
     {
@@ -278,9 +213,7 @@ export const FullFeaturedCrudGrid = ({ userRows, admin }) => {
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
         slots={{
-          toolbar: (props) => (
-            <EditToolbar {...props} idCounter={idCounter} />
-          ),
+          toolbar: (props) => <EditToolbar {...props} idCounter={idCounter} />,
         }}
         slotProps={{
           toolbar: { setRows, setRowModesModel, idCounter, setIdCounter },
@@ -289,72 +222,3 @@ export const FullFeaturedCrudGrid = ({ userRows, admin }) => {
     </Box>
   );
 };
-
-/* Column types: 
-
-
-'string' (default) 	string
-'number' 	number
-'date' 	Date() object
-'dateTime' 	Date() object
-'boolean' 	boolean
-'singleSelect' 	A value in .valueOptions
-'actions'
-
-former version of columns 
-
-const columns = [
-    { field: "id", headerName: "ID", width: 180, editable: true },
-    {
-      field: "name",
-      headerName: "Name",
-      type: "number",
-      width: 80,
-      align: "left",
-      headerAlign: "left",
-      editable: true,
-    },
-    {
-      field: "joinDate",
-      headerName: "Join date",
-      type: "date",
-      width: 180,
-      editable: true,
-    },
-    {
-      field: "role",
-      headerName: "Department",
-      width: 220,
-      editable: true,
-      type: "singleSelect",
-      valueOptions: ["Market", "Finance", "Development"],
-    },
-    {
-      field: "actions",
-      type: "actions",
-      headerName: "Actions",
-      width: 100,
-      cellClassName: "actions",
-      getActions: ({ id }) => {
-        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-
-        if (isInEditMode) {
-          return [
-            <GridActionsCellItem
-              icon={<SaveIcon />}
-              label="Save"
-              sx={{
-                color: "primary.main",
-              }}
-              onClick={handleSaveClick(id)}
-            />,
-            <GridActionsCellItem
-              icon={<CancelIcon />}
-              label="Cancel"
-              className="textPrimary"
-              onClick={handleCancelClick(id)}
-              color="inherit"
-            />,
-          ];
-        }
-*/
