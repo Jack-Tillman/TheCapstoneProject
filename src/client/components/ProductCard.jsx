@@ -8,6 +8,8 @@ import { fetchSingleItem } from "../api";
 import { SingleProduct } from "./SingleProduct";
 import InfoIcon from "@mui/icons-material/Info";
 import { BasicModal } from "./Modal.jsx";
+
+
 export function ProductCard(props) {
   const product = props.product;
   const cart = useContext(CartContext);

@@ -22,14 +22,12 @@ export const BasicModal = ({ product }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log(product);
   return (
     <>
       <div>
         <Tooltip title="More info" placement="right">
           <IconButton
             onClick={() => {
-              console.log(product);
               handleOpen();
             }}
             color="info"

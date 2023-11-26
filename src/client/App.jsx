@@ -81,6 +81,7 @@ function App() {
             admin={admin}
             setAdmin={setAdmin}
             user={user}
+            setUser={setUser}
           />
           <MainSection
             token={token}
@@ -88,6 +89,7 @@ function App() {
             admin={admin}
             setAdmin={setAdmin}
             user={user}
+            setUser={setUser}
           />
         </div>
       </ThemeProvider>

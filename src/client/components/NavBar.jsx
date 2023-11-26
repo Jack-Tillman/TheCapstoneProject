@@ -47,7 +47,7 @@ const loggedInData = [
   { name: "Dashboard", link: "/dashboard", icon: <PersonIcon /> },
 ];
 
-const NavBar = ({ token, setToken, admin, setAdmin, user }) => {
+const NavBar = ({ token, setToken, admin, setAdmin, user, setUser }) => {
   //localCart used solely to re-render Navbar if there is items in localStorage
   const localCart = localStorage.getItem("cart");
   useEffect(() => {
@@ -189,6 +189,7 @@ const NavBar = ({ token, setToken, admin, setAdmin, user }) => {
               to="/logout"
               onClick={() => {
                 setToken(null);
+                setUser({});
               }}
             >
               <IconButton aria-label="Log out" color="primary">

@@ -57,12 +57,14 @@ export const Login = ({ token, setToken, admin, setAdmin }) => {
       const authToken = sessionStorage.getItem("token");
       const authAdmin = sessionStorage.getItem("admin");
       if (response.status === 200) {
+
         if (result.user.isadmin === true) {
           console.log(`Truthy admin: ${authAdmin}`);
         } else {
           sessionStorage.removeItem("admin");
           console.log(`Falsey admin: ${authAdmin}`);
         }
+        
         setToken(authToken);
         setSuccess(true);
         setTimeout(() => {
