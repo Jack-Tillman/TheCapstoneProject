@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 export const Logout = () => {
   sessionStorage.removeItem("token");
   sessionStorage.removeItem("admin");
-  
+  sessionStorage.removeItem("user");
   const navigate = useNavigate();
   return (
     <>

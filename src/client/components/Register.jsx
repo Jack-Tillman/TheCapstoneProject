@@ -50,30 +50,38 @@ export const Register = ({ token, setToken }) => {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    if (password != passwordAgain) {
+      setError({
+        name: "PasswordFieldsMismatch",
+        message:
+          "Both the password and password confirmation fields must be identical!",
+      });
+    } else {
+      try {
+        const response = await registerUser(name, email, password);
+        const result = await response.json();
+        console.log(result);
+        sessionStorage.setItem("token", result.token);
+        sessionStorage.setItem("user", JSON.stringify(result.user));
+        const authToken = sessionStorage.getItem("token");
 
-    try {
-      const response = await registerUser(name, email, password);
-      const result = await response.json();
-      console.log(result);
-      sessionStorage.setItem("token", result.token);
-      const authToken = sessionStorage.getItem("token");
-
-      if (response.status === 200) {
-        setSuccess(true);
-        setToken(authToken);
-        setAuthenticated(result.token);
-        setName("");
-        setEmail("");
-        setPassword("");
-        setPasswordAgain("");
-        setTimeout(() => {
-          navigate("/");
-        }, 1250);
-      } else {
-        setError(result);
+        if (response.status === 200) {
+          setSuccess(true);
+          setToken(authToken);
+          setAuthenticated(result.token);
+          setName("");
+          setEmail("");
+          setPassword("");
+          setPasswordAgain("");
+          setTimeout(() => {
+            navigate("/");
+          }, 1250);
+        } else {
+          setError(result);
+        }
+      } catch (error) {
+        setError(error);
       }
-    } catch (error) {
-      setError(error);
     }
   }
 

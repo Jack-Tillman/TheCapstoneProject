@@ -19,6 +19,8 @@ export function CartProvider({ children }) {
   const localCart = localStorage.getItem("cart");
   //convert to object so that it can be passed to setCartProducts 
   const localObject = JSON.parse(localCart);
+  const currentUser = sessionStorage.getItem("token")
+
   //useEffect fires upon page load to check if there is any data in localStorage for the cart. 
   useEffect(() => {
     async function getCart(localCart) {

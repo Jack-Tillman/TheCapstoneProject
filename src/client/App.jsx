@@ -28,7 +28,7 @@ const theme = createTheme({
 
 
 function App() {
-  
+  const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [admin, setAdmin] = useState(false);
   const adminStorage = sessionStorage.getItem("admin");

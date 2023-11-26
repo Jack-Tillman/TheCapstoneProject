@@ -159,6 +159,7 @@ usersRouter.post("/register", async (req, res, next) => {
     res.send({
       message: "Sign up successful!",
       token,
+      user
     });
   } catch ({ name, message }) {
     next({ name, message });
