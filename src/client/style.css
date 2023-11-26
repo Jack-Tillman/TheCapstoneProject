@@ -109,11 +109,11 @@ a {color:rgb(0, 0, 0)}
 /* .slideDiv {
   padding: 0px;
 } */
-
-.carouselcontainer {
+/* Jack commented out below on 11/26 because the styles were not used due to classname being used rather than className in homepage.jsx, which resulted in errors in console*/
+/* .carouselcontainer {
   display: flex;
   justify-content: center;
-}
+} */
 
 .carouselText {
   position:absolute;

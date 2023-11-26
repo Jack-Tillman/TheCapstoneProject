@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
-import { Box, CssBaseline, ThemeProvider } from '@mui/material';
-import MainSection from './components/MainSection';
-import NavBar from './components/NavBar';
-import createTheme from '@mui/material/styles/createTheme';
-import { useTheme } from '@mui/material/styles';
-import { red, blue } from '@mui/material/colors';
-import { CartProvider } from './CartContext';
+import { useState, useEffect } from "react";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
+import MainSection from "./components/MainSection";
+import NavBar from "./components/NavBar";
+import createTheme from "@mui/material/styles/createTheme";
+import { useTheme } from "@mui/material/styles";
+import { red, blue } from "@mui/material/colors";
+import { CartProvider } from "./CartContext";
 
 const theme = createTheme({
   palette: {
@@ -26,37 +26,32 @@ const theme = createTheme({
   },
 });
 
-
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [token, setToken] = useState(null);
   const [admin, setAdmin] = useState(false);
-  const adminStorage = sessionStorage.getItem("admin");
-  const storageToken = sessionStorage.getItem("token");
-  const localCart = localStorage.getItem("cart");
-  
+  const userStorage = sessionStorage.getItem("user"); // user info, like name, email 
+  const storageToken = sessionStorage.getItem("token"); // string of jwt 
+  const localCart = localStorage.getItem("cart"); // string of cart and cart contents
 
   useEffect(() => {
-    async function getToken(storageToken) {
-      if (storageToken) {
-        setToken(storageToken);
-      } else {
-        return;
-      }      
+    async function getStorage(storageToken, userStorage, localCart) {
+      if (userStorage) {
+        try {
+          setToken(storageToken);
+          setUser(JSON.parse(userStorage));
+          if (userStorage.admin) {
+            setAdmin(true);
+          } else {
+            setAdmin(false);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
     }
-    getToken(storageToken);
-  },[token, storageToken]);
-
-  useEffect(() => {
-    async function getAdmin(adminStorage) {
-      if (adminStorage) {
-        setAdmin(adminStorage);
-      } else {
-        return;
-      }      
-    }
-    getAdmin(adminStorage);
-  },[admin, adminStorage]);
+    getStorage(storageToken, userStorage, localCart);
+  }, [storageToken]);
 
   // const [mode, setMode] = React.useState<PaletteMode>('light');
   // const colorMode = React.useMemo(
@@ -74,14 +69,26 @@ function App() {
   // // Update the theme only if the mode changes
   // const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
-  return (  
+  return (
     // <ColorModeContext.Provider value={colorMode}>
     <CartProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className='App'>
-          <NavBar token={token} setToken={setToken} admin={admin} setAdmin={setAdmin} />
-          <MainSection token={token} setToken={setToken} admin={admin} setAdmin={setAdmin}/>
+        <div className="App">
+          <NavBar
+            token={token}
+            setToken={setToken}
+            admin={admin}
+            setAdmin={setAdmin}
+            user={user}
+          />
+          <MainSection
+            token={token}
+            setToken={setToken}
+            admin={admin}
+            setAdmin={setAdmin}
+            user={user}
+          />
         </div>
       </ThemeProvider>
     </CartProvider>
@@ -90,4 +97,3 @@ function App() {
 }
 
 export default App;
- 

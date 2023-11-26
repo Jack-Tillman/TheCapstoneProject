@@ -56,8 +56,8 @@ return (
                 <h2>Your #1 stop for all GAMES, HARDWARE, and MORE!!</h2>
             </div>
 
-            <div classname= "carouselcontainer">
-            <Carousel />
+            <div className= "carouselcontainer">
+              <Carousel />
             </div>
          </div>
 </>
