@@ -33,7 +33,6 @@ function App() {
   const userStorage = sessionStorage.getItem("user"); // user info, like name, email 
   const storageToken = sessionStorage.getItem("token"); // string of jwt 
   const localCart = localStorage.getItem("cart"); // string of cart and cart contents
-
   useEffect(() => {
     async function getStorage(storageToken, userStorage, localCart) {
       if (userStorage) {

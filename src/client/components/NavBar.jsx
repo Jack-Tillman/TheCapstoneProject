@@ -49,6 +49,7 @@ const loggedInData = [
 
 const NavBar = ({ token, setToken, admin, setAdmin, user, setUser }) => {
   //localCart used solely to re-render Navbar if there is items in localStorage
+
   const localCart = localStorage.getItem("cart");
   useEffect(() => {
     async function renderNavbar(token, user) {
@@ -65,6 +66,7 @@ const NavBar = ({ token, setToken, admin, setAdmin, user, setUser }) => {
     }
     renderNavbar(token, user);
   }, [token, user, localCart]);
+
 
   const cart = useContext(CartContext);
 
@@ -265,7 +267,7 @@ const NavBar = ({ token, setToken, admin, setAdmin, user, setUser }) => {
                       variant="contained"
                       onClick={checkout}
                       color="success"
-                      disabled="true"
+                      disabled={true}
                     >
                       Check out
                     </Button>
