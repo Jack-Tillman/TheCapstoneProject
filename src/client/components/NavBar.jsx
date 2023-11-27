@@ -49,38 +49,24 @@ const loggedInData = [
 
 const NavBar = ({ token, setToken, admin, setAdmin, user, setUser }) => {
   //localCart used solely to re-render Navbar if there is items in localStorage
-  const [userId, setUserId] = useState(0);
 
-  const localCart = localStorage.getItem(`${userId} cart`);
+  const localCart = localStorage.getItem("cart");
   useEffect(() => {
     async function renderNavbar(token, user) {
-      if (token && user.isadmin) {
-        setUserId(user.id);
+      if (token) {
         setToken(token);
-        setAdmin(true);
-      } else if (token && !user.isadmin) {
-        setToken(token);
-        setAdmin(false);
       } else {
         setToken(null);
+      }
+      if (user.isadmin) {
+        setAdmin(true);
+      } else {
         setAdmin(false);
       }
-
-      // if (token) {
-      //   const id = +sessionStorage.getItem("user").slice(6, 7);
-      //   setUserId(id);
-      //   setToken(token);
-      // } else {
-      //   setToken(null);
-      // }
-      // if (user.isadmin) {
-      //   setAdmin(true);
-      // } else {
-      //   setAdmin(false);
-      // }
     }
     renderNavbar(token, user);
-  }, [token, user, localCart, userId]);
+  }, [token, user, localCart]);
+
 
   const cart = useContext(CartContext);
 

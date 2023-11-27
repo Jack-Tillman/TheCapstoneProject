@@ -1,7 +1,5 @@
-import e from "cors";
 import { createContext, useEffect, useState } from "react";
 // import { getProductData } from "../server/db/cart.js";
-
 export const CartContext = createContext({
   items: [],
   getProductQuantity: () => {},
@@ -12,109 +10,54 @@ export const CartContext = createContext({
   getInitialCart: () => {},
   getProductData: () => {},
 });
-
 export function CartProvider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
   const [productId, setProductId] = useState(null);
-  const [userId, setUserId] = useState(8000);
   //grab any cart items stored in local storage
-  const localCart = localStorage.getItem(`${userId} cart`);
+  const localCart = localStorage.getItem("cart");
   //convert to object so that it can be passed to setCartProducts
   const localObject = JSON.parse(localCart);
-  //grab user data from session storage
-  const userStorage = +sessionStorage.getItem("user");
-  //useEffect fires upon page load to check if there is any data in localStorage for the cart. Without this useEffect, refreshing page clears items from cart
+
+  //useEffect fires upon page load to check if there is any data in localStorage for the cart.
   useEffect(() => {
-    async function getCartByUserId(userStorage, localCart) {
-      //if user is signed in and has a localCart 
-      if (userStorage !== null && localCart) {
-        console.log(userStorage);
-        setUserId(userStorage);
+    async function getCart(localCart) {
+      if (localCart) {
+        console.log(localCart);
+        console.log(localObject);
+        //if cart data is stored in local Storage, set it as cartProducts
         setCartProducts(localObject);
-
-      } else if (userStorage !== null && !localCart) {
-        setUserId(userStorage);
-        setCartProducts([]);
-
+        return;
       } else {
-        setUserId(8000);
-        setCartProducts([]);
-
+        return;
       }
     }
-
-    // async function getUser(userStorage) {
-    //   if (userStorage !== null) {
-    //     const id = +userStorage.slice(6, 7);
-    //     setUserId(id);
-    //   } else {
-    //     setUserId(0);
-    //     setCartProducts([])
-    //   }
-    // }
-
-    // async function getCart(localCart) {
-    //   if (localCart) {
-    //     console.log(localCart);
-    //     console.log(localObject);
-    //     //if cart data is stored in local Storage, set it as cartProducts
-    //     setCartProducts(localObject);
-    //     return;
-    //   } else {
-    //     return;
-    //   }
-    // }
-    // getUser(userStorage);
-    // getCart(localCart);
-    getCartByUserId(userStorage, localCart);
-  }, [userId, userStorage]);
-
-  /*
-
-    if (sessionStorage.getItem("user") !== null) {
-      const userStorage = sessionStorage.getItem("user");
-      const id = +userStorage.slice(6, 7);
-      setUserId(id);
-    } else {
-      setUserId(0);
-    }
-
-*/
-
+    getCart(localCart);
+  }, []);
   //this function takes the data found in local storage and sets it as cartProducts
-  function getInitialCart(localCart, userStorage) {
-    if (localCart && userStorage) {
-      setUserId(userStorage);
+  // NOTE : MAY BE REDUNDANT
+  function getInitialCart(localCart) {
+    if (localCart) {
       setCartProducts(localObject);
       console.log(localObject);
       console.log(cartProducts);
       return;
-    } else if (!localCart && userStorage) {
-      setUserId(userStorage);
-      setCartProducts([]);
-      return;
     } else {
-      setUserId(8000);
-      setCartProducts([]);
+      return;
     }
   }
-
   function getProductQuantity(stripe_id) {
     const quantity = cartProducts.find(
       (product) => product.stripe_id === stripe_id
     )?.quantity;
-
     if (quantity === undefined) {
       return 0;
     }
     console.log(quantity);
-    localStorage.setItem(`${userId} cart`, JSON.stringify(cartProducts));
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
     return quantity;
   }
-
   function addOneToCart(stripe_id, price, productName) {
     const quantity = getProductQuantity(stripe_id);
-
     if (quantity === 0) {
       //product is not in cart
       setCartProducts([
@@ -138,12 +81,10 @@ export function CartProvider({ children }) {
       );
     }
     //LOCAL STORAGE - add the string version of the cartProduct to localStorage
-    localStorage.setItem(`${userId} cart`, JSON.stringify(cartProducts));
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
   }
-
   function removeOneFromCart(stripe_id) {
     const quantity = getProductQuantity(stripe_id);
-
     if (quantity === 1) {
       deleteFromCart(stripe_id);
     } else {
@@ -157,7 +98,6 @@ export function CartProvider({ children }) {
       );
     }
   }
-
   function deleteFromCart(stripe_id) {
     setCartProducts((cartProducts) =>
       cartProducts.filter((currentProduct) => {
@@ -165,9 +105,8 @@ export function CartProvider({ children }) {
       })
     );
     //line below will delete the cart after the final item is removed from the cart
-    localStorage.removeItem(`${userId} cart`);
+    localStorage.removeItem("cart");
   }
-
   function getProductData(stripe_id) {
     let productData = cartProducts.find(
       (product) => product.stripe_id === stripe_id
@@ -179,18 +118,14 @@ export function CartProvider({ children }) {
       return productData;
     }
   }
-
   function getDetailsData() {
     let detailsData = productId[0];
     if (detailsData == undefined) {
-      console.log(`Details data does not exist for ID: ${stripe_id}`);
       return undefined;
     } else {
-      console.log(detailsData);
       return detailsData;
     }
   }
-
   function getTotalCost() {
     let totalCost = 0;
     cartProducts.map((product) => {
@@ -199,7 +134,6 @@ export function CartProvider({ children }) {
     });
     return totalCost;
   }
-
   const contextValue = {
     items: cartProducts,
     getProductQuantity,
@@ -210,7 +144,6 @@ export function CartProvider({ children }) {
     getTotalCost,
     getInitialCart,
   };
-
   return (
     <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );

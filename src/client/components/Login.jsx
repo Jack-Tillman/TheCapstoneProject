@@ -53,18 +53,17 @@ export const Login = ({ token, setToken, admin, setAdmin }) => {
       console.log(result);
       sessionStorage.setItem("admin", result.user.isadmin);
       sessionStorage.setItem("token", result.token);
-      sessionStorage.setItem("user", result.user.id);
+      sessionStorage.setItem("user", JSON.stringify(result.user));
       const authToken = sessionStorage.getItem("token");
       const authAdmin = sessionStorage.getItem("admin");
       if (response.status === 200) {
-
         if (result.user.isadmin === true) {
           console.log(`Truthy admin: ${authAdmin}`);
         } else {
           sessionStorage.removeItem("admin");
           console.log(`Falsey admin: ${authAdmin}`);
         }
-        
+
         setToken(authToken);
         setSuccess(true);
         setTimeout(() => {
@@ -77,7 +76,7 @@ export const Login = ({ token, setToken, admin, setAdmin }) => {
       setPassword("");
       setMessage(response.message);
     } catch (error) {
-      setError(error);
+      setError({name: "Incorrect login information", message:"No user account with that email and password found"});
     }
   };
 
