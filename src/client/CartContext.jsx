@@ -1,3 +1,4 @@
+import e from "cors";
 import { createContext, useEffect, useState } from "react";
 // import { getProductData } from "../server/db/cart.js";
 
@@ -15,36 +16,86 @@ export const CartContext = createContext({
 export function CartProvider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
   const [productId, setProductId] = useState(null);
+  const [userId, setUserId] = useState(8000);
   //grab any cart items stored in local storage
-  const localCart = localStorage.getItem("cart");
-  //convert to object so that it can be passed to setCartProducts 
+  const localCart = localStorage.getItem(`${userId} cart`);
+  //convert to object so that it can be passed to setCartProducts
   const localObject = JSON.parse(localCart);
-  //useEffect fires upon page load to check if there is any data in localStorage for the cart. 
+  //grab user data from session storage
+  const userStorage = +sessionStorage.getItem("user");
+  //useEffect fires upon page load to check if there is any data in localStorage for the cart. Without this useEffect, refreshing page clears items from cart
   useEffect(() => {
-    async function getCart(localCart) {
-      if (localCart) {
-        console.log(localCart);
-        console.log(localObject);
-        //if cart data is stored in local Storage, set it as cartProducts 
+    async function getCartByUserId(userStorage, localCart) {
+      //if user is signed in and has a localCart 
+      if (userStorage !== null && localCart) {
+        console.log(userStorage);
+        setUserId(userStorage);
         setCartProducts(localObject);
-        return;
+
+      } else if (userStorage !== null && !localCart) {
+        setUserId(userStorage);
+        setCartProducts([]);
+
       } else {
-        return;
+        setUserId(8000);
+        setCartProducts([]);
+
       }
     }
-    getCart(localCart);
-  }, []);
 
-//this function takes the data found in local storage and sets it as cartProducts 
-// NOTE : MAY BE REDUNDANT 
-  function getInitialCart(localCart) {
-    if (localCart) {
+    // async function getUser(userStorage) {
+    //   if (userStorage !== null) {
+    //     const id = +userStorage.slice(6, 7);
+    //     setUserId(id);
+    //   } else {
+    //     setUserId(0);
+    //     setCartProducts([])
+    //   }
+    // }
+
+    // async function getCart(localCart) {
+    //   if (localCart) {
+    //     console.log(localCart);
+    //     console.log(localObject);
+    //     //if cart data is stored in local Storage, set it as cartProducts
+    //     setCartProducts(localObject);
+    //     return;
+    //   } else {
+    //     return;
+    //   }
+    // }
+    // getUser(userStorage);
+    // getCart(localCart);
+    getCartByUserId(userStorage, localCart);
+  }, [userId, userStorage]);
+
+  /*
+
+    if (sessionStorage.getItem("user") !== null) {
+      const userStorage = sessionStorage.getItem("user");
+      const id = +userStorage.slice(6, 7);
+      setUserId(id);
+    } else {
+      setUserId(0);
+    }
+
+*/
+
+  //this function takes the data found in local storage and sets it as cartProducts
+  function getInitialCart(localCart, userStorage) {
+    if (localCart && userStorage) {
+      setUserId(userStorage);
       setCartProducts(localObject);
       console.log(localObject);
       console.log(cartProducts);
       return;
-    } else {
+    } else if (!localCart && userStorage) {
+      setUserId(userStorage);
+      setCartProducts([]);
       return;
+    } else {
+      setUserId(8000);
+      setCartProducts([]);
     }
   }
 
@@ -57,7 +108,7 @@ export function CartProvider({ children }) {
       return 0;
     }
     console.log(quantity);
-    localStorage.setItem("cart", JSON.stringify(cartProducts));
+    localStorage.setItem(`${userId} cart`, JSON.stringify(cartProducts));
     return quantity;
   }
 
@@ -87,7 +138,7 @@ export function CartProvider({ children }) {
       );
     }
     //LOCAL STORAGE - add the string version of the cartProduct to localStorage
-    localStorage.setItem("cart", JSON.stringify(cartProducts));
+    localStorage.setItem(`${userId} cart`, JSON.stringify(cartProducts));
   }
 
   function removeOneFromCart(stripe_id) {
@@ -114,7 +165,7 @@ export function CartProvider({ children }) {
       })
     );
     //line below will delete the cart after the final item is removed from the cart
-    localStorage.removeItem("cart");
+    localStorage.removeItem(`${userId} cart`);
   }
 
   function getProductData(stripe_id) {

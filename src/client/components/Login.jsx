@@ -53,7 +53,7 @@ export const Login = ({ token, setToken, admin, setAdmin }) => {
       console.log(result);
       sessionStorage.setItem("admin", result.user.isadmin);
       sessionStorage.setItem("token", result.token);
-      sessionStorage.setItem("user", JSON.stringify(result.user));
+      sessionStorage.setItem("user", result.user.id);
       const authToken = sessionStorage.getItem("token");
       const authAdmin = sessionStorage.getItem("admin");
       if (response.status === 200) {

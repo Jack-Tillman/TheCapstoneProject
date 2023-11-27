@@ -49,22 +49,38 @@ const loggedInData = [
 
 const NavBar = ({ token, setToken, admin, setAdmin, user, setUser }) => {
   //localCart used solely to re-render Navbar if there is items in localStorage
-  const localCart = localStorage.getItem("cart");
+  const [userId, setUserId] = useState(0);
+
+  const localCart = localStorage.getItem(`${userId} cart`);
   useEffect(() => {
     async function renderNavbar(token, user) {
-      if (token) {
+      if (token && user.isadmin) {
+        setUserId(user.id);
         setToken(token);
+        setAdmin(true);
+      } else if (token && !user.isadmin) {
+        setToken(token);
+        setAdmin(false);
       } else {
         setToken(null);
-      }
-      if (user.isadmin) {
-        setAdmin(true);
-      } else {
         setAdmin(false);
       }
+
+      // if (token) {
+      //   const id = +sessionStorage.getItem("user").slice(6, 7);
+      //   setUserId(id);
+      //   setToken(token);
+      // } else {
+      //   setToken(null);
+      // }
+      // if (user.isadmin) {
+      //   setAdmin(true);
+      // } else {
+      //   setAdmin(false);
+      // }
     }
     renderNavbar(token, user);
-  }, [token, user, localCart]);
+  }, [token, user, localCart, userId]);
 
   const cart = useContext(CartContext);
 
@@ -265,7 +281,7 @@ const NavBar = ({ token, setToken, admin, setAdmin, user, setUser }) => {
                       variant="contained"
                       onClick={checkout}
                       color="success"
-                      disabled="true"
+                      disabled={true}
                     >
                       Check out
                     </Button>

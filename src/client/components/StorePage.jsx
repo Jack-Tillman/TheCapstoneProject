@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { ProductCard } from "./ProductCard";
 import { FormControl } from "@mui/material";
 import { TextField } from "@mui/material";
-import { Button } from "react-bootstrap"
+import { Button } from "react-bootstrap";
 import { Fab } from "@mui/material";
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 export const StorePage = () => {
   const [games, setGames] = useState([]);
@@ -61,10 +61,10 @@ export const StorePage = () => {
   //         )
   //     : products;
 
-    //working on fetchSingleItem for single item view
-    return (
-      <>
-        {/* <a href="">
+  //working on fetchSingleItem for single item view
+  return (
+    <>
+      {/* <a href="">
         <Fab color="primary" aria-label="back to top"
           sx={{
             position: "fixed",
@@ -74,45 +74,48 @@ export const StorePage = () => {
           <ArrowUpwardIcon />
         </Fab>
         </a> */}
-        <h1 className={"links"}><a href="#games">Games</a> | <a href="#hardware">Hardware</a> | <a href="#merch">Merch</a></h1>
-        <a id="games"><hr className={"hr-text gradient"} data-content={"Games"} /></a>
+      <h1 className={"links"}>
+        <a href="#games">Games</a> | <a href="#hardware">Hardware</a> |{" "}
+        <a href="#merch">Merch</a>
+      </h1>
+      <a id="games">
+        <hr className={"hr-text gradient"} data-content={"Games"} />
+      </a>
 
-        <div className="productCard">
-            {games.map((game, index) => (
-              <>
-                <div key={index}>
-                  <ProductCard product={game} />
-                  {/* <Button onClick={() => fetchSingleItem(game.stripe_id, "games")}>More Info</Button> */}
-                </div>
-              </>
-          ))}
-        </div>
-      
-      <a id="hardware"><hr className={"hr-text gradient"} data-content={"Hardware"} /></a>
-                
-        <div className="productCard">
-            {hardwares.map((hardware, index) => (
-              <>
-                <div key={index}>
-                  <ProductCard product={hardware} />
-                  {/* <Button onClick={() => fetchSingleItem(hardware.stripe_id, "hardware")}>More Info</Button> */}
-                </div>
-              </>
-          ))}
-        </div>
+      <div className="productCard">
+        {games.map((game, index) => (
+          <div key={index}>
+            <ProductCard product={game} />
+            {/* <Button onClick={() => fetchSingleItem(game.stripe_id, "games")}>More Info</Button> */}
+          </div>
+        ))}
+      </div>
 
-        <a id="merch"><hr className={"hr-text gradient"} data-content={"Merch"} /></a>
-                 
-        <div className="productCard">
-            {merches.map((merch, index) => (
-              <>
-                <div key={index}>
-                  <ProductCard product={merch} />
-                  {/* <Button onClick={() => fetchSingleItem(merch.stripe_id, "merch")}>More Info</Button> */}
-                </div>
-              </>
-          ))}
-        </div>
-      </>
-    );
-}
+      <a id="hardware">
+        <hr className={"hr-text gradient"} data-content={"Hardware"} />
+      </a>
+
+      <div className="productCard">
+        {hardwares.map((hardware, index) => (
+          <div key={index}>
+            <ProductCard product={hardware} />
+            {/* <Button onClick={() => fetchSingleItem(hardware.stripe_id, "hardware")}>More Info</Button> */}
+          </div>
+        ))}
+      </div>
+
+      <a id="merch">
+        <hr className={"hr-text gradient"} data-content={"Merch"} />
+      </a>
+
+      <div className="productCard">
+        {merches.map((merch, index) => (
+          <div key={index}>
+            <ProductCard product={merch} />
+            {/* <Button onClick={() => fetchSingleItem(merch.stripe_id, "merch")}>More Info</Button> */}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
