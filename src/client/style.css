@@ -55,6 +55,18 @@ a {color:rgb(0, 0, 0)}
   flex-wrap: wrap;
 }
 
+.productCardBox {
+  width: 400px;
+  height: 255px;
+}
+
+.noMargin {
+  margin: 0px
+}
+.productCardTable {
+  height: 100%;
+}
+
 .smallImage {
   /* height: 100px; */
   width: 100%;

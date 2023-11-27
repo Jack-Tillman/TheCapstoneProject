@@ -23,7 +23,6 @@ export function ProductCard(props) {
   return (
     <>
       <Box
-        width={250}
         gap={0}
         sx={{
           margin: 2,
@@ -38,30 +37,22 @@ export function ProductCard(props) {
             transition: "0.2s",
           },
         }}
+        className="productCardBox"
       >
-        {/* <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{product.productname}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Modal.Image src={`${product.productimage}`} />
-                    <p><strong>Type:</strong> {product.type}</p>
-                    <p><strong>Manufacturer:</strong> {product.manufacturer}</p>
-                    <p><strong>Condition:</strong> {product.condition}</p>
-                    <p><strong>Description:</strong> {product.description}</p>                        
-                </Modal.Body>
-            </Modal> */}
-        <Card>
-          <Card.Body>
-            <Card.Img src={`${product.productimage}`} className="smallImage" />
-            <Card.Title>{product.productname}</Card.Title>
-            <Card.Text>${product.price}</Card.Text>
+        <table className="productCardTable">
+        <thead>
+          <tr>
+            <td rowspan="3" width={"50%"}><img src={`${product.productimage}`} className="smallImage" /></td>
+            <td><b>{product.productname}</b></td>
+          </tr>
+          <tr>
+            <td>${product.price} <BasicModal product={product}/></td>
+          </tr>
+          <tr>
+            <td>
             {productQuantity > 0 ? (
               <>
-                <Form as={Row}>
-                  <Form.Label column="true" sm="6">
-                    <strong>In Cart: {productQuantity}</strong>
-                  </Form.Label>
+                  <p className="noMargin">In Cart: {productQuantity}</p>
                   <br />
                   <ButtonGroup
                     size="small"
@@ -79,14 +70,14 @@ export function ProductCard(props) {
                       +
                     </Button>
                   </ButtonGroup>
-                </Form>
                 <ButtonGroup>
                   <Button
                     sx={{ marginTop: 1 }}
                     variant="outlined"
+                    size="small"
                     onClick={() => cart.deleteFromCart(product.stripe_id)}
                   >
-                    Remove all from Cart
+                    Remove all
                   </Button>
                 </ButtonGroup>
               </>
@@ -106,24 +97,10 @@ export function ProductCard(props) {
                 </Button>
               </ButtonGroup>
             )}
-            <BasicModal product={product} />
-            {/* <Tooltip title="More info" placement="right">
-              <IconButton
-                onClick={() => {
-                  console.log(product);
-                  setShow(true);
-                  // cart.addOneToDetails(product.stripe_id);
-                  // navigate("/store/details");
-                }}
-                color="info"
-                aria-label="more info"
-              >
-                <BasicModal product={product} />
-                <InfoIcon />
-              </IconButton>
-            </Tooltip> */}
-          </Card.Body>
-        </Card>
+            </td>
+          </tr>
+        </thead>
+        </table>
       </Box>
     </>
   );
