@@ -45,7 +45,7 @@ export const ErrorSnackbar = ({error}) => {
             severity="error"
             sx={{ width: "100%" }}
           >
-            {`Error creating your account, as ${message}`}
+            {`${name} error! ${message}`}
           </Alert>
         </Snackbar>
       </Box>

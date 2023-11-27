@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-// import { Modal } from 'react-bootstrap';
 import { Modal } from "@mui/material";
 import { Box } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
@@ -48,27 +47,24 @@ const loggedInData = [
   { name: "Dashboard", link: "/dashboard", icon: <PersonIcon /> },
 ];
 
-const NavBar = ({ token, setToken, admin, setAdmin }) => {
+const NavBar = ({ token, setToken, admin, setAdmin, user, setUser }) => {
   //localCart used solely to re-render Navbar if there is items in localStorage
   const localCart = localStorage.getItem("cart");
   useEffect(() => {
-    async function renderNavbar() {
-      const storageToken = sessionStorage.getItem("token");
-      const storageAdmin = sessionStorage.getItem("admin");
-      if (storageToken) {
-        setToken(storageToken);
+    async function renderNavbar(token, user) {
+      if (token) {
+        setToken(token);
       } else {
         setToken(null);
       }
-
-      if (storageAdmin) {
-        setAdmin(storageAdmin);
+      if (user.isadmin) {
+        setAdmin(true);
       } else {
         setAdmin(false);
       }
     }
-    renderNavbar();
-  }, [token, admin, localCart]);
+    renderNavbar(token, user);
+  }, [token, user, localCart]);
 
   const cart = useContext(CartContext);
 
@@ -178,7 +174,7 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
         )}
 
         {/* Logged in links */}
-        {token && admin && (
+        {token && (
           <>
             <Link to="/dashboard">
               <IconButton aria-label="Dashboard" color="primary">
@@ -193,6 +189,7 @@ const NavBar = ({ token, setToken, admin, setAdmin }) => {
               to="/logout"
               onClick={() => {
                 setToken(null);
+                setUser({});
               }}
             >
               <IconButton aria-label="Log out" color="primary">

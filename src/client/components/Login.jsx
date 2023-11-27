@@ -18,13 +18,9 @@ import { Alert } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { LoginSnackbar } from "./Snackbar";
+import { ErrorSnackbar } from "./ErrorSnackbar";
 
-export const Login = ({
-  token,
-  setToken,
-  admin,
-  setAdmin
-}) => {
+export const Login = ({ token, setToken, admin, setAdmin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -51,36 +47,43 @@ export const Login = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await userLogin(email, password);
-    const result = await response.json();
-    console.log(result);
+    try {
+      const response = await userLogin(email, password);
+      const result = await response.json();
+      console.log(result);
+      sessionStorage.setItem("admin", result.user.isadmin);
+      sessionStorage.setItem("token", result.token);
+      sessionStorage.setItem("user", JSON.stringify(result.user));
+      const authToken = sessionStorage.getItem("token");
+      const authAdmin = sessionStorage.getItem("admin");
+      if (response.status === 200) {
 
-    sessionStorage.setItem("admin", result.user.isadmin);
-    sessionStorage.setItem("token", result.token);
-    const authToken = sessionStorage.getItem("token");
-    const authAdmin = sessionStorage.getItem("admin");
-
-    if (response.status === 200) {
-      if (result.user.isadmin === true) {
-        console.log(`Truthy admin: ${authAdmin}`);
+        if (result.user.isadmin === true) {
+          console.log(`Truthy admin: ${authAdmin}`);
+        } else {
+          sessionStorage.removeItem("admin");
+          console.log(`Falsey admin: ${authAdmin}`);
+        }
+        
+        setToken(authToken);
+        setSuccess(true);
+        setTimeout(() => {
+          navigate("/");
+        }, 1250);
       } else {
-        sessionStorage.removeItem("admin");
-        console.log(`Falsey admin: ${authAdmin}`);
+        setError(result);
       }
-      setToken(authToken);
-      setSuccess(true);
-      setTimeout(() => {
-        navigate("/");
-      }, 1250);
-      setError(response.error);
+      setEmail("");
+      setPassword("");
+      setMessage(response.message);
+    } catch (error) {
+      setError(error);
     }
-    setEmail("");
-    setPassword("");
-    setMessage(response.message);
   };
 
   return (
     <Box className="loginRegisterField">
+      {error && <ErrorSnackbar error={error} />}
       {success && <LoginSnackbar />}
       <>
         <h2>Login</h2>

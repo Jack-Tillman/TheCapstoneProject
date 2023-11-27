@@ -123,10 +123,8 @@ export function CartProvider({ children }) {
     );
 
     if (productData == undefined) {
-      console.log(`Product data does not exist for ID: ${stripe_id}`);
       return undefined;
     } else {
-      console.log(productData);
       return productData;
     }
   }

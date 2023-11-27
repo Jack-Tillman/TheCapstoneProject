@@ -13,7 +13,7 @@ import { StorePage } from "./StorePage";
 import { SingleProduct } from "./SingleProduct";
 import { useState } from "react";
 
-const MainSection = ({ token, setToken, admin, setAdmin }) => {
+const MainSection = ({ token, setToken, admin, setAdmin, user, setUser }) => {
 
   return (
     <div className="">
@@ -38,7 +38,7 @@ const MainSection = ({ token, setToken, admin, setAdmin }) => {
       <Route path="/hardware" element={<HardwarePage />} />
       <Route path="/merch" element={<MerchPage />} /> */}
 
-      <Route path="/dashboard" element={<Dashboard token={token} setToken={setToken} admin={admin} setAdmin={setAdmin}/>} />
+      <Route path="/dashboard" element={<Dashboard token={token} setToken={setToken} admin={admin} setAdmin={setAdmin} user={user}/>} />
       <Route path="/logout" element={<Logout />} />
     </Routes>
   </div>
