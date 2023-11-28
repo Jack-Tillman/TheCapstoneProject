@@ -147,6 +147,7 @@ return (
               <Carousel />
             </div>
 
+            <Link to="/store">
             <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}>
             {images.map((image) => (
                 <ImageButton
@@ -176,7 +177,7 @@ return (
                 </Image>
                 </ImageButton>
             ))}
-            </Box>
+            </Box></Link>
          </div>
 </>
     )
