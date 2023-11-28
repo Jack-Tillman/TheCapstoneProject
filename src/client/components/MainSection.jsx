@@ -26,7 +26,7 @@ const MainSection = ({ token, setToken, admin, setAdmin, user, setUser }) => {
       />
       <Route 
         path="/store"
-        element={<StorePage />}
+        element={<StorePage token={token} user={user} />}
       />
       <Route path="/success" element={<Success />} />
       <Route path="/cancel" element={<Cancel />} />

@@ -49,8 +49,8 @@ const loggedInData = [
 
 const NavBar = ({ token, setToken, admin, setAdmin, user, setUser }) => {
   //localCart used solely to re-render Navbar if there is items in localStorage
-
-  const localCart = localStorage.getItem("cart");
+  
+  const localCart = localStorage.getItem(`${user.id} cart`);
   useEffect(() => {
     async function renderNavbar(token, user) {
       if (token) {
