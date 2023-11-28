@@ -15,13 +15,13 @@ export function ProductCard(props) {
   const cart = useContext(CartContext);
   const productQuantity = cart.getProductQuantity(product.stripe_id);
   const productData = cart.getProductData(product.stripe_id);
-
+  const user = props.user;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const navigate = useNavigate();
-
+  console.log(user.id);
   return (
     <>
       <Box

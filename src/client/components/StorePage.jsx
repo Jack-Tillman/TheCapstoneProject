@@ -7,7 +7,7 @@ import { Button } from "react-bootstrap";
 import { Fab } from "@mui/material";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
-export const StorePage = () => {
+export const StorePage = ({token, user}) => {
   const [games, setGames] = useState([]);
   const [merches, setMerch] = useState([]);
   const [hardwares, setHardware] = useState([]);
@@ -85,7 +85,7 @@ export const StorePage = () => {
       <div className="productCard">
         {games.map((game, index) => (
           <div key={index}>
-            <ProductCard product={game} />
+            <ProductCard user={user} product={game} />
             {/* <Button onClick={() => fetchSingleItem(game.stripe_id, "games")}>More Info</Button> */}
           </div>
         ))}
@@ -98,7 +98,7 @@ export const StorePage = () => {
       <div className="productCard">
         {hardwares.map((hardware, index) => (
           <div key={index}>
-            <ProductCard product={hardware} />
+            <ProductCard user={user} product={hardware} />
             {/* <Button onClick={() => fetchSingleItem(hardware.stripe_id, "hardware")}>More Info</Button> */}
           </div>
         ))}
@@ -111,7 +111,7 @@ export const StorePage = () => {
       <div className="productCard">
         {merches.map((merch, index) => (
           <div key={index}>
-            <ProductCard product={merch} />
+            <ProductCard user={user} product={merch} />
             {/* <Button onClick={() => fetchSingleItem(merch.stripe_id, "merch")}>More Info</Button> */}
           </div>
         ))}
