@@ -234,7 +234,7 @@ export const CrudGridGames = () => {
         columns={columns}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
+            paginationModel: { page: 0, pageSize: 11 },
           },
         }}
         pageSizeOptions={[5, 10]}
