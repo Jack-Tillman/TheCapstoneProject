@@ -50,33 +50,26 @@ export const Login = ({ token, setToken, admin, setAdmin }) => {
     try {
       const response = await userLogin(email, password);
       const result = await response.json();
-      console.log(result);
-      sessionStorage.setItem("admin", result.user.isadmin);
-      sessionStorage.setItem("token", result.token);
-      sessionStorage.setItem("user", JSON.stringify(result.user));
-      const authToken = sessionStorage.getItem("token");
-      const authAdmin = sessionStorage.getItem("admin");
       if (response.status === 200) {
-        if (result.user.isadmin === true) {
-          console.log(`Truthy admin: ${authAdmin}`);
-        } else {
-          sessionStorage.removeItem("admin");
-          console.log(`Falsey admin: ${authAdmin}`);
-        }
-
-        setToken(authToken);
+        sessionStorage.setItem("token", result.token);
+        sessionStorage.setItem("user", JSON.stringify(result.user));
+        sessionStorage.setItem("admin", result.user.isadmin);
+        setToken(sessionStorage.getItem("admin"));
         setSuccess(true);
+        setEmail("");
+        setPassword("");
+        setMessage(response.message);
         setTimeout(() => {
           navigate("/");
         }, 1250);
       } else {
         setError(result);
       }
-      setEmail("");
-      setPassword("");
-      setMessage(response.message);
     } catch (error) {
-      setError({name: "Incorrect login information", message:"No user account with that email and password found"});
+      setError({
+        name: "Incorrect login information",
+        message: "No user account with that email and password found",
+      });
     }
   };
 

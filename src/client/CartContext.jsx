@@ -50,7 +50,7 @@ export function CartProvider({ children }) {
   //this function takes the data found in local storage and sets it as cartProducts
 
   function getInitialCart(localCart) {
-    if (localCart) {
+    if (localCart && userStorage) {
       setCartProducts(localObject);
       console.log(localObject);
       console.log(cartProducts);

@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const stripe_key = "sk_test_51O4ri0Hfk6TyDeClXsavHZ9Gp2ULD6C9RSif4hhtIuCfjc6wK8tsmi4yrwlr3gkkXmy3LOhBGUyGRYJVCShvjUWt00RzuTg4IO"
+const { stripe_key } = process.env
 
 const express = require('express');
 const router = require('vite-express');
@@ -25,6 +25,7 @@ app.post("/checkout", async(req, res) => {
  
   //Stripe calls items lineItems in the API call
   console.log(req.body);
+  console.log(stripe_key)
   const items = req.body.items;
   let lineItems = [];
   items.forEach((item) => {
