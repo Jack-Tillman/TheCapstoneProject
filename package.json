@@ -6,7 +6,8 @@
     "dev": "nodemon src/server/main.js -w src/server",
     "start": "NODE_ENV=production node src/server/main.js",
     "seed": "node ./src/server/db/seed.js",
-    "build": "vite build"
+    "build": "vite build",
+    "start:complete": "npm run seed && npm run start"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
