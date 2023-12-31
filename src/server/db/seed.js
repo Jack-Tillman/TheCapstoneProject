@@ -1,6 +1,5 @@
 const db = require("./client");
 const { createUser } = require("./users");
-const { faker } = require("@faker-js/faker");
 const { createHardware } = require("./hardware");
 const { createMerch } = require("./merch");
 const { createGame } = require("./games");
@@ -43,16 +42,38 @@ const seedUsers = () => {
     isAdmin: false,
   };
   usersData.push(testicleUser);
+  
+  const testUser2 = {
+    name: "Wallace Martin",
+    email: "walmart@email.com",
+    password: "FakePass1!",
+    isAdmin: false,
+  };
+  usersData.push(testUser2);
 
-  for (let i = 0; i < 5; i++) {
-    const fakeUsers = {
-      name: faker.person.fullName(),
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-      isAdmin: false,
-    };
-    usersData.push(fakeUsers);
-  }
+  const testUser3 = {
+    name: "Dani Mal",
+    email: "danimal@email.com",
+    password: "FakePass1!",
+    isAdmin: false,
+  };
+  usersData.push(testUser3);
+
+  const testUser4 = {
+    name: "Paige Turner",
+    email: "badauthor@email.com",
+    password: "FakePass1!",
+    isAdmin: false,
+  };
+  usersData.push(testUser4);
+
+  const testUser5 = {
+    name: "Melanie Last",
+    email: "melast@email.com",
+    password: "FakePass1!",
+    isAdmin: false,
+  };
+  usersData.push(testUser5);
 };
 
 const seedCarts = () => {
